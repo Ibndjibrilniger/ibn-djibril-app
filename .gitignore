@@ -1,0 +1,5 @@
+node_modules/
+backups/
+public-security-backup-*/
+.env
+.env.*
