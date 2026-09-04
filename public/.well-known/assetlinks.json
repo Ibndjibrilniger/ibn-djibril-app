@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.ibndjibrilniger.tech",
+        "sha256_cert_fingerprints": ["8D:6E:85:09:24:EE:2A:E6:8B:92:AB:6E:F6:D9:A8:C1:F5:58:FF:93:FB:AE:DA:BA:84:C9:D1:9B:2B:04:5A:F0"]
+      }
+    }]
