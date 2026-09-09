@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#008751">
+  <meta name="description" content="Tableau de bord des services Ibn_Djibril Niger Tech au Niger.">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <title>Ibn_Djibril Niger Tech 🇳🇪</title>
+  <style>
+    :root{--green:#008751;--green2:#006f43;--orange:#f47b20;--bg:#f4f7f5;--card:#fff;--text:#14211a;--muted:#66746c;--line:#dfe8e2;--shadow:0 14px 35px rgba(0,0,0,.09);--radius:22px}
+    *{box-sizing:border-box;margin:0;padding:0} html{scroll-behavior:smooth}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+    button,a{font:inherit} a{text-decoration:none;color:inherit}
+    .app{width:min(100%,980px);margin:auto;min-height:100vh;padding-bottom:88px}
+    .hero{position:relative;overflow:hidden;background:radial-gradient(circle at 90% 10%,rgba(244,123,32,.25),transparent 28%),linear-gradient(135deg,#006d42,#008751 55%,#0a9c62);color:#fff;padding:26px 18px 32px;border-radius:0 0 34px 34px;box-shadow:var(--shadow)}
+    .brand{display:flex;align-items:center;gap:14px;position:relative;z-index:1}
+    .logo{width:72px;height:72px;border-radius:20px;background:#fff;display:grid;place-items:center;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+    .logo img{width:100%;height:100%;object-fit:cover}
+    .brand h1{font-size:clamp(1.32rem,4.8vw,2rem);line-height:1.15}
+    .brand p{opacity:.9;margin-top:5px;font-size:.93rem}
+    .hero-copy{position:relative;z-index:1;margin-top:22px}.hero-copy h2{font-size:clamp(1.5rem,6vw,2.5rem);line-height:1.1}
+    .hero-copy p{margin-top:8px;max-width:650px;opacity:.92}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .btn{border:0;border-radius:999px;padding:12px 16px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+    .btn-light{background:#fff;color:var(--green2)} .btn-orange{background:var(--orange);color:#fff}
+    .section{padding:24px 16px 0}.section-head{display:flex;justify-content:space-between;gap:12px;align-items:end;margin-bottom:14px}
+    .section-head h2{font-size:1.35rem}.section-head p{font-size:.86rem;color:var(--muted)}
+    .service-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .service-card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;min-height:174px;box-shadow:0 7px 18px rgba(0,0,0,.05);cursor:pointer;overflow:hidden}
+    .service-icon{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-size:1.7rem;background:#eaf6ef;margin-bottom:14px}
+    .service-card:nth-child(even) .service-icon{background:#fff0e6}.service-card h3{font-size:1rem;line-height:1.23}
+    .service-card p{color:var(--muted);font-size:.82rem;margin-top:7px}.more{position:absolute;right:12px;bottom:12px;background:#f3f6f4;border-radius:999px;padding:5px 9px;color:var(--green2);font-size:.75rem;font-weight:800}
+    .notice{margin-top:16px;background:#fff7ef;border:1px solid #ffd9ba;color:#6e421c;padding:13px 14px;border-radius:16px;font-size:.88rem}
+
+    .sales-grid{display:grid;grid-template-columns:1fr;gap:14px}
+    .sale-card{background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.06)}
+    .sale-head{padding:14px 15px;color:#fff;font-weight:900;font-size:1rem;display:flex;justify-content:space-between;gap:10px;align-items:center}
+    .sale-head.blue{background:linear-gradient(135deg,#0e3b9c,#205be0)}
+    .sale-head.orange{background:linear-gradient(135deg,#e94d17,#ff7a1a)}
+    .sale-head.green{background:linear-gradient(135deg,#006c40,#008751)}
+    .sale-head.dark{background:linear-gradient(135deg,#111,#343434)}
+    .sale-body{padding:15px}
+    .sale-body h4{font-size:1.02rem;margin-bottom:6px}
+    .sale-meta{color:var(--muted);font-size:.84rem;margin-bottom:12px}
+    .price-row{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:11px 0;border-top:1px solid var(--line)}
+    .price-row:first-of-type{border-top:0}
+    .price-label{font-size:.84rem;color:#35433b}
+    .price{font-size:1.25rem;font-weight:950;color:var(--green2);white-space:nowrap}
+    .price.global{color:#d64516}
+    .price-tag{display:inline-block;margin-top:9px;padding:7px 10px;border-radius:999px;background:#edf6f1;color:#006b42;font-weight:850;font-size:.76rem}
+    .poster-note{margin-top:13px;padding:12px 13px;border-radius:15px;background:#f7f8f7;border:1px solid var(--line);font-size:.82rem;color:#5c6961}
+    .unpriced{margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:14px}
+    .unpriced h3{font-size:1rem;margin-bottom:9px}
+    .unpriced-list{display:grid;grid-template-columns:1fr;gap:8px}
+    .unpriced-item{display:flex;justify-content:space-between;gap:12px;padding:10px 11px;background:#f8faf9;border-radius:13px;font-size:.84rem}
+    .unpriced-item b{color:#7a3d16;text-align:right}
+
+    .contact-panel{background:#fff;border:1px solid var(--line);border-radius:24px;padding:16px;box-shadow:0 8px 24px rgba(0,0,0,.05)}
+    .contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.contact-btn{border:1px solid var(--line);background:#f9fbfa;border-radius:15px;padding:13px;text-align:center;font-weight:800;font-size:.9rem}
+    .contact-btn.primary{background:var(--green);color:#fff;border-color:var(--green)}.footer{text-align:center;color:var(--muted);font-size:.82rem;padding:28px 16px}
+    .bottom-nav{position:fixed;left:50%;transform:translateX(-50%);bottom:10px;z-index:25;width:min(calc(100% - 20px),760px);background:rgba(255,255,255,.95);backdrop-filter:blur(14px);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:20px;padding:9px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+    .bottom-nav a{text-align:center;padding:8px 4px;border-radius:13px;font-size:.78rem;font-weight:800}.bottom-nav a:first-child{background:#eaf6ef;color:var(--green2)}
+    .overlay{position:fixed;inset:0;background:rgba(4,18,11,.62);z-index:50;display:none;align-items:flex-end;justify-content:center;padding:12px}.overlay.show{display:flex}
+    .sheet{width:min(100%,760px);max-height:91vh;overflow:auto;background:#fff;border-radius:28px 28px 20px 20px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+    .sheet-top{position:sticky;top:0;background:#fff;padding:15px 16px 10px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);z-index:2}
+    .close{width:38px;height:38px;border:0;border-radius:12px;background:#f0f4f2;font-size:1.2rem}.sheet-body{padding:16px}
+    .detail-hero{min-height:175px;border-radius:22px;padding:22px;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:linear-gradient(135deg,#006d42,#00a169 60%,#f47b20);position:relative}
+    .detail-hero:before{content:attr(data-icon);position:absolute;right:18px;top:8px;font-size:5rem;opacity:.18}.detail-hero h4{font-size:1.35rem}
+    .detail-hero p{opacity:.92;margin-top:6px;font-size:.9rem}.detail-block{margin-top:18px}.detail-block h5{font-size:1rem;margin-bottom:8px}
+    .chips{display:flex;gap:7px;flex-wrap:wrap}.chip{background:#edf6f1;color:#0a6d46;border-radius:999px;padding:7px 10px;font-size:.78rem;font-weight:800}
+    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:9px}.photo-slot{aspect-ratio:1/1;border-radius:16px;background:linear-gradient(145deg,#eaf3ee,#f9faf9);border:1px dashed #bbd0c2;display:grid;place-items:center;text-align:center;color:#6e7c74;font-size:.73rem;padding:8px}
+    .detail-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:20px}.detail-actions a{padding:12px;border-radius:14px;font-weight:900;text-align:center}.whatsapp{background:#25D366;color:white}.call{background:#101b15;color:white}
+    @media(min-width:700px){.service-grid{grid-template-columns:repeat(4,1fr)}.service-card{min-height:190px}.section{padding-left:22px;padding-right:22px}.contact-grid{grid-template-columns:repeat(4,1fr)}.overlay{align-items:center}.sheet{border-radius:28px}}
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="hero" id="accueil">
+      <div class="brand">
+        <div class="logo"><img src="/icons/icon-512.png" alt="Logo Ibn_Djibril Niger Tech"></div>
+        <div><h1>Ibn_Djibril Niger Tech 🇳🇪</h1><p>Solutions numériques • Réseaux • Télécommunications</p></div>
+      </div>
+      <div class="hero-copy">
+        <h2>Votre technologie, vos réseaux, vos services.</h2>
+        <p>Un seul espace pour découvrir nos prestations, équipements et solutions professionnelles au Niger.</p>
+        <div class="hero-actions"><a class="btn btn-light" href="#services">Voir les services</a><a class="btn btn-orange" href="https://wa.me/22796784870">WhatsApp</a></div>
+      </div>
+    </header>
+
+    <section class="section" id="services">
+      <div class="section-head"><div><h2>Tableau de bord</h2><p>Appuyez sur une rubrique pour l’ouvrir en grand.</p></div></div>
+      <div class="service-grid">
+        <article class="service-card" data-service="starlink"><div class="service-icon">🛰️</div><h3>Internet satellite Starlink</h3><p>Vente, installation et mise en service.</p><span class="more">Ouvrir</span></article>
+        <article class="service-card" data-service="wifi"><div class="service-icon">📡</div><h3>Wi‑Fi Zone Business</h3><p>Installation complète et réseau fiable.</p><span class="more">Ouvrir</span></article>
+        <article class="service-card" data-service="mikrotik"><div class="service-icon">🌐</div><h3>MikroTik & Réseaux</h3><p>Routeurs, hotspot, configuration et sécurité.</p><span class="more">Ouvrir</span></article>
+        <article class="service-card" data-service="antennes"><div class="service-icon">📶</div><h3>Antennes & équipements</h3><p>Point‑à‑point, câblage, PoE et accessoires.</p><span class="more">Ouvrir</span></article>
+        <article class="service-card" data-service="transferts"><div class="service-icon">💸</div><h3>Transferts d’argent</h3><p>Services nationaux et internationaux.</p><span class="more">Ouvrir</span></article>
+        <article class="service-card" data-service="mobile"><div class="service-icon">📱</div><h3>Mobile Money</h3><p>Airtel Money, Zamani Cash, Moov Flooz et plus.</p><span class="more">Ouvrir</span></article>
+        <article class="service-card" data-service="crypto"><div class="service-icon">₮</div><h3>USDT / Crypto</h3><p>Services numériques et accompagnement.</p><span class="more">Ouvrir</span></article>
+        <article class="service-card" data-service="maintenance"><div class="service-icon">💻</div><h3>Maintenance informatique</h3><p>Dépannage, installation et assistance technique.</p><span class="more">Ouvrir</span></article>
+      </div>
+      <div class="notice">Les photos réelles de vos matériels et interventions seront ajoutées progressivement dans chaque rubrique.</div>
+    </section>
+
+
+    <section class="section" id="ventes">
+      <div class="section-head">
+        <div>
+          <h2>Tableau des ventes</h2>
+          <p>Prix repris exactement de votre affiche, sans modification.</p>
+        </div>
+      </div>
+
+      <div class="sales-grid">
+        <article class="sale-card">
+          <div class="sale-head blue">
+            <span>STARLINK V4 STANDARD (X)</span><span>400 Mbps</span>
+          </div>
+          <div class="sale-body">
+            <h4>Kit Wi‑Fi Zone Global avec Starlink V4 Standard (X)</h4>
+            <div class="sale-meta">Starlink + Antenne Grandstream + MikroTik hAP ax3</div>
+            <div class="price-row">
+              <div class="price-label">Prix équipements<br><small>(sans installation, sans abonnement)</small></div>
+              <div class="price">570.000 FCFA</div>
+            </div>
+            <div class="price-row">
+              <div class="price-label">Tout global<br><small>avec installation + abonnement</small></div>
+              <div class="price global">610.000 FCFA</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="sale-card">
+          <div class="sale-head orange">
+            <span>STARLINK V4 MINI</span><span>400 Mbps</span>
+          </div>
+          <div class="sale-body">
+            <h4>Kit Wi‑Fi Zone Global avec Starlink V4 Mini</h4>
+            <div class="sale-meta">Starlink Mini + Antenne Grandstream + MikroTik hAP ax3</div>
+            <div class="price-row">
+              <div class="price-label">Prix équipements<br><small>(sans installation, sans abonnement)</small></div>
+              <div class="price">500.000 FCFA</div>
+            </div>
+            <div class="price-row">
+              <div class="price-label">Tout global<br><small>avec installation + abonnement</small></div>
+              <div class="price global">530.000 FCFA</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="sale-card">
+          <div class="sale-head green">
+            <span>ANTENNE GRANDSTREAM AX6000</span><span>20 dBi • 20 Stream</span>
+          </div>
+          <div class="sale-body">
+            <h4>Antenne Grandstream AX6000</h4>
+            <div class="sale-meta">Longue portée • Signal puissant • Double polarisation • Idéale longue distance</div>
+            <div class="price-row">
+              <div class="price-label">Prix équipement</div>
+              <div class="price">115.000 FCFA</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="sale-card">
+          <div class="sale-head dark">
+            <span>STARLINK MINI KIT</span><span>Offre affichée</span>
+          </div>
+          <div class="sale-body">
+            <h4>Kit Starlink Mini</h4>
+            <div class="price-row">
+              <div class="price-label">Prix du kit affiché sur l’affiche</div>
+              <div class="price">75.000 FCFA</div>
+            </div>
+            <div class="poster-note">
+              Informations d’abonnement visibles sur l’affiche : <b>47.000 FCFA</b> puis <b>32.000 FCFA</b>.
+              Elles sont conservées telles qu’affichées, sans recalcul ni modification.
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="unpriced">
+        <h3>Autres produits présents sur l’affiche</h3>
+        <div class="unpriced-list">
+          <div class="unpriced-item"><span>MikroTik hAP ax³ (AX3) – 5 ports</span><b>Prix non indiqué</b></div>
+          <div class="unpriced-item"><span>Mini ventilateurs de refroidissement pour MikroTik</span><b>Prix non indiqué</b></div>
+          <div class="unpriced-item"><span>Kit Starlink – accessoires</span><b>Prix non indiqué</b></div>
+          <div class="unpriced-item"><span>Téléphones & accessoires</span><b>Prix non indiqué</b></div>
+          <div class="unpriced-item"><span>Kits Wi‑Fi Zone</span><b>Prix non indiqué</b></div>
+          <div class="unpriced-item"><span>Équipements de sécurité</span><b>Prix non indiqué</b></div>
+          <div class="unpriced-item"><span>Matériels informatiques</span><b>Prix non indiqué</b></div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section" id="contact">
+      <div class="section-head"><div><h2>Contact rapide</h2><p>Échangez directement avec Ibn_Djibril Niger Tech.</p></div></div>
+      <div class="contact-panel"><div class="contact-grid">
+        <a class="contact-btn primary" href="https://wa.me/22796784870">WhatsApp</a>
+        <a class="contact-btn" href="tel:+22796784870">Appeler</a>
+        <button class="contact-btn" type="button" onclick="showContact('Telegram : +227 91 44 51 87')">Telegram</button>
+        <button class="contact-btn" type="button" onclick="showContact('Facebook : Ibn_Djibril Niger Tech')">Facebook</button>
+      </div></div>
+    </section>
+    <footer class="footer">© 2026 Ibn_Djibril Niger Tech 🇳🇪 — Tous droits réservés.</footer>
+  </main>
+
+  <nav class="bottom-nav">
+    <a href="#accueil">🏠<br>Accueil</a><a href="#services">🧭<br>Services</a><a href="#ventes">🛒<br>Ventes</a>
+  </nav>
+
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <section class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+      <div class="sheet-top"><h3 id="sheetTitle">Détails du service</h3><button class="close" id="closeBtn" aria-label="Fermer">✕</button></div>
+      <div class="sheet-body" id="sheetBody"></div>
+    </section>
+  </div>
+
+  <script>
+    const services = {
+      starlink:{icon:"🛰️",title:"Internet satellite Starlink",intro:"Solutions Starlink pour particuliers, professionnels et Wi‑Fi Business.",points:["Vente de kits Starlink","Installation & orientation","Mise en service","Conseils et accompagnement"],folder:"starlink"},
+      wifi:{icon:"📡",title:"Wi‑Fi Zone Business",intro:"Déploiement complet de zones Wi‑Fi avec équipements fiables et gestion des utilisateurs.",points:["Starlink + MikroTik","Antennes professionnelles","Câblage réseau","Hotspot & tickets"],folder:"wifi-business"},
+      mikrotik:{icon:"🌐",title:"MikroTik & Réseaux professionnels",intro:"Routeurs, configuration réseau, hotspot, sécurité et optimisation.",points:["hAP ax3 / ax2","L009","RB951 / RB950","Configuration & sécurité"],folder:"mikrotik"},
+      antennes:{icon:"📶",title:"Antennes & équipements réseau",intro:"Équipements pour couverture Wi‑Fi, point‑à‑point et distribution réseau.",points:["Grandstream AX6000","LiteBeam","Wavlink / Comfast","RJ45, PoE & accessoires"],folder:"antennes"},
+      transferts:{icon:"💸",title:"Transferts d’argent",intro:"Services de transfert nationaux et internationaux avec assistance directe.",points:["NITA Transfert","Amana Transfert","Wave","Services internationaux"],folder:"transferts"},
+      mobile:{icon:"📱",title:"Mobile Money & services numériques",intro:"Dépôt, retrait et services numériques selon disponibilité.",points:["Airtel Money","Zamani Cash","Moov Flooz","Sahel Com Money"],folder:"mobile-money"},
+      crypto:{icon:"₮",title:"USDT / Crypto services",intro:"Accompagnement et services numériques liés aux actifs numériques, selon disponibilité et réglementation applicable.",points:["USDT","Services numériques","Assistance client","Contact direct"],folder:"crypto"},
+      maintenance:{icon:"💻",title:"Maintenance informatique",intro:"Assistance technique pour postes, réseaux et équipements informatiques.",points:["Dépannage","Installation","Configuration réseau","Maintenance préventive"],folder:"maintenance"}
+    };
+    const overlay=document.getElementById("overlay"),sheetBody=document.getElementById("sheetBody"),sheetTitle=document.getElementById("sheetTitle");
+    function openService(key){
+      const s=services[key]; if(!s)return;
+      sheetTitle.textContent=s.title;
+      sheetBody.innerHTML=`<div class="detail-hero" data-icon="${s.icon}"><h4>${s.title}</h4><p>${s.intro}</p></div>
+      <div class="detail-block"><h5>Ce que nous proposons</h5><div class="chips">${s.points.map(x=>`<span class="chip">${x}</span>`).join("")}</div></div>
+      <div class="detail-block"><h5>Galerie réelle</h5><div class="gallery"><div class="photo-slot">Photo 1<br>${s.folder}</div><div class="photo-slot">Photo 2<br>${s.folder}</div><div class="photo-slot">Photo 3<br>${s.folder}</div></div></div>
+      <div class="detail-actions"><a class="whatsapp" href="https://wa.me/22796784870?text=${encodeURIComponent("Bonjour, je souhaite des informations sur : "+s.title)}">WhatsApp</a><a class="call" href="tel:+22796784870">Appeler</a></div>`;
+      overlay.classList.add("show"); overlay.setAttribute("aria-hidden","false"); document.body.style.overflow="hidden";
+    }
+    function closeService(){overlay.classList.remove("show");overlay.setAttribute("aria-hidden","true");document.body.style.overflow=""}
+    document.querySelectorAll(".service-card").forEach(card=>card.addEventListener("click",()=>openService(card.dataset.service)));
+    document.getElementById("closeBtn").addEventListener("click",closeService);
+    overlay.addEventListener("click",e=>{if(e.target===overlay)closeService()});
+    document.addEventListener("keydown",e=>{if(e.key==="Escape")closeService()});
+    function showContact(text){alert(text)}
+  </script>
+</body>
+</html>
