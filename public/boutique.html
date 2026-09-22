@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#008751">
+  <link rel="manifest" href="/manifest.webmanifest">
+
+<title>Boutique | Ibn_Djibril Niger Tech 🇳🇪</title>
+
+<style>
+:root{
+  --green:#008751;
+  --green2:#006b40;
+  --orange:#f47b20;
+  --dark:#122018;
+  --bg:#f4f7f5;
+  --white:#ffffff;
+  --muted:#6a756f;
+  --line:#e1e8e4;
+  --shadow:0 8px 24px rgba(0,0,0,.08);
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--dark);
+  padding-bottom:85px;
+}
+
+header{
+  background:linear-gradient(135deg,#006c40,#008751 60%,#f47b20);
+  color:white;
+  padding:18px 16px 24px;
+  border-radius:0 0 28px 28px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.brand img{
+  width:62px;
+  height:62px;
+  border-radius:16px;
+  object-fit:cover;
+  background:white;
+}
+
+.brand h1{
+  font-size:1.25rem;
+}
+
+.brand p{
+  font-size:.82rem;
+  margin-top:3px;
+  opacity:.9;
+}
+
+.hero{
+  margin-top:18px;
+}
+
+.hero h2{
+  font-size:1.65rem;
+  line-height:1.1;
+}
+
+.hero p{
+  margin-top:8px;
+  font-size:.9rem;
+}
+
+.search-box{
+  margin-top:16px;
+  display:flex;
+  gap:8px;
+}
+
+.search-box input{
+  flex:1;
+  border:0;
+  border-radius:14px;
+  padding:13px 14px;
+  font-size:.95rem;
+  outline:none;
+}
+
+.categories{
+  display:flex;
+  gap:8px;
+  overflow:auto;
+  padding:17px 14px 5px;
+}
+
+.categories button{
+  white-space:nowrap;
+  border:1px solid var(--line);
+  background:white;
+  border-radius:999px;
+  padding:9px 13px;
+  font-weight:700;
+}
+
+.categories button.active{
+  background:var(--green);
+  color:white;
+}
+
+.section{
+  padding:18px 14px 0;
+}
+
+.section-head{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:13px;
+}
+
+.section-head h2{
+  font-size:1.3rem;
+}
+
+.section-head p{
+  color:var(--muted);
+  font-size:.78rem;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+
+.product{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+
+.product-image{
+  height:150px;
+  background:#eef3f0;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.product-image img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  padding:10px;
+}
+
+.badge{
+  position:absolute;
+  top:8px;
+  left:8px;
+  background:var(--orange);
+  color:white;
+  font-size:.68rem;
+  font-weight:800;
+  padding:5px 8px;
+  border-radius:999px;
+}
+
+.product-body{
+  padding:12px;
+}
+
+.product-category{
+  color:var(--green);
+  font-size:.72rem;
+  font-weight:800;
+  text-transform:uppercase;
+}
+
+.product h3{
+  font-size:.96rem;
+  margin-top:5px;
+  line-height:1.25;
+}
+
+.product-desc{
+  color:var(--muted);
+  font-size:.76rem;
+  line-height:1.35;
+  margin-top:6px;
+  min-height:40px;
+}
+
+.price{
+  color:var(--green2);
+  font-size:1.1rem;
+  font-weight:900;
+  margin-top:10px;
+}
+
+.price small{
+  font-size:.68rem;
+  color:var(--muted);
+}
+
+.price2{
+  margin-top:4px;
+  color:#d85018;
+  font-size:.78rem;
+  font-weight:800;
+}
+
+.actions{
+  display:grid;
+  grid-template-columns:1fr 42px;
+  gap:7px;
+  margin-top:11px;
+}
+
+.buy{
+  background:#25D366;
+  color:white;
+  border:0;
+  border-radius:12px;
+  padding:10px;
+  text-decoration:none;
+  font-size:.78rem;
+  font-weight:800;
+  text-align:center;
+}
+
+.call{
+  display:grid;
+  place-items:center;
+  background:#122018;
+  color:white;
+  border-radius:12px;
+  text-decoration:none;
+}
+
+.info-box{
+  margin-top:18px;
+  background:#fff7ef;
+  border:1px solid #ffd6b5;
+  border-radius:18px;
+  padding:14px;
+  font-size:.82rem;
+  color:#6c441f;
+}
+
+.contact{
+  margin-top:20px;
+  background:white;
+  border-radius:22px;
+  padding:16px;
+  border:1px solid var(--line);
+}
+
+.contact h3{
+  margin-bottom:10px;
+}
+
+.contact-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.contact-grid a{
+  padding:12px 8px;
+  border-radius:13px;
+  text-decoration:none;
+  text-align:center;
+  font-weight:800;
+  background:#f3f6f4;
+  color:var(--dark);
+}
+
+.contact-grid .whatsapp{
+  background:#25D366;
+  color:white;
+}
+
+.bottom-nav{
+  position:fixed;
+  left:50%;
+  bottom:10px;
+  transform:translateX(-50%);
+  width:min(calc(100% - 18px),720px);
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  background:rgba(255,255,255,.97);
+  border:1px solid var(--line);
+  border-radius:19px;
+  padding:8px;
+  box-shadow:0 10px 30px rgba(0,0,0,.14);
+}
+
+.bottom-nav a{
+  text-decoration:none;
+  text-align:center;
+  color:var(--dark);
+  font-size:.76rem;
+  font-weight:800;
+  padding:7px;
+}
+
+.bottom-nav a:nth-child(2){
+  color:var(--green);
+}
+
+footer{
+  text-align:center;
+  color:var(--muted);
+  padding:25px 15px 10px;
+  font-size:.78rem;
+}
+
+@media(min-width:700px){
+  .products{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+
+  .product-image{
+    height:190px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand">
+    <img src="/icons/icon-512.png" alt="Logo Ibn_Djibril Niger Tech">
+    <div>
+      <h1>Ibn_Djibril Niger Tech 🇳🇪</h1>
+      <p>Boutique • Réseaux • Télécoms • Solutions numériques</p>
+    </div>
+  </div>
+
+  <div class="hero">
+    <h2>Notre Boutique 🛒</h2>
+    <p>
+      Équipements réseau, Starlink, MikroTik, antennes et accessoires
+      professionnels.
+    </p>
+  </div>
+
+  <div class="search-box">
+    <input
+      type="search"
+      id="search"
+      placeholder="🔎 Rechercher un produit..."
+      oninput="searchProducts()"
+    >
+  </div>
+</header>
+
+<div class="categories">
+  <button class="active" onclick="filterProducts('all',this)">Tous</button>
+  <button onclick="filterProducts('starlink',this)">Starlink</button>
+  <button onclick="filterProducts('mikrotik',this)">MikroTik</button>
+  <button onclick="filterProducts('antenne',this)">Antennes</button>
+  <button onclick="filterProducts('accessoire',this)">Accessoires</button>
+</div>
+
+<section class="section">
+
+  <div class="section-head">
+    <div>
+      <h2>Produits disponibles</h2>
+      <p>Commandez directement sur WhatsApp</p>
+    </div>
+  </div>
+
+  <div class="products" id="products">
+
+    <!-- STARLINK STANDARD -->
+    <article class="product" data-category="starlink">
+      <div class="product-image">
+        <span class="badge">Starlink</span>
+        <img src="/media/products/starlink-standard.png"
+             alt="Starlink V4 Standard">
+      </div>
+
+      <div class="product-body">
+        <div class="product-category">Internet satellite</div>
+        <h3>Starlink V4 Standard (X)</h3>
+        <p class="product-desc">
+          Kit professionnel pour connexion Internet satellite haut débit.
+        </p>
+
+        <div class="price">
+          570.000 FCFA
+          <small>équipements</small>
+        </div>
+
+        <div class="price2">
+          Global installation + abonnement : 610.000 FCFA
+        </div>
+
+        <div class="actions">
+          <a class="buy"
+             href="https://wa.me/22796784870?text=Bonjour%20Ibn_Djibril%20Niger%20Tech,%20je%20veux%20commander%20Starlink%20V4%20Standard">
+            Commander
+          </a>
+
+          <a class="call" href="tel:+22796784870">☎️</a>
+        </div>
+      </div>
+    </article>
+
+
+    <!-- STARLINK MINI -->
+    <article class="product" data-category="starlink">
+      <div class="product-image">
+        <span class="badge">Starlink</span>
+        <img src="/media/products/starlink-mini.png"
+             alt="Starlink Mini">
+      </div>
+
+      <div class="product-body">
+        <div class="product-category">Internet satellite</div>
+        <h3>Starlink V4 Mini</h3>
+
+        <p class="product-desc">
+          Solution compacte et performante pour Internet satellite.
+        </p>
+
+        <div class="price">
+          500.000 FCFA
+          <small>équipements</small>
+        </div>
+
+        <div class="price2">
+          Global installation + abonnement : 530.000 FCFA
+        </div>
+
+        <div class="actions">
+          <a class="buy"
+             href="https://wa.me/22796784870?text=Bonjour%20Ibn_Djibril%20Niger%20Tech,%20je%20veux%20commander%20Starlink%20V4%20Mini">
+            Commander
+          </a>
+
+          <a class="call" href="tel:+22796784870">☎️</a>
+        </div>
+      </div>
+    </article>
+
+
+    <!-- STARLINK MINI KIT -->
+    <article class="product" data-category="starlink">
+      <div class="product-image">
+        <span class="badge">Offre</span>
+        <img src="/media/products/starlink-mini-kit.png"
+             alt="Starlink Mini Kit">
+      </div>
+
+      <div class="product-body">
+        <div class="product-category">Starlink</div>
+        <h3>Starlink Mini Kit</h3>
+
+        <p class="product-desc">
+          Kit Starlink Mini selon disponibilité.
+        </p>
+
+        <div class="price">75.000 FCFA</div>
+
+        <div class="actions">
+          <a class="buy"
+             href="https://wa.me/22796784870?text=Bonjour%20Ibn_Djibril%20Niger%20Tech,%20je%20veux%20des%20informations%20sur%20le%20Starlink%20Mini%20Kit">
+            Commander
+          </a>
+
+          <a class="call" href="tel:+22796784870">☎️</a>
+        </div>
+      </div>
+    </article>
+
+
+    <!-- MIKROTIK AX3 -->
+    <article class="product" data-category="mikrotik">
+      <div class="product-image">
+        <span class="badge">MikroTik</span>
+        <img src="/media/products/mikrotik-ax3.webp"
+             alt="MikroTik hAP ax3">
+      </div>
+
+      <div class="product-body">
+        <div class="product-category">Routeur professionnel</div>
+        <h3>MikroTik hAP ax³</h3>
+
+        <p class="product-desc">
+          Wi-Fi 6, RouterOS, réseau professionnel et hotspot.
+        </p>
+
+        <div class="price">105.000 FCFA</div>
+
+        <div class="actions">
+          <a class="buy"
+             href="https://wa.me/22796784870?text=Bonjour%20Ibn_Djibril%20Niger%20Tech,%20je%20veux%20commander%20MikroTik%20hAP%20ax3">
+            Commander
+          </a>
+
+          <a class="call" href="tel:+22796784870">☎️</a>
+        </div>
+      </div>
+    </article>
+
+
+    <!-- MIKROTIK L009 -->
+    <article class="product" data-category="mikrotik">
+      <div class="product-image">
+        <span class="badge">MikroTik</span>
+        <img src="/media/products/mikrotik-l009.png"
+             alt="MikroTik L009">
+      </div>
+
+      <div class="product-body">
+        <div class="product-category">Routeur professionnel</div>
+        <h3>MikroTik L009</h3>
+
+        <p class="product-desc">
+          Routeur professionnel RouterOS pour infrastructures réseau.
+        </p>
+
+        <div class="price">95.000 FCFA</div>
+
+        <div class="actions">
+          <a class="buy"
+             href="https://wa.me/22796784870?text=Bonjour%20Ibn_Djibril%20Niger%20Tech,%20je%20veux%20commander%20MikroTik%20L009">
+            Commander
+          </a>
+
+          <a class="call" href="tel:+22796784870">☎️</a>
+        </div>
+      </div>
+    </article>
+
+
+    <!-- MIKROTIK AX2 -->
+    <article class="product" data-category="mikrotik">
+      <div class="product-image">
+        <span class="badge">MikroTik</span>
+        <img src="/media/products/mikrotik-ax2.png"
+             alt="MikroTik hAP ax2">
+      </div>
+
+      <div class="product-body">
+        <div class="product-category">Routeur Wi-Fi</div>
+        <h3>MikroTik hAP ax²</h3>
+
+        <p class="product-desc">
+          Routeur Wi-Fi moderne pour réseaux et Wi-Fi Business.
+        </p>
+
+        <div class="price">70.000 FCFA</div>
+
+        <div class="actions">
+          <a class="buy"
+             href="https://wa.me/22796784870?text=Bonjour%20Ibn_Djibril%20Niger%20Tech,%20je%20veux%20commander%20MikroTik%20hAP%20ax2">
+            Commander
+          </a>
+
+          <a class="call" href="tel:+22796784870">☎️</a>
+        </div>
+      </div>
+    </article>
+
+
+    <!-- RB950 -->
+    <article class="product" data-category="mikrotik">
+      <div class="product-image">
+        <span class="badge">MikroTik</span>
+        <img src="/media/products/mikrotik-rb950.png"
+             alt="MikroTik RB950">
+      </div>
+
+      <div class="product-body">
+        <div class="product-category">Routeur réseau</div>
+        <h3>MikroTik RB950</h3>
+
+        <p class="product-desc">
+          Routeur compact pour hotspot, gestion utilisateurs et réseau.
+        </p>
+
+        <div class="price">42.000 FCFA</div>
+
+        <div class="actions">
+          <a class="buy"
+             href="https://wa.me/22796784870?text=Bonjour%20Ibn_Djibril%20Niger%20Tech,%20je%20veux%20commander%20MikroTik%20RB950">
+            Commander
+          </a>
+
+          <a class="call" href="tel:+22796784870">☎️</a>
+        </div>
+      </div>
+    </article>
+
+
+    <!-- AX6000 -->
+    <article class="product" data-category="antenne">
+      <div class="product-image">
+        <span class="badge">Antenne</span>
+        <img src="/media/products/ax6000.png"
+             alt="Grandstream AX6000">
+      </div>
+
+      <div class="product-body">
+        <div class="product-category">Équipement réseau</div>
+        <h3>Grandstream AX6000</h3>
+
+        <p class="product-desc">
+          Antenne professionnelle pour couverture Wi-Fi performante.
+        </p>
+
+        <div class="price">115.000 FCFA</div>
+
+        <div class="actions">
+          <a class="buy"
+             href="https://wa.me/22796784870?text=Bonjour%20Ibn_Djibril%20Niger%20Tech,%20je%20veux%20commander%20Grandstream%20AX6000">
+            Commander
+          </a>
+
+          <a class="call" href="tel:+22796784870">☎️</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+
+  <div class="info-box">
+    📦 Les prix et disponibilités peuvent évoluer.
+    Contactez directement Ibn_Djibril Niger Tech 🇳🇪
+    pour confirmer le stock avant commande.
+  </div>
+
+
+  <div class="contact">
+    <h3>📞 Contact rapide</h3>
+
+    <div class="contact-grid">
+
+      <a class="whatsapp"
+         href="https://wa.me/22796784870">
+         WhatsApp
+      </a>
+
+      <a href="tel:+22796784870">
+         96 78 48 70
+      </a>
+
+      <a href="tel:+22791445187">
+         91 44 51 87
+      </a>
+
+      <a href="/">
+         Accueil
+      </a>
+
+    </div>
+  </div>
+
+</section>
+
+
+<footer>
+  © 2026 Ibn_Djibril Niger Tech 🇳🇪
+  <br>
+  Tara, Gaya, Niger
+</footer>
+
+
+<nav class="bottom-nav">
+  <a href="/">🏠<br>Accueil</a>
+  <a href="/boutique.html">🛒<br>Boutique</a>
+  <a href="https://wa.me/22796784870">💬<br>WhatsApp</a>
+</nav>
+
+
+<script>
+
+function filterProducts(category,button){
+
+  document
+  .querySelectorAll(".categories button")
+  .forEach(btn=>btn.classList.remove("active"));
+
+  button.classList.add("active");
+
+  document
+  .querySelectorAll(".product")
+  .forEach(product=>{
+
+    if(category==="all" ||
+       product.dataset.category===category){
+
+      product.style.display="block";
+
+    }else{
+
+      product.style.display="none";
+
+    }
+
+  });
+
+}
+
+
+function searchProducts(){
+
+  const search =
+  document
+  .getElementById("search")
+  .value
+  .toLowerCase();
+
+  document
+  .querySelectorAll(".product")
+  .forEach(product=>{
+
+    const text =
+    product.innerText.toLowerCase();
+
+    product.style.display =
+    text.includes(search)
+    ? "block"
+    : "none";
+
+  });
+
+}
+
+</script>
+
+<script>if ("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("/sw.js"));}</script>
+</body>
+</html>
