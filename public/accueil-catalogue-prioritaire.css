@@ -1,0 +1,169 @@
+/* Ibn_Djibril Niger Tech — ordre commercial final */
+
+#ibn-catalogue-ultra{
+  margin-top:8px!important;
+  margin-bottom:20px!important;
+}
+
+.ibn-transfer-catalogue-card{
+  border:2px solid rgba(0,135,81,.38)!important;
+  box-shadow:0 16px 38px rgba(0,83,55,.14)!important;
+  cursor:pointer;
+  background:linear-gradient(180deg,#fff,#fbfffc)!important;
+}
+.ibn-transfer-catalogue-card:hover{
+  transform:translateY(-4px) scale(1.002)!important;
+  border-color:#008751!important;
+}
+.ibn-transfer-logo{
+  height:270px!important;
+  object-fit:contain!important;
+  background:radial-gradient(circle at center,#0c4b30 0,#052f22 68%,#031f17 100%)!important;
+  padding:8px!important;
+}
+.ibn-currency-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:10px 0 2px;
+}
+.ibn-currency-row span{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:32px;
+  padding:6px 11px;
+  border-radius:999px;
+  font-weight:900;
+  font-size:13px;
+  color:#0b5136;
+  background:#eefaf4;
+  border:1px solid #cce9da;
+}
+.ibn-transfer-catalogue-card .ibn-cat-cta{
+  margin-top:14px!important;
+  color:#008751!important;
+  font-weight:950!important;
+}
+
+.ibn-transfer-sheet-overlay{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  padding:0;
+  background:rgba(15,23,42,.62);
+  backdrop-filter:blur(4px);
+}
+.ibn-transfer-sheet-overlay.is-open{display:flex}
+.ibn-no-scroll{overflow:hidden!important}
+
+.ibn-transfer-sheet{
+  position:relative;
+  width:min(760px,100%);
+  max-height:92vh;
+  overflow:auto;
+  border-radius:28px 28px 0 0;
+  background:#fff;
+  box-shadow:0 -24px 70px rgba(0,0,0,.28);
+}
+.ibn-transfer-sheet-close{
+  position:sticky;
+  top:12px;
+  float:right;
+  z-index:5;
+  width:42px;
+  height:42px;
+  margin:12px 12px -54px 0;
+  border:0;
+  border-radius:50%;
+  color:#fff;
+  background:rgba(0,0,0,.62);
+  font-size:27px;
+  line-height:1;
+}
+.ibn-transfer-sheet-logo{
+  width:100%;
+  max-height:360px;
+  object-fit:contain;
+  padding:10px;
+  background:radial-gradient(circle at center,#0c4b30 0,#052f22 68%,#031f17 100%);
+}
+.ibn-transfer-sheet-content{padding:20px}
+.ibn-transfer-sheet-content h2{
+  margin:3px 0 8px;
+  font-size:clamp(26px,6vw,38px);
+  line-height:1.08;
+  letter-spacing:-.03em;
+}
+.ibn-currency-row-detail{margin:12px 0 16px}
+.ibn-transfer-detail-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+.ibn-transfer-detail-grid section{
+  padding:15px;
+  border:1px solid #e3ebe7;
+  border-radius:16px;
+  background:#fbfdfc;
+}
+.ibn-transfer-detail-grid h3{
+  margin:0 0 7px;
+  font-size:16px;
+}
+.ibn-transfer-detail-grid p{
+  margin:0;
+  color:#596760;
+  font-size:14px;
+}
+.ibn-transfer-contact{
+  margin-top:16px;
+  padding:15px;
+  border-radius:16px;
+  color:#fff;
+  text-align:center;
+  background:linear-gradient(135deg,#008751,#05603d);
+}
+.ibn-transfer-contact strong{display:block;margin-bottom:4px;font-size:17px}
+
+#products{
+  margin-top:24px!important;
+}
+#products::before{
+  content:"BOUTIQUE & ACCESSOIRES — FIN DU CATALOGUE";
+  display:inline-flex;
+  margin:0 0 12px;
+  padding:7px 11px;
+  border-radius:999px;
+  color:#8a4b00;
+  background:#fff3df;
+  border:1px solid #f4d7a6;
+  font-size:11px;
+  font-weight:950;
+  letter-spacing:.07em;
+}
+#contact{
+  margin-top:18px!important;
+}
+
+/* Les anciennes grandes cartes restent visibles, mais moins prioritaires */
+.services{
+  margin-top:18px!important;
+  opacity:.98;
+}
+.services .service{
+  background:#fff!important;
+}
+.services .service:last-child{
+  border-style:dashed!important;
+}
+
+@media(max-width:700px){
+  .ibn-transfer-logo{height:250px!important}
+  .ibn-transfer-detail-grid{grid-template-columns:1fr}
+  .ibn-transfer-sheet{max-height:94vh}
+  .ibn-transfer-sheet-logo{max-height:310px}
+}
