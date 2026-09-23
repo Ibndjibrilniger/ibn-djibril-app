@@ -127,36 +127,30 @@
       <div class="service" onclick="showService(this)">
         <h3>📡 Wi-Fi & Internet</h3>
         <p>Solutions Wi-Fi Zone et accès Internet.</p>
-<a href="https://www.facebook.com/share/1PTZLUUvzP/" target="_blank" rel="noopener noreferrer" style="padding:12px 18px;background:#1877F2;color:white;text-decoration:none;border-radius:12px;font-weight:bold;">🔵 Facebook</a>
       </div>
 
       <div class="service" onclick="showService(this)">
         <h3>📱 Téléphones & Accessoires</h3>
         <p>Téléphones, chargeurs, câbles et accessoires.</p>
-<a href="https://www.facebook.com/share/1PTZLUUvzP/" target="_blank" rel="noopener noreferrer" style="padding:12px 18px;background:#1877F2;color:white;text-decoration:none;border-radius:12px;font-weight:bold;">🔵 Facebook</a>
       </div>
 
       <div class="service" onclick="showService(this)">
         <h3>🛰️ Réseaux & Starlink</h3>
         <p>Équipements réseau et solutions de connectivité.</p>
-<a href="https://www.facebook.com/share/1PTZLUUvzP/" target="_blank" rel="noopener noreferrer" style="padding:12px 18px;background:#1877F2;color:white;text-decoration:none;border-radius:12px;font-weight:bold;">🔵 Facebook</a>
       </div>
 
       <div class="service" onclick="showService(this)">
         <h3>💸 Services de transfert</h3>
         <p>Services de transfert d'argent et solutions numériques.</p>
-<a href="https://www.facebook.com/share/1PTZLUUvzP/" target="_blank" rel="noopener noreferrer" style="padding:12px 18px;background:#1877F2;color:white;text-decoration:none;border-radius:12px;font-weight:bold;">🔵 Facebook</a>
       </div>
 
       <div class="service" onclick="showService(this)">
         <h3>💻 Informatique</h3>
         <p>Services informatiques, réseaux et assistance technique.</p>
-<a href="https://www.facebook.com/share/1PTZLUUvzP/" target="_blank" rel="noopener noreferrer" style="padding:12px 18px;background:#1877F2;color:white;text-decoration:none;border-radius:12px;font-weight:bold;">🔵 Facebook</a>
       </div>
 
     </section>
 
-<a href="https://www.facebook.com/share/1PTZLUUvzP/" target="_blank" rel="noopener noreferrer" style="padding:12px 18px;background:#1877F2;color:white;text-decoration:none;border-radius:12px;font-weight:bold;">🔵 Facebook</a>
   <div id="service-detail" style="display:none;background:white;margin:20px;padding:20px;border-radius:18px;box-shadow:0 4px 18px rgba(0,0,0,.12);"><h2 id="detail-title"></h2><div id="detail-text"></div><div id="detail-actions" style="margin-top:18px;"></div><button onclick="document.getElementById('service-detail').style.display='none'" style="padding:10px 18px;border:0;border-radius:10px;background:#008751;color:white;font-weight:bold;">Fermer</button></div>
 <section id="produits" style="background:white;margin:20px;padding:20px;border-radius:18px;box-shadow:0 4px 18px rgba(0,0,0,.12);">
 <h2 style="text-align:center;">🛍️ Produits & Offres</h2>
@@ -173,7 +167,6 @@
 <a href="tg://resolve?phone=22791445187" style="padding:12px 18px;background:#168aad;color:white;text-decoration:none;border-radius:12px;font-weight:bold;">✈️ Telegram</a>
 <a href="sms:+22796784870" style="padding:12px 18px;background:#555;color:white;text-decoration:none;border-radius:12px;font-weight:bold;">✉️ SMS</a>
 <a href="tel:+22791445187" style="padding:12px 18px;background:#008751;color:white;text-decoration:none;border-radius:12px;font-weight:bold;">📞 Appel</a>
-<a href="https://www.facebook.com/share/1PTZLUUvzP/" target="_blank" rel="noopener noreferrer" style="padding:12px 18px;background:#1877F2;color:white;text-decoration:none;border-radius:12px;font-weight:bold;">🔵 Facebook</a>
 </div>
 </section>
   </main>
@@ -192,10 +185,51 @@ function showService(el) {
 
   document.getElementById("detail-title").innerText = titre;
   document.getElementById("detail-text").innerHTML = clone.innerHTML;
+if (titre.includes("Services de transfert")) {
+  document.getElementById("detail-text").innerHTML = `
+  <div style="display:grid;gap:12px;margin-top:12px">
 
+    <div style="background:#f7faf8;padding:16px;border-radius:16px">
+      <b>🇳🇪 Niger — Dépôts, retraits & transferts</b><br><br>
+      NITA • MyNITA • Amana • Airtel Money • Zamani Cash •
+      Moov Flooz • Moni Fusion
+    </div>
+
+    <div style="background:#f7faf8;padding:16px;border-radius:16px">
+      <b>🌍 Transferts internationaux</b><br><br>
+      Envoi et réception d’argent • services internationaux •
+      Mobile Money selon le pays et la disponibilité
+    </div>
+
+    <div style="background:#fff7ed;padding:16px;border-radius:16px">
+      <b>🇳🇬 POS NIGERIA</b><br><br>
+      <strong>POS</strong> • Dépôt • Retrait •
+      Change FCFA ⇄ Naira
+    </div>
+
+    <div style="background:#f7faf8;padding:16px;border-radius:16px">
+      <b>🌍 Mobile Money Afrique de l’Ouest</b><br><br>
+      MTN MoMo Ghana • MTN MoMo Bénin • Moov Money •
+      Celtiis Money • Orange Money selon disponibilité • MoMo Togo
+    </div>
+
+    <div style="background:#f7faf8;padding:16px;border-radius:16px">
+      <b>💳 Visa & Mastercard — Paiements en ligne</b><br><br>
+      Assistance à la création, activation et recharge de
+      cartes virtuelles pour les paiements en ligne
+    </div>
+
+    <div style="background:#f7faf8;padding:16px;border-radius:16px">
+      <b>₿ USDT & services numériques</b><br><br>
+      USDT • Binance • paiements et solutions numériques
+      selon disponibilité
+    </div>
+
+  </div>`;
+}
   const actions = document.getElementById("detail-actions");
   if (titre.includes("Services de transfert")) {
-    actions.innerHTML = `<h3 style="text-align:center;margin:20px 0 12px;">Choisissez votre moyen de contact</h3><div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;"><a href="https://wa.me/22796784870" target="_blank" rel="noopener noreferrer" style="background:#008751;color:white;text-decoration:none;border-radius:12px;font-weight:bold;">💬 WhatsApp</a><a href="tg://resolve?phone=22791445187" style="background:#168aad;color:white;text-decoration:none;border-radius:12px;font-weight:bold;">✈️ Telegram</a><a href="tel:+22791445187" style="background:#008751;color:white;text-decoration:none;border-radius:12px;font-weight:bold;">📞 Appel</a><a href="https://www.facebook.com/share/1PTZLUUvzP/" target="_blank" rel="noopener noreferrer" style="background:#1877F2;color:white;text-decoration:none;border-radius:12px;font-weight:bold;">🔵 Facebook</a></div>`;
+    actions.innerHTML = `<h3 style="text-align:center;margin:20px 0 12px;">Choisissez votre moyen de contact</h3><div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;"><a href="https://wa.me/22796784870" target="_blank" rel="noopener noreferrer" style="background:#008751;color:white;text-decoration:none;border-radius:12px;font-weight:bold;">💬 WhatsApp</a><a href="tg://resolve?phone=22791445187" style="background:#168aad;color:white;text-decoration:none;border-radius:12px;font-weight:bold;">✈️ Telegram</a><a href="sms:+22796784870" style="background:#6C63FF;color:white;text-decoration:none;border-radius:12px;padding:12px 18px;font-weight:bold;">✉️ SMS</a><a href="tel:+22791445187" style="background:#008751;color:white;text-decoration:none;border-radius:12px;font-weight:bold;">📞 Appel</a></div>`;
   } else {
     actions.innerHTML = "";
   }
