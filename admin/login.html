@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Administration — Ibn_Djibril Niger Tech</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;display:grid;place-items:center;
+ font-family:Arial,sans-serif;background:#f3f7f5;color:#17221d;
+ padding:20px
+}
+.card{
+ width:min(420px,100%);background:white;padding:28px;
+ border-radius:24px;box-shadow:0 15px 45px #0002
+}
+h1{color:#008751;margin-top:0;font-size:27px}
+p{color:#68736d}
+label{font-weight:700;display:block;margin:14px 0 6px}
+input{
+ width:100%;padding:14px;border:1px solid #ccd8d1;
+ border-radius:12px;font-size:16px
+}
+button{
+ width:100%;margin-top:20px;padding:14px;
+ border:0;border-radius:12px;background:#008751;
+ color:white;font-size:16px;font-weight:800
+}
+.small{text-align:center;margin-top:18px;font-size:13px}
+</style>
+</head>
+<body>
+<div class="card">
+<h1>🔐 Espace privé</h1>
+<p>Ibn_Djibril Niger Tech 🇳🇪</p>
+
+<form method="post" action="/admin/login">
+<label>Nom d’utilisateur</label>
+<input name="username" autocomplete="username" required>
+
+<label>Mot de passe</label>
+<input type="password" name="password"
+       autocomplete="current-password" required>
+
+<button type="submit">Se connecter</button>
+</form>
+
+<p class="small">Accès réservé à l’administrateur.</p>
+</div>
+</body>
+</html>

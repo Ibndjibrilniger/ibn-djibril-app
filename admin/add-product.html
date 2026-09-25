@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Ajouter un produit — Ibn_Djibril Niger Tech</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#f2f7f4;
+ color:#17221d
+}
+
+header{
+ background:linear-gradient(135deg,#006b42,#008751 55%,#f28c28);
+ color:white;
+ padding:24px 18px
+}
+
+header h1{
+ margin:0 0 7px;
+ font-size:30px
+}
+
+main{
+ max-width:720px;
+ margin:auto;
+ padding:18px
+}
+
+.card{
+ background:white;
+ border-radius:22px;
+ padding:20px;
+ box-shadow:0 8px 28px #00000012
+}
+
+label{
+ display:block;
+ font-weight:800;
+ margin-top:16px
+}
+
+input,
+textarea,
+select{
+ width:100%;
+ margin-top:6px;
+ padding:13px;
+ border:1px solid #ccd8d1;
+ border-radius:12px;
+ font-size:16px;
+ font-family:inherit
+}
+
+textarea{
+ min-height:130px;
+ resize:vertical
+}
+
+.check{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ margin-top:17px
+}
+
+.check input{
+ width:22px;
+ height:22px;
+ margin:0
+}
+
+.actions{
+ display:grid;
+ gap:10px;
+ margin-top:22px
+}
+
+button,
+.back{
+ border:0;
+ border-radius:13px;
+ padding:14px;
+ font-size:16px;
+ font-weight:900;
+ text-align:center;
+ text-decoration:none
+}
+
+.save{
+ background:#008751;
+ color:white
+}
+
+.back{
+ background:#eef3f0;
+ color:#17221d
+}
+
+.status{
+ margin-top:16px;
+ padding:12px;
+ border-radius:12px;
+ display:none;
+ font-weight:800
+}
+
+.status.ok{
+ display:block;
+ background:#e7f8ee;
+ color:#087144
+}
+
+.status.error{
+ display:block;
+ background:#fff0ee;
+ color:#b3261e
+}
+
+.photo-preview{
+ margin-top:12px;
+ display:none;
+ max-width:100%;
+ max-height:280px;
+ object-fit:contain;
+ border-radius:14px;
+ border:1px solid #dde6e1
+}
+
+small{
+ color:#68756e;
+ font-weight:normal
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>➕ Ajouter un produit</h1>
+<p>Ibn_Djibril Niger Tech 🇳🇪</p>
+</header>
+
+<main>
+
+<section class="card">
+
+<form id="productForm">
+
+<label>
+Nom du produit
+<input
+ name="name"
+ type="text"
+ maxlength="120"
+ required
+ placeholder="Ex. MikroTik hAP ax3"
+>
+</label>
+
+<label>
+Catégorie
+<select name="category" required>
+<option value="">Choisir une catégorie</option>
+<option>MikroTik</option>
+<option>Routeurs & Wi-Fi</option>
+<option>Antennes & PtP</option>
+<option>Starlink</option>
+<option>Fibre & Réseau</option>
+<option>Accessoires</option>
+<option>Informatique</option>
+<option>Téléphones</option>
+<option>Maintenance</option>
+<option>Autres</option>
+</select>
+</label>
+
+<label>
+Petite description
+<input
+ name="subtitle"
+ type="text"
+ maxlength="200"
+ placeholder="Ex. Routeur professionnel Wi-Fi 6"
+>
+</label>
+
+<label>
+Caractéristiques
+<small>
+Une caractéristique par ligne
+</small>
+<textarea
+ name="specs"
+ placeholder="Wi-Fi 6&#10;5 ports Gigabit&#10;RouterOS v7"
+></textarea>
+</label>
+
+<label>
+Photo du produit
+<input
+ id="photo"
+ name="photo"
+ type="file"
+ accept="image/jpeg,image/png,image/webp"
+>
+</label>
+
+<img
+ id="preview"
+ class="photo-preview"
+ alt="Aperçu photo"
+>
+
+<label>
+Prix en FCFA
+<input
+ id="price"
+ name="price"
+ type="number"
+ min="0"
+ step="1"
+ placeholder="Ex. 85000"
+>
+</label>
+
+<label class="check">
+<input
+ id="negotiable"
+ name="negotiable"
+ type="checkbox"
+ value="true"
+>
+Prix à discuter
+</label>
+
+<label>
+Stock disponible
+<input
+ name="stock"
+ type="number"
+ min="0"
+ step="1"
+ placeholder="Ex. 5"
+>
+<small>
+Mettez 0 pour rupture de stock. Vous pouvez aussi laisser vide.
+</small>
+</label>
+
+<div class="actions">
+<button
+ id="saveBtn"
+ class="save"
+ type="submit"
+>
+💾 Ajouter le produit
+</button>
+
+<a
+ class="back"
+ href="/admin"
+>
+← Retour au tableau de bord
+</a>
+</div>
+
+<div
+ id="status"
+ class="status"
+></div>
+
+</form>
+
+</section>
+
+</main>
+
+<script>
+const form = document.getElementById('productForm');
+const statusBox = document.getElementById('status');
+const saveBtn = document.getElementById('saveBtn');
+const negotiable = document.getElementById('negotiable');
+const price = document.getElementById('price');
+const photo = document.getElementById('photo');
+const preview = document.getElementById('preview');
+
+negotiable.addEventListener('change', () => {
+  price.disabled = negotiable.checked;
+
+  if (negotiable.checked) {
+    price.value = '';
+  }
+});
+
+photo.addEventListener('change', () => {
+  const file = photo.files[0];
+
+  if (!file) {
+    preview.style.display = 'none';
+    preview.removeAttribute('src');
+    return;
+  }
+
+  preview.src = URL.createObjectURL(file);
+  preview.style.display = 'block';
+});
+
+form.addEventListener('submit', async event => {
+  event.preventDefault();
+
+  statusBox.className = 'status';
+  statusBox.textContent = '';
+
+  if (!negotiable.checked && !price.value) {
+    statusBox.className = 'status error';
+    statusBox.textContent =
+      '❌ Entrez un prix ou cochez « Prix à discuter ».';
+    return;
+  }
+
+  saveBtn.disabled = true;
+  saveBtn.textContent = 'Enregistrement…';
+
+  try {
+    const data = new FormData(form);
+
+    if (negotiable.checked) {
+      data.set('negotiable', 'true');
+    }
+
+    const response = await fetch(
+      '/api/admin/products',
+      {
+        method: 'POST',
+        body: data
+      }
+    );
+
+    if (response.status === 401) {
+      location.href = '/admin/login';
+      return;
+    }
+
+    const result = await response.json();
+
+    if (!result.ok) {
+      statusBox.className = 'status error';
+      statusBox.textContent =
+        '❌ ' + (result.error || 'Erreur');
+      return;
+    }
+
+    statusBox.className = 'status ok';
+    statusBox.textContent =
+      '✅ Produit ajouté avec succès : ' +
+      result.product.name;
+
+    form.reset();
+
+    price.disabled = false;
+
+    preview.style.display = 'none';
+    preview.removeAttribute('src');
+
+  } catch (err) {
+    statusBox.className = 'status error';
+    statusBox.textContent =
+      '❌ Impossible de joindre le serveur.';
+  } finally {
+    saveBtn.disabled = false;
+    saveBtn.textContent = '💾 Ajouter le produit';
+  }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Administration — Ibn_Djibril Niger Tech</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#f2f7f4;
+ color:#17221d
+}
+
+header{
+ background:linear-gradient(135deg,#006b42,#008751 55%,#f28c28);
+ color:white;
+ padding:26px 18px
+}
+
+header h1{
+ margin:0 0 8px;
+ font-size:32px
+}
+
+header p{
+ margin:0;
+ opacity:.95
+}
+
+main{
+ max-width:900px;
+ margin:auto;
+ padding:18px
+}
+
+.panel{
+ background:white;
+ border-radius:22px;
+ padding:18px;
+ margin-bottom:16px;
+ box-shadow:0 8px 25px #00000012
+}
+
+.success{
+ background:#e6f7ee;
+ color:#087144;
+ border-radius:13px;
+ padding:13px;
+ font-weight:800;
+ margin-bottom:15px
+}
+
+.search{
+ width:100%;
+ padding:14px;
+ font-size:16px;
+ border:1px solid #cfdad4;
+ border-radius:13px
+}
+
+.product{
+ border:1px solid #e0e8e4;
+ border-radius:17px;
+ padding:15px;
+ margin-top:13px
+}
+
+.product h3{
+ margin:0 0 4px;
+ font-size:18px
+}
+
+.category{
+ color:#008751;
+ font-size:12px;
+ font-weight:800;
+ text-transform:uppercase
+}
+
+.current{
+ background:#f3f7f5;
+ padding:10px;
+ border-radius:10px;
+ margin:10px 0;
+ font-weight:700
+}
+
+.fields{
+ display:grid;
+ grid-template-columns:1fr;
+ gap:10px
+}
+
+label{
+ font-size:13px;
+ font-weight:800
+}
+
+input[type=number],
+input[type=text]{
+ width:100%;
+ padding:12px;
+ margin-top:5px;
+ border:1px solid #ccd8d1;
+ border-radius:11px;
+ font-size:16px
+}
+
+.check{
+ display:flex;
+ align-items:center;
+ gap:9px;
+ padding:10px 0
+}
+
+.check input{
+ width:22px;
+ height:22px
+}
+
+.save{
+ width:100%;
+ border:0;
+ margin-top:10px;
+ border-radius:12px;
+ padding:13px;
+ background:#008751;
+ color:white;
+ font-size:15px;
+ font-weight:900
+}
+
+.save:disabled{
+ opacity:.55
+}
+
+.message{
+ margin-top:8px;
+ font-size:13px;
+ font-weight:700
+}
+
+.logout{
+ border:0;
+ padding:12px 18px;
+ border-radius:12px;
+ background:#151c18;
+ color:white;
+ font-weight:800
+}
+
+.count{
+ font-weight:800;
+ color:#536159
+}
+
+@media(min-width:700px){
+ .fields{
+   grid-template-columns:1fr 1fr
+ }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Administration privée</h1>
+<p>Ibn_Djibril Niger Tech 🇳🇪</p>
+</header>
+
+<main>
+
+<section class="panel">
+<div class="success">
+✅ Connexion administrateur réussie
+</div>
+
+
+<a
+ href="/admin/products/new"
+ style="
+ display:block;
+ text-align:center;
+ background:#f28c28;
+ color:white;
+ text-decoration:none;
+ padding:14px;
+ border-radius:13px;
+ font-weight:900;
+ margin-bottom:18px
+ ">
+➕ Ajouter un nouveau produit
+</a>
+<h2>Gestion des prix</h2>
+
+<p>
+Modifiez les tarifs de vos produits ici.
+Les changements seront appliqués au catalogue public.
+</p>
+
+<input
+ id="search"
+ class="search"
+ type="search"
+ placeholder="Rechercher un produit..."
+>
+
+<p class="count" id="count">
+Chargement des produits…
+</p>
+</section>
+
+<section id="products"></section>
+
+<section class="panel">
+<form method="post" action="/admin/logout">
+<button class="logout" type="submit">
+Déconnexion
+</button>
+</form>
+</section>
+
+</main>
+
+<script src="/catalogue-data.js?v=20260923"></script>
+
+<script>
+const productsRoot = document.getElementById('products');
+const searchInput = document.getElementById('search');
+const count = document.getElementById('count');
+
+let prices = {};
+let rows = [];
+
+function escapeHtml(text) {
+  return String(text ?? '')
+    .replace(/[&<>"']/g, ch => ({
+      '&':'&amp;',
+      '<':'&lt;',
+      '>':'&gt;',
+      '"':'&quot;',
+      "'":'&#39;'
+    })[ch]);
+}
+
+function formatPrice(value) {
+  return String(value)
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+}
+
+function getCatalogueMap() {
+  const map = new Map();
+
+  (window.IBN_CATALOGUE || []).forEach(product => {
+    map.set(product.id, product);
+  });
+
+  return map;
+}
+
+async function load() {
+  const response = await fetch('/api/admin/prices');
+
+  if (response.status === 401) {
+    location.href = '/admin/login';
+    return;
+  }
+
+  const result = await response.json();
+
+  if (!result.ok) {
+    productsRoot.innerHTML =
+      '<section class="panel">Erreur de chargement.</section>';
+    return;
+  }
+
+  prices = result.prices;
+
+  const catalogue = getCatalogueMap();
+
+  rows = Object.keys(prices).map(id => {
+    const product = catalogue.get(id) || {};
+
+    return {
+      id,
+      name: product.name || id,
+      category: product.category || 'Produit',
+      subtitle: product.subtitle || ''
+    };
+  });
+
+  rows.sort((a,b) =>
+    a.category.localeCompare(b.category) ||
+    a.name.localeCompare(b.name)
+  );
+
+  render();
+}
+
+function render() {
+  const query =
+    searchInput.value.trim().toLowerCase();
+
+  const filtered = rows.filter(row =>
+    [
+      row.id,
+      row.name,
+      row.category,
+      row.subtitle
+    ]
+      .join(' ')
+      .toLowerCase()
+      .includes(query)
+  );
+
+  count.textContent =
+    filtered.length + ' produit(s) affiché(s)';
+
+  productsRoot.innerHTML =
+    filtered.map(row => {
+      const price = prices[row.id] || {};
+      const negotiable = price.value === null;
+
+      return `
+<section class="panel product" data-id="${escapeHtml(row.id)}">
+
+<div class="category">
+${escapeHtml(row.category)}
+</div>
+
+<h3>${escapeHtml(row.name)}</h3>
+
+<div class="current">
+Prix actuel :
+<span class="current-label">
+${escapeHtml(price.label || 'Non défini')}
+</span>
+</div>
+
+<div class="fields">
+
+<label>
+Prix numérique en FCFA
+<input
+ class="price-value"
+ type="number"
+ min="0"
+ step="1"
+ value="${negotiable ? '' : escapeHtml(price.value)}"
+ ${negotiable ? 'disabled' : ''}
+>
+</label>
+
+<label>
+Texte affiché
+<input
+ class="price-label"
+ type="text"
+ maxlength="80"
+ value="${escapeHtml(price.label || '')}"
+ ${negotiable ? 'disabled' : ''}
+>
+</label>
+
+</div>
+
+<label class="check">
+<input
+ class="negotiable"
+ type="checkbox"
+ ${negotiable ? 'checked' : ''}
+>
+Prix à discuter
+</label>
+
+<button class="save" type="button">
+💾 Enregistrer ce prix
+</button>
+
+<div class="message"></div>
+
+</section>
+`;
+    }).join('');
+
+  bindCards();
+}
+
+function bindCards() {
+  document.querySelectorAll('.product').forEach(card => {
+
+    const id = card.dataset.id;
+    const number = card.querySelector('.price-value');
+    const label = card.querySelector('.price-label');
+    const negotiable = card.querySelector('.negotiable');
+    const save = card.querySelector('.save');
+    const message = card.querySelector('.message');
+
+    number.addEventListener('input', () => {
+      const old = label.value.trim();
+
+      if (
+        old === '' ||
+        old === 'Prix à discuter' ||
+        old === 'Prix discutable' ||
+        /^[0-9 ]+ FCFA$/.test(old)
+      ) {
+        if (number.value) {
+          label.value =
+            formatPrice(number.value) + ' FCFA';
+        }
+      }
+    });
+
+    negotiable.addEventListener('change', () => {
+      number.disabled = negotiable.checked;
+      label.disabled = negotiable.checked;
+
+      if (negotiable.checked) {
+        label.value = 'Prix à discuter';
+      } else {
+        if (number.value) {
+          label.value =
+            formatPrice(number.value) + ' FCFA';
+        }
+      }
+    });
+
+    save.addEventListener('click', async () => {
+
+      save.disabled = true;
+      message.textContent = 'Enregistrement…';
+
+      try {
+        const response = await fetch(
+          '/api/admin/prices/' + encodeURIComponent(id),
+          {
+            method:'POST',
+            headers:{
+              'Content-Type':'application/json'
+            },
+            body:JSON.stringify({
+              negotiable: negotiable.checked,
+              value: number.value,
+              label: label.value
+            })
+          }
+        );
+
+        if (response.status === 401) {
+          location.href = '/admin/login';
+          return;
+        }
+
+        const result = await response.json();
+
+        if (!result.ok) {
+          message.textContent =
+            '❌ ' + (result.error || 'Erreur');
+          return;
+        }
+
+        prices[id] = result.price;
+
+        card.querySelector('.current-label')
+          .textContent = result.price.label;
+
+        if (result.price.value === null) {
+          number.value = '';
+          negotiable.checked = true;
+          number.disabled = true;
+          label.disabled = true;
+          label.value = result.price.label;
+        }
+
+        message.textContent =
+          '✅ Prix enregistré avec succès';
+
+      } catch (err) {
+        message.textContent =
+          '❌ Impossible de joindre le serveur';
+      } finally {
+        save.disabled = false;
+      }
+    });
+  });
+}
+
+searchInput.addEventListener('input', render);
+
+load();
+</script>
+
+<script src="/admin-stock.js?v=20260925-speed1"></script>
+<script src="/admin-product-edit.js?v=20260925-speed1"></script>
+</body>
+</html>

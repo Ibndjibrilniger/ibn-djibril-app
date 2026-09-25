@@ -33,6 +33,31 @@
   .ibn-price{display:inline-block;margin-top:9px;background:#fff3e4;color:#8b4a00;border:1px solid #ffd7a5;border-radius:999px;padding:6px 10px;font-weight:900;font-size:14px}
   .ibn-price-detail{display:inline-block;margin:2px 0 14px;background:#fff3e4;color:#8b4a00;border:1px solid #ffd7a5;border-radius:999px;padding:8px 12px;font-weight:900;font-size:16px}
   .ibn-cat-cta{margin-top:10px;color:#008751;font-weight:800;font-size:14px}
+  .ibn-stock{
+    margin-top:10px;
+    padding:8px 11px;
+    border-radius:10px;
+    font-size:13px;
+    font-weight:900
+  }
+  .ibn-stock-ok{
+    background:#e7f8ee;
+    color:#087144
+  }
+  .ibn-stock-low{
+    background:#fff4dc;
+    color:#9a6200
+  }
+  .ibn-stock-out{
+    background:#ffe9e7;
+    color:#b3261e
+  }
+  .ibn-add-cart:disabled{
+    background:#d7ddda !important;
+    color:#747d78 !important;
+    cursor:not-allowed !important;
+    opacity:.8
+  }
   .ibn-modal{position:fixed;inset:0;background:rgba(5,20,13,.72);z-index:99999;display:none;align-items:flex-end;justify-content:center;padding:0}
   .ibn-modal.open{display:flex}
   .ibn-sheet{background:#fff;width:min(760px,100%);max-height:92vh;overflow:auto;border-radius:26px 26px 0 0;box-shadow:0 -20px 70px rgba(0,0,0,.28)}
@@ -104,6 +129,49 @@
     chips.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{active=b.dataset.cat;renderChips();renderCards();}));
   }
   function productImage(p){return (p.images && p.images[0]) || "";}
+
+  function stockInfo(p){
+    const hasStock =
+      Number.isInteger(p.stock) && p.stock >= 0;
+
+    if (
+      p.outOfStock === true ||
+      (hasStock && p.stock === 0)
+    ) {
+      return {
+        text: "❌ Rupture de stock",
+        cls: "out",
+        disabled: true
+      };
+    }
+
+    if (hasStock && p.stock >= 1 && p.stock <= 5) {
+      return {
+        text:
+          "⚠️ Plus que " +
+          p.stock +
+          " disponible" +
+          (p.stock > 1 ? "s" : ""),
+        cls: "low",
+        disabled: false
+      };
+    }
+
+    if (hasStock && p.stock > 5) {
+      return {
+        text: "✅ Disponible",
+        cls: "ok",
+        disabled: false
+      };
+    }
+
+    return {
+      text: "",
+      cls: "",
+      disabled: false
+    };
+  }
+
   function renderCards(){
     const q = search.value.trim().toLowerCase();
     const filtered = DATA.filter(p => (active==="Tout" || p.category===active) && (!q || [p.name,p.subtitle,p.category,...(p.specs||[])].join(" ").toLowerCase().includes(q)));
@@ -115,7 +183,22 @@
           <h3>${esc(p.name)}</h3>
           <p>${esc(p.subtitle)}</p>
           ${p.price?`<div class="ibn-price">${esc(p.price)}</div>`:""}
-          <div class="ibn-cat-cta">Voir photo & caractéristiques →</div>
+          ${stockInfo(p).text
+  ? `<div class="ibn-stock ibn-stock-${stockInfo(p).cls}">${stockInfo(p).text}</div>`
+  : ""
+}
+<button
+  type="button"
+  class="ibn-add-cart"
+  data-id="${esc(p.id)}"
+  ${stockInfo(p).disabled ? "disabled aria-disabled=\"true\"" : ""}
+>
+  ${stockInfo(p).disabled
+    ? "❌ Rupture de stock"
+    : "🛒 Ajouter au panier"
+  }
+</button>
+<div class="ibn-cat-cta">Voir photo & caractéristiques →</div>
         </div>
       </article>
     `).join("") || `<div class="ibn-empty">Aucun résultat. Essayez un autre mot.</div>`;

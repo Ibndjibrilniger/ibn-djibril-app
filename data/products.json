@@ -1,4 +1,4 @@
-window.IBN_CATALOGUE = [
+[
   {
     "id": "starlink-standard-x",
     "category": "Starlink",
@@ -592,4 +592,4 @@ window.IBN_CATALOGUE = [
     "updatedAt": "2026-09-25T07:56:04.376Z",
     "active": false
   }
-];
+]

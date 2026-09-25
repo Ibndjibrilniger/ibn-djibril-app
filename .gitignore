@@ -3,3 +3,20 @@ backups/
 public-security-backup-*/
 .env
 .env.*
+
+# Fichiers temporaires et sauvegardes locales
+server.log
+server-sauvegarde-*.js
+product-admin-routes-sauvegarde-*.js
+package-sauvegarde-*.json
+public/*sauvegarde*
+
+# Anciennes sauvegardes supplémentaires
+admin/*sauvegarde*
+data/*sauvegarde*
+public/index-avant-*
+starlink-*.pdf
+
+# Photos de test / uploads locaux
+public/uploads/*
+!public/uploads/.gitkeep
