@@ -106,7 +106,7 @@
   <link rel="stylesheet" href="/accueil-catalogue-prioritaire.css?v=20260923">
   <script src="/accueil-catalogue-prioritaire.js?v=20260923" defer></script>
   <link rel="stylesheet" href="/install-pwa-pro.css?v=20260923">
-  <script src="/install-pwa-pro.js?v=20260923" defer></script>
+  <script src="/install-pwa-pro.js?v=20260925-install2" defer></script>
 </head>
 
 <body>
@@ -245,15 +245,6 @@ if (titre.includes("Services de transfert")) {
   detail.scrollIntoView({behavior:"smooth",block:"start"});
 }
 </script>
-<script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/sw.js")
-      .then(() => console.log("Service Worker actif"))
-      .catch(err => console.log("Erreur Service Worker:", err));
-  });
-}
-</script>
 <!-- IBN_CATALOGUE_ULTRA -->
 <script src="/catalogue-data.js?v=20260925-stock3"></script>
 <script src="/prix-produits.js?v=20260925"></script>
@@ -262,5 +253,6 @@ if ("serviceWorker" in navigator) {
 <script src="/panier.js?v=20260925b" defer></script>
 <script src="/boutique-location.js?v=20260925b" defer></script>
 <script src="/admin-access.js?v=20260925" defer></script>
+<script src="/pwa-update.js?v=20260925-update1" defer></script>
 </body>
 </html>

@@ -20,3 +20,4 @@ starlink-*.pdf
 # Photos de test / uploads locaux
 public/uploads/*
 !public/uploads/.gitkeep
+admin-hash.txt

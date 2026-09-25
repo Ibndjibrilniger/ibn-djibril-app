@@ -301,6 +301,16 @@ app.post('/api/admin/prices/:id', requireAdmin, (req, res) => {
 
 require('./product-admin-routes')(app, requireAdmin);
 
+app.get('/api/app-version', (req, res) => {
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.json({
+    version:
+      process.env.RAILWAY_GIT_COMMIT_SHA ||
+      process.env.APP_VERSION ||
+      'dev-local'
+  });
+});
+
 /* ---------- APPLICATION PUBLIQUE ---------- */
 
 app.use(
