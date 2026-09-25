@@ -128,18 +128,40 @@ app.get('/admin/login', (req, res) => {
 
 app.post('/admin/login', async (req, res) => {
   try {
-    const username = String(req.body.username || '');
-    const password = String(req.body.password || '');
+    const usernameRaw = String(req.body.username || '');
+    const passwordRaw = String(req.body.password || '');
+
+    const username = usernameRaw.trim();
+    const configuredUser =
+      String(process.env.ADMIN_USER || '').trim();
 
     const validUser =
-      username === process.env.ADMIN_USER;
+      username.toLowerCase() === configuredUser.toLowerCase();
 
-    const validPassword =
-      validUser &&
-      await bcrypt.compare(
-        password,
+    let validPassword = false;
+
+    if (validUser) {
+      validPassword = await bcrypt.compare(
+        passwordRaw,
         process.env.ADMIN_PASSWORD_HASH
       );
+
+      if (!validPassword && passwordRaw !== passwordRaw.trim()) {
+        validPassword = await bcrypt.compare(
+          passwordRaw.trim(),
+          process.env.ADMIN_PASSWORD_HASH
+        );
+      }
+    }
+
+    if (!validUser || !validPassword) {
+      console.warn('ADMIN_LOGIN_FAILED', {
+        userMatch: validUser,
+        usernameLength: usernameRaw.length,
+        passwordLength: passwordRaw.length,
+        trimmedPasswordLength: passwordRaw.trim().length
+      });
+    }
 
     if (!validUser || !validPassword) {
       return res.status(401).send(`
