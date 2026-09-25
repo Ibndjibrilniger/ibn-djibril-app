@@ -101,7 +101,8 @@ label{
 }
 
 input[type=number],
-input[type=text]{
+input[type=text],
+input[type=password]{
  width:100%;
  padding:12px;
  margin-top:5px;
@@ -216,6 +217,61 @@ Chargement des produits…
 </section>
 
 <section id="products"></section>
+
+<section class="panel" id="password-section">
+
+<h2>🔑 Changer mon mot de passe</h2>
+
+<p>
+Vous pouvez modifier votre mot de passe administrateur directement ici.
+</p>
+
+<div class="fields">
+
+<label>
+Mot de passe actuel
+<input
+ id="current-password"
+ type="password"
+ autocomplete="current-password"
+>
+</label>
+
+<label>
+Nouveau mot de passe
+<input
+ id="new-password"
+ type="password"
+ autocomplete="new-password"
+ minlength="8"
+>
+</label>
+
+<label>
+Confirmer le nouveau mot de passe
+<input
+ id="confirm-password"
+ type="password"
+ autocomplete="new-password"
+ minlength="8"
+>
+</label>
+
+</div>
+
+<button
+ id="change-password-btn"
+ class="save"
+ type="button">
+🔐 Enregistrer le nouveau mot de passe
+</button>
+
+<div
+ id="password-message"
+ class="message">
+</div>
+
+</section>
 
 <section class="panel">
 <form method="post" action="/admin/logout">
@@ -498,5 +554,84 @@ load();
 
 <script src="/admin-stock.js?v=20260925-speed1"></script>
 <script src="/admin-product-edit.js?v=20260925-speed1"></script>
+
+<script>
+/* CHANGE_PASSWORD_ADMIN_JS */
+
+const changePasswordBtn =
+  document.getElementById('change-password-btn');
+
+const currentPasswordInput =
+  document.getElementById('current-password');
+
+const newPasswordInput =
+  document.getElementById('new-password');
+
+const confirmPasswordInput =
+  document.getElementById('confirm-password');
+
+const passwordMessage =
+  document.getElementById('password-message');
+
+changePasswordBtn.addEventListener('click', async () => {
+
+  const currentPassword =
+    currentPasswordInput.value;
+
+  const newPassword =
+    newPasswordInput.value;
+
+  const confirmPassword =
+    confirmPasswordInput.value;
+
+  changePasswordBtn.disabled = true;
+  passwordMessage.textContent =
+    '⏳ Enregistrement...';
+
+  try {
+    const response = await fetch(
+      '/api/admin/change-password',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          currentPassword,
+          newPassword,
+          confirmPassword
+        })
+      }
+    );
+
+    if (response.status === 401) {
+      location.href = '/admin/login';
+      return;
+    }
+
+    const result = await response.json();
+
+    if (!result.ok) {
+      passwordMessage.textContent =
+        '❌ ' + (result.error || 'Erreur');
+      return;
+    }
+
+    currentPasswordInput.value = '';
+    newPasswordInput.value = '';
+    confirmPasswordInput.value = '';
+
+    passwordMessage.textContent =
+      '✅ Mot de passe modifié avec succès';
+
+  } catch (err) {
+    passwordMessage.textContent =
+      '❌ Impossible de joindre le serveur';
+  } finally {
+    changePasswordBtn.disabled = false;
+  }
+});
+</script>
+
 </body>
 </html>

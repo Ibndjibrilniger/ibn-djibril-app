@@ -11,6 +11,30 @@ const fs = require('fs');
 const app = express();
 const PORT = Number(process.env.PORT || 3000);
 
+const ADMIN_CREDENTIALS_FILE = '/app/storage/admin-credentials.json';
+
+function getEffectiveAdminHash() {
+  try {
+    if (fs.existsSync(ADMIN_CREDENTIALS_FILE)) {
+      const data = JSON.parse(
+        fs.readFileSync(ADMIN_CREDENTIALS_FILE, 'utf8')
+      );
+
+      if (
+        data &&
+        typeof data.passwordHash === 'string' &&
+        data.passwordHash.length > 0
+      ) {
+        return data.passwordHash;
+      }
+    }
+  } catch (err) {
+    console.error('ADMIN_CREDENTIALS_READ_ERROR');
+  }
+
+  return process.env.ADMIN_PASSWORD_HASH;
+}
+
 const HOST =
   process.env.HOST ||
   (process.env.NODE_ENV === 'production'
@@ -23,7 +47,7 @@ const PUBLIC_PRICES_FILE = path.join(__dirname, 'public', 'prix-produits.js');
 
 if (
   !process.env.ADMIN_USER ||
-  !process.env.ADMIN_PASSWORD_HASH ||
+  !getEffectiveAdminHash() ||
   !process.env.SESSION_SECRET
 ) {
   console.error('ERREUR : configuration administrateur incomplète.');
@@ -143,13 +167,13 @@ app.post('/admin/login', async (req, res) => {
     if (validUser) {
       validPassword = await bcrypt.compare(
         passwordRaw,
-        process.env.ADMIN_PASSWORD_HASH
+        getEffectiveAdminHash()
       );
 
       if (!validPassword && passwordRaw !== passwordRaw.trim()) {
         validPassword = await bcrypt.compare(
           passwordRaw.trim(),
-          process.env.ADMIN_PASSWORD_HASH
+          getEffectiveAdminHash()
         );
       }
     }
@@ -222,6 +246,99 @@ app.post('/admin/logout', requireAdmin, (req, res) => {
     res.clearCookie('ibn_admin_session');
     res.redirect('/');
   });
+});
+
+/* ---------- CHANGER MOT DE PASSE ADMIN ---------- */
+
+app.post('/api/admin/change-password', requireAdmin, async (req, res) => {
+  try {
+    const currentPassword = String(req.body.currentPassword || '');
+    const newPassword = String(req.body.newPassword || '');
+    const confirmPassword = String(req.body.confirmPassword || '');
+
+    if (!currentPassword || !newPassword || !confirmPassword) {
+      return res.status(400).json({
+        ok: false,
+        error: 'Tous les champs sont obligatoires.'
+      });
+    }
+
+    if (newPassword.length < 8) {
+      return res.status(400).json({
+        ok: false,
+        error: 'Le nouveau mot de passe doit contenir au moins 8 caractères.'
+      });
+    }
+
+    if (newPassword !== confirmPassword) {
+      return res.status(400).json({
+        ok: false,
+        error: 'Les deux nouveaux mots de passe ne correspondent pas.'
+      });
+    }
+
+    const currentHash = getEffectiveAdminHash();
+
+    const currentValid = await bcrypt.compare(
+      currentPassword,
+      currentHash
+    );
+
+    if (!currentValid) {
+      return res.status(400).json({
+        ok: false,
+        error: 'Le mot de passe actuel est incorrect.'
+      });
+    }
+
+    const samePassword = await bcrypt.compare(
+      newPassword,
+      currentHash
+    );
+
+    if (samePassword) {
+      return res.status(400).json({
+        ok: false,
+        error: 'Choisissez un nouveau mot de passe différent.'
+      });
+    }
+
+    const newHash = await bcrypt.hash(newPassword, 12);
+
+    const storageDir = '/app/storage';
+    fs.mkdirSync(storageDir, { recursive: true });
+
+    const tempFile = ADMIN_CREDENTIALS_FILE + '.tmp';
+
+    fs.writeFileSync(
+      tempFile,
+      JSON.stringify({
+        passwordHash: newHash,
+        updatedAt: new Date().toISOString()
+      }, null, 2)
+    );
+
+    try {
+      fs.chmodSync(tempFile, 0o600);
+    } catch (_) {}
+
+    fs.renameSync(
+      tempFile,
+      ADMIN_CREDENTIALS_FILE
+    );
+
+    return res.json({
+      ok: true
+    });
+
+  } catch (err) {
+    console.error('CHANGE_PASSWORD_ERROR');
+
+    return res.status(500).json({
+      ok: false,
+      error: 'Impossible de modifier le mot de passe.'
+    });
+  }
 });
 
 /* ---------- API PRIVÉE DES PRIX ---------- */
