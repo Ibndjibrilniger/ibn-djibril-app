@@ -60,7 +60,6 @@
 
     if (!isiOS() && !deferredPrompt) return;
 
-    if (!canRemind()) return;
 
     safeSet(
       LAST_PROMPT_KEY,

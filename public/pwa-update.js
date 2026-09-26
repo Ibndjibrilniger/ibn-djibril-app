@@ -108,6 +108,7 @@
           "⏳ Mise à jour...";
 
         safeSet(VERSION_KEY, version);
+      setTimeout(() => window.location.reload(), 5000);
 
         try {
           if (

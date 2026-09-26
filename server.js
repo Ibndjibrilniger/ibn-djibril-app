@@ -446,7 +446,7 @@ app.get('/api/app-version', (req, res) => {
     version:
       process.env.RAILWAY_GIT_COMMIT_SHA ||
       process.env.APP_VERSION ||
-      'dev-local'
+      '1.0.2'
   });
 });
 
