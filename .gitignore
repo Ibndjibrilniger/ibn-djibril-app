@@ -21,3 +21,8 @@ starlink-*.pdf
 public/uploads/*
 !public/uploads/.gitkeep
 admin-hash.txt
+
+# Sauvegardes locales additionnelles
+backup-pwa-*/
+*.backup*
+*.backup-*
