@@ -438,6 +438,8 @@ app.post('/api/admin/prices/:id', requireAdmin, (req, res) => {
   }
 });
 
+const { initDb } = require('./init-db');
+
 require('./product-admin-routes')(app, requireAdmin);
 
 app.get('/api/app-version', (req, res) => {
@@ -457,6 +459,14 @@ app.use(
     path.join(__dirname, 'public')
   )
 );
+
+
+/* ===== INITIALISATION POSTGRESQL ===== */
+if (process.env.DATABASE_URL) {
+  initDb().catch(err => {
+    console.error('❌ Initialisation PostgreSQL :', err);
+  });
+}
 
 app.listen(PORT, HOST, () => {
   console.log('');
