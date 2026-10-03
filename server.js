@@ -1,3 +1,5 @@
+const { initDb } = require('./init-db');
+const { pool } = require('./db');
 'use strict';
 
 require('dotenv').config();
