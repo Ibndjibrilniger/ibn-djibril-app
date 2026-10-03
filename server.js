@@ -343,102 +343,200 @@ app.post('/api/admin/change-password', requireAdmin, async (req, res) => {
 
 /* ---------- API PRIVÉE DES PRIX ---------- */
 
-app.get('/api/admin/prices', requireAdmin, (req, res) => {
-  try {
-    res.json({
-      ok: true,
-      prices: loadPrices()
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({
-      ok: false,
-      error: 'Impossible de lire les prix.'
-    });
+/*
+ * PostgreSQL est la source principale sur Railway.
+ * En local, sans DATABASE_URL, l'application continue
+ * automatiquement avec les fichiers JSON.
+ */
+
+async function readPricesStore() {
+  if (!process.env.DATABASE_URL) {
+    return loadPrices();
   }
-});
 
-app.post('/api/admin/prices/:id', requireAdmin, (req, res) => {
-  try {
-    const id = String(req.params.id || '');
+  const result = await pool.query(
+    'SELECT id, value, label FROM prices ORDER BY id'
+  );
 
-    if (!/^[a-z0-9-]+$/i.test(id)) {
-      return res.status(400).json({
-        ok: false,
-        error: 'Identifiant produit invalide.'
-      });
-    }
+  const prices = {};
 
+  for (const row of result.rows) {
+    prices[row.id] = {
+      value: row.value === null ? null : Number(row.value),
+      label: String(row.label || '')
+    };
+  }
+
+  return prices;
+}
+
+async function writePriceStore(id, price) {
+  if (!process.env.DATABASE_URL) {
     const prices = loadPrices();
 
-    if (!Object.prototype.hasOwnProperty.call(prices, id)) {
-      return res.status(404).json({
-        ok: false,
-        error: 'Produit introuvable.'
-      });
-    }
-
-    const negotiable =
-      req.body.negotiable === true ||
-      req.body.negotiable === 'true';
-
-    if (negotiable) {
-      prices[id] = {
-        value: null,
-        label: 'Prix à discuter'
-      };
-    } else {
-      const value = Number(req.body.value);
-
-      if (
-        !Number.isInteger(value) ||
-        value < 0 ||
-        value > 1000000000
-      ) {
-        return res.status(400).json({
-          ok: false,
-          error: 'Prix incorrect.'
-        });
-      }
-
-      let label = String(req.body.label || '').trim();
-
-      if (!label) {
-        label = formatPrice(value);
-      }
-
-      if (label.length > 80) {
-        return res.status(400).json({
-          ok: false,
-          error: 'Libellé trop long.'
-        });
-      }
-
-      prices[id] = {
-        value,
-        label
-      };
-    }
+    prices[id] = price;
 
     savePrices(prices);
 
-    res.json({
-      ok: true,
-      id,
-      price: prices[id]
-    });
-
-  } catch (err) {
-    console.error(err);
-
-    res.status(500).json({
-      ok: false,
-      error: 'Impossible d’enregistrer le prix.'
-    });
+    return price;
   }
-});
 
-const { initDb } = require('./init-db');
+  const result = await pool.query(
+    'INSERT INTO prices (id, value, label) VALUES ($1, $2, $3) ON CONFLICT (id) DO UPDATE SET value = EXCLUDED.value, label = EXCLUDED.label, updated_at = NOW() RETURNING id, value, label',
+    [
+      id,
+      price.value,
+      price.label
+    ]
+  );
+
+  const row = result.rows[0];
+
+  return {
+    value: row.value === null ? null : Number(row.value),
+    label: String(row.label || '')
+  };
+}
+
+async function syncPriceFilesFromDb() {
+  if (!process.env.DATABASE_URL) {
+    return;
+  }
+
+  const prices = await readPricesStore();
+
+  savePrices(prices);
+
+  console.log(
+    '✅ ' +
+    Object.keys(prices).length +
+    ' prix synchronisés depuis PostgreSQL.'
+  );
+}
+
+app.get(
+  '/api/admin/prices',
+  requireAdmin,
+  async (req, res) => {
+    try {
+      const prices = await readPricesStore();
+
+      res.json({
+        ok: true,
+        prices
+      });
+    } catch (err) {
+      console.error('READ_PRICES_ERROR', err);
+
+      res.status(500).json({
+        ok: false,
+        error: 'Impossible de lire les prix.'
+      });
+    }
+  }
+);
+
+app.post(
+  '/api/admin/prices/:id',
+  requireAdmin,
+  async (req, res) => {
+    try {
+      const id = String(req.params.id || '');
+
+      if (!/^[a-z0-9-]+$/i.test(id)) {
+        return res.status(400).json({
+          ok: false,
+          error: 'Identifiant produit invalide.'
+        });
+      }
+
+      const currentPrices = await readPricesStore();
+
+      if (
+        !Object.prototype.hasOwnProperty.call(
+          currentPrices,
+          id
+        )
+      ) {
+        return res.status(404).json({
+          ok: false,
+          error: 'Produit introuvable.'
+        });
+      }
+
+      const negotiable =
+        req.body.negotiable === true ||
+        req.body.negotiable === 'true';
+
+      let price;
+
+      if (negotiable) {
+        price = {
+          value: null,
+          label: 'Prix à discuter'
+        };
+      } else {
+        const value = Number(req.body.value);
+
+        if (
+          !Number.isInteger(value) ||
+          value < 0 ||
+          value > 1000000000
+        ) {
+          return res.status(400).json({
+            ok: false,
+            error: 'Prix incorrect.'
+          });
+        }
+
+        let label =
+          String(req.body.label || '').trim();
+
+        if (!label) {
+          label = formatPrice(value);
+        }
+
+        if (label.length > 80) {
+          return res.status(400).json({
+            ok: false,
+            error: 'Libellé trop long.'
+          });
+        }
+
+        price = {
+          value,
+          label
+        };
+      }
+
+      const savedPrice =
+        await writePriceStore(id, price);
+
+      /*
+       * Sur Railway, on garde également les fichiers publics
+       * synchronisés afin que le catalogue affiche immédiatement
+       * le nouveau prix.
+       */
+      if (process.env.DATABASE_URL) {
+        await syncPriceFilesFromDb();
+      }
+
+      res.json({
+        ok: true,
+        id,
+        price: savedPrice
+      });
+    } catch (err) {
+      console.error('SAVE_PRICE_ERROR', err);
+
+      res.status(500).json({
+        ok: false,
+        error: 'Impossible d’enregistrer le prix.'
+      });
+    }
+  }
+);
+
 
 require('./product-admin-routes')(app, requireAdmin);
 
@@ -463,7 +561,7 @@ app.use(
 
 /* ===== INITIALISATION POSTGRESQL ===== */
 if (process.env.DATABASE_URL) {
-  initDb().catch(err => {
+  initDb().then(syncPriceFilesFromDb).catch(err => {
     console.error('❌ Initialisation PostgreSQL :', err);
   });
 }
