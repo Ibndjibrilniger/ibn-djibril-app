@@ -66,72 +66,225 @@
   }
 
   function openTransferSheet() {
-    let overlay = $("#ibn-transfer-sheet-overlay");
-    if (!overlay) {
-      overlay = document.createElement("div");
-      overlay.id = "ibn-transfer-sheet-overlay";
-      overlay.className = "ibn-transfer-sheet-overlay";
-      overlay.innerHTML = `
-        <div class="ibn-transfer-sheet" role="dialog" aria-modal="true" aria-labelledby="ibn-transfer-sheet-title">
-          <button class="ibn-transfer-sheet-close" type="button" aria-label="Fermer">×</button>
-          <img class="ibn-transfer-sheet-logo"
-               src="/media/products/catalogue/transfert-money-logo.png?v=20260923"
-               alt="Services de transfert">
-          <div class="ibn-transfer-sheet-content">
-            <div class="ibn-cat-kicker">SERVICE PRIORITAIRE</div>
-            <h2 id="ibn-transfer-sheet-title">Services de transfert d’argent</h2>
-            <div class="ibn-currency-row ibn-currency-row-detail">
-              <span>FCFA</span><span>₦ Naira</span><span>$ Dollar</span>
-            </div>
+  let overlay = $("#ibn-transfer-sheet-overlay");
 
-            <div class="ibn-transfer-detail-grid">
-              <section>
-                <h3>🇳🇪 Niger — Dépôts, retraits & transferts</h3>
-                <p>NITA • MyNITA • Amana • Airtel Money • Zamani Cash • Moov Flooz • Moni Fusion</p>
-              </section>
-              <section>
-                <h3>🌍 Transferts internationaux</h3>
-                <p>Envoi et réception d’argent • services internationaux • Mobile Money selon disponibilité.</p>
-              </section>
-              <section>
-                <h3>🇳🇬 POS Nigeria</h3>
-                <p>POS • Dépôt • Retrait • Change FCFA ⇄ Naira.</p>
-              </section>
-              <section>
-                <h3>🌍 Mobile Money Afrique de l’Ouest</h3>
-                <p>MTN MoMo Ghana • MTN MoMo Bénin • Moov Money • Celtis Money • Orange Money • MoMo Togo, selon disponibilité.</p>
-              </section>
-              <section>
-                <h3>💳 Visa & Mastercard</h3>
-                <p>Assistance à la création, activation et recharge de cartes virtuelles pour les paiements en ligne.</p>
-              </section>
-              <section>
-                <h3>₿ USDT & services numériques</h3>
-                <p>USDT • Binance • paiements et solutions numériques selon disponibilité.</p>
-              </section>
-            </div>
+  const financeData = {
+    Niger: {
+      flag: "🇳🇪",
+      description: "Choisissez un service financier disponible au Niger.",
+      services: [
+        ["MyNITA", "https://www.nitatransfert.com/"],
+        ["AMANATA", "https://play.google.com/store/apps/details?id=com.iisoft.tm.appamana"],
+        ["Airtel Money", "https://www.airtel.africa/mobile-money"],
+        ["Moov Flooz", "https://www.moov-africa.ne/"],
+        ["Wave", "https://www.wave.com/"],
+        ["Orange Money", "https://www.orange.ne/"],
+        ["Coris Money", "https://www.corisbank.com/"],
+        ["Zamani Cash", "https://zamanitelecom.net/zamani-cash"]
+      ]
+    },
 
-            <div class="ibn-transfer-contact">
-              <strong>Contact</strong>
-              <div>+227 96 78 48 70</div>
-              <div>+227 91 44 51 87</div>
-            </div>
+    Benin: {
+      flag: "🇧🇯",
+      description: "Choisissez un service financier disponible au Bénin.",
+      services: [
+        ["MTN MoMo", "https://www.mtn.bj/momo/"],
+        ["Moov Money", "https://www.moov-africa.bj/"],
+        ["Celtiis Cash", "https://www.celtiis.bj/celtiis-cash"],
+        ["B-MO", "https://bmo.bj/"],
+        ["MyNITA", "https://www.nitatransfert.com/services/transfert-argent/"]
+      ]
+    },
+
+    Nigeria: {
+      flag: "🇳🇬",
+      description: "Choisissez un service financier disponible au Nigeria.",
+      services: [
+        ["UBA", "https://www.ubagroup.com/"],
+        ["FirstBank", "https://www.firstbanknigeria.com/"],
+        ["Zenith Bank", "https://www.zenithbank.com/"],
+        ["Union Bank", "https://www.unionbankng.com/"],
+        ["Access Bank", "https://www.accessbankplc.com/"],
+        ["GTCO", "https://www.gtbank.com/"],
+        ["Monnify", "https://monnify.com/"]
+      ]
+    },
+
+    Ghana: {
+      flag: "🇬🇭",
+      description: "Choisissez un service financier disponible au Ghana.",
+      services: [
+        ["MTN MoMo", "https://mtn.com.gh/momo/"],
+        ["Telecel Cash", "https://telecel.com.gh/personal/telecel-cash/"]
+      ]
+    },
+
+    International: {
+      flag: "🌐",
+      description: "Services de transfert d’argent internationaux.",
+      services: [
+        ["MoneyGram", "https://www.moneygram.com/"],
+        ["Ria", "https://www.riamoneytransfer.com/"],
+        ["MoneyFusion", "https://moneyfusion.net/"],
+        ["NITA", "https://www.nitatransfert.com/"]
+      ]
+    },
+
+    Crypto: {
+      flag: "₿",
+      description: "Services crypto et transactions USDT.",
+      services: [
+        ["Binance / USDT", "https://www.binance.com/"]
+      ]
+    }
+  };
+
+  if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.id = "ibn-transfer-sheet-overlay";
+    overlay.className = "ibn-transfer-sheet-overlay";
+
+    overlay.innerHTML = `
+      <div class="ibn-transfer-sheet" role="dialog" aria-modal="true">
+        <button class="ibn-transfer-sheet-close" type="button" aria-label="Fermer">×</button>
+
+        <div class="ibn-transfer-sheet-content" style="padding:20px;">
+          <div style="
+            background:linear-gradient(135deg,#008751,#0503d3);
+            color:#fff;
+            padding:20px;
+            border-radius:20px;
+            text-align:center;
+            margin-bottom:16px;
+          ">
+            <div style="font-size:34px;">💸</div>
+            <h2 id="ibn-finance-title" style="margin:6px 0;">
+              Transferts & Services financiers
+            </h2>
+            <p id="ibn-finance-description" style="margin:0;">
+              Choisissez votre pays pour accéder aux services financiers disponibles.
+            </p>
+          </div>
+
+          <div id="ibn-finance-tabs" style="
+            display:grid;
+            grid-template-columns:repeat(2,minmax(0,1fr));
+            gap:8px;
+            margin-bottom:16px;
+          "></div>
+
+          <div id="ibn-finance-services" style="
+            display:grid;
+            grid-template-columns:repeat(2,minmax(0,1fr));
+            gap:10px;
+          "></div>
+
+          <div style="
+            margin-top:18px;
+            padding:12px;
+            border-radius:12px;
+            background:#f4f4f4;
+            text-align:center;
+            font-size:13px;
+          ">
+            🔒 Ibn_Djibril Niger Tech ne demande jamais votre mot de passe,
+            code PIN ou code OTP.
           </div>
         </div>
-      `;
-      document.body.appendChild(overlay);
+      </div>
+    `;
 
-      $(".ibn-transfer-sheet-close", overlay).addEventListener("click", closeTransferSheet);
-      overlay.addEventListener("click", e => {
-        if (e.target === overlay) closeTransferSheet();
-      });
-      document.addEventListener("keydown", e => {
-        if (e.key === "Escape" && overlay.classList.contains("is-open")) closeTransferSheet();
-      });
-    }
-    overlay.classList.add("is-open");
-    document.body.classList.add("ibn-no-scroll");
+    document.body.appendChild(overlay);
+
+    $(".ibn-transfer-sheet-close", overlay).addEventListener(
+      "click",
+      closeTransferSheet
+    );
+
+    overlay.addEventListener("click", e => {
+      if (e.target === overlay) closeTransferSheet();
+    });
   }
+
+  const tabs = [
+    ["Niger", "🇳🇪 Niger"],
+    ["Benin", "🇧🇯 Bénin"],
+    ["Nigeria", "🇳🇬 Nigeria"],
+    ["Ghana", "🇬🇭 Ghana"],
+    ["International", "🌐 International"],
+    ["Crypto", "₿ Crypto / USDT"]
+  ];
+
+  function renderFinance(country) {
+    const data = financeData[country];
+    if (!data) return;
+
+    $("#ibn-finance-title", overlay).textContent =
+      data.flag + " " + country;
+
+    $("#ibn-finance-description", overlay).textContent =
+      data.description;
+
+    $("#ibn-finance-tabs", overlay).innerHTML =
+      tabs.map(([key, label]) => `
+        <button
+          type="button"
+          data-country="${key}"
+          style="
+            border:0;
+            padding:10px 6px;
+            border-radius:12px;
+            background:${key === country ? "#008751" : "#eeeeee"};
+            color:${key === country ? "#fff" : "#222"};
+            font-weight:700;
+            cursor:pointer;
+          "
+        >
+          ${label}
+        </button>
+      `).join("");
+
+    $("#ibn-finance-services", overlay).innerHTML =
+      data.services.map(([name, url]) => `
+        <div style="
+          padding:14px;
+          border:1px solid #e5e5e5;
+          border-radius:14px;
+          background:#fff;
+          box-shadow:0 4px 12px rgba(0,0,0,.06);
+        ">
+          <strong style="display:block;margin-bottom:8px;">
+            ${name}
+          </strong>
+
+          <a
+            href="${url}"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="
+              display:inline-block;
+              text-decoration:none;
+              font-weight:700;
+              color:#008751;
+            "
+          >
+            🔗 Accéder
+          </a>
+        </div>
+      `).join("");
+
+    $$("[data-country]", overlay).forEach(button => {
+      button.addEventListener("click", () => {
+        renderFinance(button.dataset.country);
+      });
+    });
+  }
+
+  renderFinance("Niger");
+
+  overlay.classList.add("is-open");
+  document.body.classList.add("ibn-no-scroll");
+}
 
   function closeTransferSheet() {
     const overlay = $("#ibn-transfer-sheet-overlay");
