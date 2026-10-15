@@ -5,13 +5,6 @@
   const $$ = (s, root=document) => [...root.querySelectorAll(s)];
   const norm = s => (s || "").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
 
-  function findTransferServiceCard() {
-    return $$(".service").find(card => {
-      const h = $("h3", card);
-      return h && norm(h.textContent).includes("services de transfert");
-    }) || null;
-  }
-
   function findPhoneAccessoriesCard() {
     return $$(".service").find(card => {
       const h = $("h3", card);
@@ -54,7 +47,7 @@
     if (first) grid.insertBefore(card, first);
     else grid.appendChild(card);
 
-    const open = () => openTransferSheet();
+    const open = () => window.openTransferSheet();
     card.addEventListener("click", open);
     card.addEventListener("keydown", e => {
       if (e.key === "Enter" || e.key === " ") {
@@ -145,7 +138,7 @@
     overlay.className = "ibn-transfer-sheet-overlay";
 
     overlay.innerHTML = `
-      <div class="ibn-transfer-sheet" role="dialog" aria-modal="true">
+      <div class="ibn-transfer-sheet" role="dialog" aria-modal="true" aria-labelledby="ibn-finance-title">
         <button class="ibn-transfer-sheet-close" type="button" aria-label="Fermer">×</button>
 
         <div class="ibn-transfer-sheet-content" style="padding:20px;">
@@ -282,6 +275,8 @@
 
   renderFinance("Niger");
 
+  const detail = $("#service-detail");
+  if (detail) detail.style.display = "none";
   overlay.classList.add("is-open");
   document.body.classList.add("ibn-no-scroll");
 }
@@ -291,6 +286,10 @@ window.openTransferSheet = openTransferSheet;
     if (overlay) overlay.classList.remove("is-open");
     document.body.classList.remove("ibn-no-scroll");
   }
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") closeTransferSheet();
+  });
 
   function reorderMain() {
     const main = $("main");
@@ -330,6 +329,8 @@ window.openTransferSheet = openTransferSheet;
   }
 
   function run() {
+    // The dashboard shares the finance dialog, not the homepage layout.
+    if (!$(".services")) return;
     let tries = 0;
     const attempt = () => {
       tries++;

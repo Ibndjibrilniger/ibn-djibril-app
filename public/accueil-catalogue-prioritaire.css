@@ -84,13 +84,6 @@
   font-size:27px;
   line-height:1;
 }
-.ibn-transfer-sheet-logo{
-  width:100%;
-  max-height:360px;
-  object-fit:contain;
-  padding:10px;
-  background:radial-gradient(circle at center,#0c4b30 0,#052f22 68%,#031f17 100%);
-}
 .ibn-transfer-sheet-content{padding:20px}
 .ibn-transfer-sheet-content h2{
   margin:3px 0 8px;
@@ -98,36 +91,6 @@
   line-height:1.08;
   letter-spacing:-.03em;
 }
-.ibn-currency-row-detail{margin:12px 0 16px}
-.ibn-transfer-detail-grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:12px;
-}
-.ibn-transfer-detail-grid section{
-  padding:15px;
-  border:1px solid #e3ebe7;
-  border-radius:16px;
-  background:#fbfdfc;
-}
-.ibn-transfer-detail-grid h3{
-  margin:0 0 7px;
-  font-size:16px;
-}
-.ibn-transfer-detail-grid p{
-  margin:0;
-  color:#596760;
-  font-size:14px;
-}
-.ibn-transfer-contact{
-  margin-top:16px;
-  padding:15px;
-  border-radius:16px;
-  color:#fff;
-  text-align:center;
-  background:linear-gradient(135deg,#008751,#05603d);
-}
-.ibn-transfer-contact strong{display:block;margin-bottom:4px;font-size:17px}
 
 #products{
   margin-top:24px!important;
@@ -163,7 +126,5 @@
 
 @media(max-width:700px){
   .ibn-transfer-logo{height:250px!important}
-  .ibn-transfer-detail-grid{grid-template-columns:1fr}
   .ibn-transfer-sheet{max-height:94vh}
-  .ibn-transfer-sheet-logo{max-height:310px}
 }

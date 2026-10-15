@@ -225,7 +225,7 @@
     }
 
     try {
-      await navigator
+      const registration = await navigator
         .serviceWorker
         .register(
           "/sw.js",
@@ -233,6 +233,7 @@
             updateViaCache: "none"
           }
         );
+      await registration.update();
     } catch (err) {
       console.warn(
         "Service Worker:",
