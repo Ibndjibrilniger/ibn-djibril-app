@@ -285,7 +285,7 @@
   overlay.classList.add("is-open");
   document.body.classList.add("ibn-no-scroll");
 }
-
+window.openTransferSheet = openTransferSheet;
   function closeTransferSheet() {
     const overlay = $("#ibn-transfer-sheet-overlay");
     if (overlay) overlay.classList.remove("is-open");
