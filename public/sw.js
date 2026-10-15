@@ -1,4 +1,4 @@
-const CACHE = "ibn-djibril-v2";
+const CACHE = "ibn-djibril-v3";
 
 const ASSETS = [
   "/",
