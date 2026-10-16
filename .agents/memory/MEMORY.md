@@ -3,3 +3,4 @@
 - [Build portability](build-portability.md) — Replit can write internal registry URLs into npm lockfiles; keep committed public dependencies reachable by Railway.
 - [Browser test resources](browser-test-resources.md) — run browser-heavy suites sequentially; concurrent screenshots can produce false timeouts.
 - [Audio generation limits](audio-generation-limits.md) — avoid request bursts; inspect individual jobs and never regenerate paid successes after a mixed batch failure.
+- [Approved video style](brand-video-style.md) — user approved the two-minute institutional montage; keep equipment-linked explanations and preserve male versions when adding female narration.
