@@ -103,8 +103,7 @@
 }
 </style>
   <link rel="stylesheet" href="/marketplace-ultra.css?v=20260923">
-  <link rel="stylesheet" href="/accueil-catalogue-prioritaire.css?v=20260923">
-  <script src="/accueil-catalogue-prioritaire.js?v=20260923" defer></script>
+  <link rel="stylesheet" href="/accueil-catalogue-prioritaire.css?v=20261016-finance3">
   <link rel="stylesheet" href="/install-pwa-pro.css?v=20260923">
   <script src="/install-pwa-pro.js?v=20260925-install2" defer></script>
 </head>
@@ -184,6 +183,11 @@
 <script>
 function showService(el) {
   const titre = el.querySelector("h3").innerText;
+  if (titre.includes("Services de transfert")) {
+    window.openTransferSheet();
+    return;
+  }
+
   const clone = el.cloneNode(true);
   clone.removeAttribute("onclick");
   const h3 = clone.querySelector("h3");
@@ -191,19 +195,8 @@ function showService(el) {
 
   document.getElementById("detail-title").innerText = titre;
   document.getElementById("detail-text").innerHTML = clone.innerHTML;
-if (title.includes("Services de transfert")) {
-  if (typeof openTransferSheet === "function") {
-    openTransferSheet();
-    return;
-  }
-}
-
   const actions = document.getElementById("detail-actions");
-  if (titre.includes("Services de transfert")) {
-    actions.innerHTML = `<h3 style="text-align:center;margin:20px 0 12px;">Choisissez votre moyen de contact</h3><div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;"><a href="https://wa.me/22796784870" target="_blank" rel="noopener noreferrer" style="background:#008751;color:white;text-decoration:none;border-radius:12px;font-weight:bold;">💬 WhatsApp</a><a href="tg://resolve?phone=22791445187" style="background:#168aad;color:white;text-decoration:none;border-radius:12px;font-weight:bold;">✈️ Telegram</a><a href="https://www.facebook.com/share/1E6ZdUkV6J/" target="_blank" rel="noopener noreferrer" style="background:#1877F2;color:white;text-decoration:none;border-radius:12px;padding:12px 18px;font-weight:bold;">🔵 Facebook</a><a href="sms:+22796784870" style="background:#6C63FF;color:white;text-decoration:none;border-radius:12px;padding:12px 18px;font-weight:bold;">✉️ SMS</a><a href="tel:+22791445187" style="background:#008751;color:white;text-decoration:none;border-radius:12px;font-weight:bold;">📞 Appel</a></div>`;
-  } else {
-    actions.innerHTML = "";
-  }
+  actions.innerHTML = "";
 
   const detail = document.getElementById("service-detail");
   detail.style.display = "block";
@@ -217,8 +210,8 @@ if (title.includes("Services de transfert")) {
 <script src="/countries.js?v=20260925b"></script>
 <script src="/panier.js?v=20260925b" defer></script>
 <script src="/boutique-location.js?v=20260925b" defer></script>
-<script src="/accueil-catalogue-prioritaire.js?v=20261015-finance2" defer></script>
+<script src="/accueil-catalogue-prioritaire.js?v=20261016-finance3" defer></script>
   <script src="/admin-access.js?v=20260925" defer></script>
-<script src="/pwa-update.js?v=20260925-update1" defer></script>
+<script src="/pwa-update.js?v=20261016-finance3" defer></script>
 </body>
 </html>

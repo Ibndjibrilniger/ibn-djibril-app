@@ -1,0 +1,1 @@
+- [Product scope](product-scope.md) — Al Izza must remain excluded; preserve the imported app and Railway production setup.

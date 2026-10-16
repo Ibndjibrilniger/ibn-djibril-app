@@ -1,4 +1,5 @@
-const CACHE = "ibn-djibril-v4";
+// Changing this release also triggers an update for existing PWA clients.
+const RELEASE = "20261016-finance3";
 
 self.addEventListener("install", event => {
   event.waitUntil(
@@ -27,8 +28,10 @@ self.addEventListener("fetch", event => {
 
   const url = new URL(event.request.url);
 
-  // Ne jamais mettre en cache le Service Worker ni les API
+  // HTML and executable assets must never fall back to an old cached interface.
   if (
+    event.request.mode === "navigate" ||
+    /\.(?:html|js|css)$/.test(url.pathname) ||
     url.pathname === "/sw.js" ||
     url.pathname.startsWith("/api/")
   ) {

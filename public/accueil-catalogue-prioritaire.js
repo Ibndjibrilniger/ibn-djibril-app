@@ -65,7 +65,10 @@
     return true;
   }
 
+  let transferTrigger = null;
+
   function openTransferSheet() {
+  transferTrigger = document.activeElement;
   let overlay = $("#ibn-transfer-sheet-overlay");
 
   const financeData = {
@@ -145,7 +148,7 @@
     overlay.className = "ibn-transfer-sheet-overlay";
 
     overlay.innerHTML = `
-      <div class="ibn-transfer-sheet" role="dialog" aria-modal="true">
+      <div class="ibn-transfer-sheet" role="dialog" aria-modal="true" aria-labelledby="ibn-finance-title">
         <button class="ibn-transfer-sheet-close" type="button" aria-label="Fermer">×</button>
 
         <div class="ibn-transfer-sheet-content" style="padding:20px;">
@@ -203,6 +206,20 @@
 
     overlay.addEventListener("click", e => {
       if (e.target === overlay) closeTransferSheet();
+    });
+
+    overlay.addEventListener("keydown", e => {
+      if (e.key !== "Tab") return;
+      const controls = $$("button, a[href]", overlay);
+      const first = controls[0];
+      const last = controls[controls.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     });
   }
 
@@ -284,13 +301,20 @@
 
   overlay.classList.add("is-open");
   document.body.classList.add("ibn-no-scroll");
+  $(".ibn-transfer-sheet-close", overlay).focus();
 }
 window.openTransferSheet = openTransferSheet;
   function closeTransferSheet() {
     const overlay = $("#ibn-transfer-sheet-overlay");
-    if (overlay) overlay.classList.remove("is-open");
+    if (!overlay || !overlay.classList.contains("is-open")) return;
+    overlay.classList.remove("is-open");
     document.body.classList.remove("ibn-no-scroll");
+    if (transferTrigger && transferTrigger.isConnected) transferTrigger.focus();
   }
+
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") closeTransferSheet();
+  });
 
   function reorderMain() {
     const main = $("main");
@@ -330,6 +354,8 @@ window.openTransferSheet = openTransferSheet;
   }
 
   function run() {
+    // Dashboard shares the finance sheet, not the homepage catalogue layout.
+    if (!$(".services")) return;
     let tries = 0;
     const attempt = () => {
       tries++;

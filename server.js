@@ -556,7 +556,15 @@ app.get('/api/app-version', (req, res) => {
 
 app.use(
   express.static(
-    path.join(__dirname, 'public')
+    path.join(__dirname, 'public'),
+    {
+      setHeaders(res, filePath) {
+        // Revalidate pages, worker and executable assets after each release.
+        if (/\.(?:html|js|css)$/.test(filePath)) {
+          res.setHeader('Cache-Control', 'no-store');
+        }
+      }
+    }
   )
 );
 
