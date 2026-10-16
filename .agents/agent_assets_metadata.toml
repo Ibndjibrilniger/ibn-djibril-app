@@ -14,3 +14,141 @@ mtime_ms = 1792139242267
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/38976f9a-d9e3-4fb2-987a-75d545dda7b6/b2057444-dbf8-47c9-8f40-0e6e97ac30eb"
 storage_version_token = "1792139251284406"
 content_type = "text/markdown"
+
+[[outputs]]
+id = "JSbJbsOeP3_vl2FHWmjIa"
+uri = "file://generated-artifacts/video-institutionnelle/audio/phones.mp3"
+type = "audio"
+title = "Ibn Djibril narration phones"
+description = "Text-to-speech audio: Retrouvez aussi nos téléphones et accessoires : smartphones, téléphones à boutons, chargeurs, écouteurs, câbles, batteries externes, protections et cartes mémoire. Prix à discut…"
+logical_id = "0d9bb401-2a71-4a21-bcbe-9a7d0a0c4bd3"
+
+[[outputs]]
+id = "17u9yPkrFMr7mPebp16NU"
+uri = "file://generated-artifacts/video-institutionnelle/audio/intro.mp3"
+type = "audio"
+title = "Ibn Djibril narration intro"
+description = "Text-to-speech audio: Bienvenue chez Ibn Djibril Niger Tech, votre partenaire technologique au Niger. Nous mettons la compétence et l'engagement au service de vos ambitions."
+logical_id = "b0af40c6-9fea-48bf-8f6d-a4c29ff2cdf7"
+
+[[outputs]]
+id = "e5Q8UvGauCzMJJu1m_6W8"
+uri = "file://generated-artifacts/video-institutionnelle/audio/wifi.mp3"
+type = "audio"
+title = "Ibn Djibril narration wifi"
+description = "Text-to-speech audio: Pour votre Wi-Fi Zone, nous configurons les portails captifs, les tickets Internet, les abonnés et la bande passante. Notre assistance vous accompagne au quotidien."
+logical_id = "660070ec-7a51-48c5-aefe-3a127ab1de35"
+
+[[outputs]]
+id = "K-kpCUiJqoNSaf5n-Mudt"
+uri = "file://generated-artifacts/video-institutionnelle/audio/starlink.mp3"
+type = "audio"
+title = "Ibn Djibril narration starlink"
+description = "Text-to-speech audio: Avec Starlink Mini et Standard, découvrez nos solutions Internet par satellite. De l'installation à la mise en service, nous vous accompagnons pour connecter vos activités."
+logical_id = "08bb2603-f62a-4b24-8751-801ce03ae3d9"
+
+[[outputs]]
+id = "Uuej-pkGn3H28xksCtljG"
+uri = "file://generated-artifacts/video-institutionnelle/audio/finance_a.mp3"
+type = "audio"
+title = "Ibn Djibril narration finance_a"
+description = "Text-to-speech audio: Notre catalogue présente également des services financiers au Niger, au Bénin, au Nigeria et au Ghana, ainsi que des services internationaux et des solutions numériques."
+logical_id = "efbf796c-b7fc-44cf-9675-9322c0c4df4b"
+
+[[outputs]]
+id = "EUnxvvnB04mbmAv3ixbf_"
+uri = "file://generated-artifacts/video-institutionnelle/audio/maintenance.mp3"
+type = "audio"
+title = "Ibn Djibril narration maintenance"
+description = "Text-to-speech audio: Maintenance informatique, dépannage réseau et assistance technique : nous accompagnons les professionnels comme les particuliers, avec sérieux et proximité."
+logical_id = "9c932fcc-7ae4-4e55-a127-6098b3ffbc68"
+
+[[outputs]]
+id = "0DF62mNz4Q4dhaF8OaNKD"
+uri = "file://generated-artifacts/video-institutionnelle/audio/network.mp3"
+type = "audio"
+title = "Ibn Djibril narration network"
+description = "Text-to-speech audio: Antennes Grandstream et Wavlink, équipements Cudy, Ubiquiti LiteBeam, câbles réseau et accessoires P O E : étendez votre couverture, reliez vos sites et construisez un réseau pr…"
+logical_id = "7339f34f-ecdc-4c41-b883-3c4cf7ef0332"
+
+[[outputs]]
+id = "6omG9OKbNY0fJZMDoSfg6"
+uri = "file://generated-artifacts/video-institutionnelle/audio/finance_b.mp3"
+type = "audio"
+title = "Ibn Djibril narration finance_b"
+description = "Text-to-speech audio: MyNITA, Airtel Money, Wave, MoneyGram, Ria, Binance et U S D T : contactez-nous pour vous informer. Aucune transaction n'est exécutée dans l'application."
+logical_id = "c5c2c294-f844-48fd-911f-c7d9f31b0b1b"
+
+[[outputs]]
+id = "BcVdtsWp0aKY4lFh42vxm"
+uri = "file://generated-artifacts/video-institutionnelle/audio/permanent.mp3"
+type = "audio"
+title = "Ibn Djibril narration permanent"
+description = "Text-to-speech audio: Pour votre prochain équipement ou votre installation, échangeons sur vos besoins. Ensemble, construisons une connectivité adaptée à vos activités, avec un accompagnement attenti…"
+logical_id = "766f0e30-b8db-41ae-83cc-526ed8e1a523"
+
+[[outputs]]
+id = "tr1dRAdbRii639aJNQzUh"
+uri = "file://generated-artifacts/video-institutionnelle/audio/mikrotik.mp3"
+type = "audio"
+title = "Ibn Djibril narration mikrotik"
+description = "Text-to-speech audio: Découvrez nos routeurs MikroTik, du R B neuf cent cinquante et un aux H A P ax deux, ax trois et L zéro zéro neuf. Configuration, sécurisation des accès, gestion des utilisateur…"
+logical_id = "61de91e8-6d31-451f-948c-d9150326b598"
+
+[[outputs]]
+id = "adBvxMBrlDHkRHNrRE-Qb"
+uri = "file://generated-artifacts/video-institutionnelle/audio/friday.mp3"
+type = "audio"
+title = "Ibn Djibril narration friday"
+description = "Text-to-speech audio: En ce vendredi béni, meilleurs vœux à la communauté musulmane. Qu'Allah bénisse nos familles, accepte nos prières et accorde la réussite à nos projets. Joumou'a Moubarak !"
+logical_id = "5aed3f10-9705-42db-a8ff-eb0894ba4a2e"
+
+[[outputs]]
+id = "QUlPsgzrztYW3A-6m4Fan"
+uri = "file://generated-artifacts/video-institutionnelle/audio/closing.mp3"
+type = "audio"
+title = "Ibn Djibril narration closing"
+description = "Text-to-speech audio: Découvrez ibn djibril niger tech point com. Ibn Djibril Niger Tech. La technologie au service de vos ambitions. La confiance au cœur de nos engagements."
+logical_id = "5827fa58-8302-4032-8293-438d94597117"
+
+[[outputs]]
+id = "AtvOKnKmonhdKP_3y5IPV"
+uri = "file://generated-artifacts/video-institutionnelle/livraison/Ibn_Djibril_Niger_Tech_A_Vendredi_1080x1920.mp4"
+type = "video"
+title = "Version A — Spéciale vendredi · 2 min 00 s"
+description = "MP4 vertical 1080 × 1920, voix masculine française, sous-titres incrustés et séquence Joumou’a Moubarak. Sans musique. 16,35 Mo. Décodage intégral et lecture navigateur vérifiés."
+logical_id = "f58c3b62-d22b-40f7-a1ce-bbd066a6aa95"
+content_hash = "sha256:aa163e495f0f3ceef5e6656de14516e5bb23c77709045cd44e9e7a3edb1aeee6"
+size = 16353679
+mtime_ms = 1792140540659
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/f58c3b62-d22b-40f7-a1ce-bbd066a6aa95/a821474a-b2dd-4a86-9249-da17a3f36091"
+storage_version_token = "1792140710592573"
+content_type = "video/mp4"
+
+[[outputs]]
+id = "UAP5QP2wqXXhKnBbJoFkQ"
+uri = "file://generated-artifacts/video-institutionnelle/livraison/Ibn_Djibril_Niger_Tech_B_Institutionnelle_1080x1920.mp4"
+type = "video"
+title = "Version B — Institutionnelle permanente · 2 min 02 s"
+description = "MP4 vertical 1080 × 1920, voix masculine française, sous-titres incrustés et conclusion commerciale permanente. Sans musique. 16,53 Mo. Décodage intégral et lecture navigateur vérifiés."
+logical_id = "d709e2c8-bbc2-444d-a75d-0cb0a61a1cc1"
+content_hash = "sha256:77e61a289686e1f84c2a9a2ba60b24e8454f85c75893ea087fd750f7f5f80173"
+size = 16529507
+mtime_ms = 1792140561986
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/d709e2c8-bbc2-444d-a75d-0cb0a61a1cc1/1320c094-108b-438f-b3bd-3ec89419f5f3"
+storage_version_token = "1792140711653752"
+content_type = "video/mp4"
+
+[[outputs]]
+id = "R6kQsGqb6w3kYF3RKqjAP"
+uri = "file://generated-artifacts/video-institutionnelle/livraison/LISEZ-MOI.txt"
+type = "text"
+title = "Guide Android et rapport de vérification"
+description = "Téléchargement, partage WhatsApp, formats, contrôles effectués et limites : photos manquantes, absence d’écoute humaine et d’essai sur un téléphone physique."
+logical_id = "8852c7b2-9093-4111-b1f1-f06cd8a76ccb"
+content_hash = "sha256:b9e30e0ddf12e24602f7c740be800e2b31031934d5a554cf82630df724944ecc"
+size = 3696
+mtime_ms = 1792140634626
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/8852c7b2-9093-4111-b1f1-f06cd8a76ccb/efbe8301-ea27-4097-b274-3c0b159fb34c"
+storage_version_token = "1792140712276956"
+content_type = "text/plain"
