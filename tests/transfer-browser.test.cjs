@@ -83,9 +83,6 @@ test('homepage and dashboard use identical finance UI on desktop and mobile', { 
       const errors = [];
       page.on('pageerror', error => errors.push(error.message));
       page.on('console', message => {
-        // Existing missing favicon is unrelated to the transfer flow.
-        if (message.location().url.endsWith('/favicon.ico') &&
-            /404/.test(message.text())) return;
         if (message.type() === 'error') errors.push(`${message.text()} ${message.location().url}`);
       });
       for (const route of ['/', '/dashboard.html']) {

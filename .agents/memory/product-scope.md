@@ -14,3 +14,9 @@ Continue working on the existing imported application rather than rebuilding, re
 **Why:** The user explicitly requires targeted changes in the existing architecture and continuity of the production application.
 
 **How to apply:** Make the smallest safe changes, keep secrets and credentials untouched, and distinguish workspace verification from a production release.
+
+Railway deploys the repository's `main` branch automatically.
+
+**Why:** The user explicitly supplied this deployment behavior in their release instructions.
+
+**How to apply:** Treat a push to `main` as a production release, not merely a remote backup. Preserve the existing Railway setup and obtain explicit release authorization before pushing.

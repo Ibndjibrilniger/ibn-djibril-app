@@ -1,4 +1,5 @@
 node_modules/
+/attached_assets/
 backups/
 public-security-backup-*/
 .env

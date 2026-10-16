@@ -54,6 +54,8 @@ test('both pages load the same transfer script and stylesheet exactly once', () 
     assert.equal(styles.length, 1);
     assert.equal(styles[0][1].split('?')[1], version.split('?')[1]);
     assert.match(html, /window\.openTransferSheet\(\)/);
+    assert.match(html, /href="\/icons\/icon-192\.png"/);
+    assert.ok(fs.existsSync(path.join(root, 'public/icons/icon-192.png')));
   }
 });
 
