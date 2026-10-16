@@ -1,0 +1,16 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "-ouyrzCTynM-j8G6whMuB"
+uri = "file://generated-artifacts/video-institutionnelle/preproduction.md"
+type = "text"
+title = "Préparation des deux vidéos : textes et découpage"
+description = "Deux narrations d’environ 263 mots, inventaire des visuels réels et découpage prévu. Document préparatoire uniquement : aucun MP4 final ni voix payante générés."
+logical_id = "38976f9a-d9e3-4fb2-987a-75d545dda7b6"
+content_hash = "sha256:d67ca6ef27c928cd72a11221446dbc9f9233c3f82ce006aa3555ceed45645442"
+size = 9684
+mtime_ms = 1792139242267
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/38976f9a-d9e3-4fb2-987a-75d545dda7b6/b2057444-dbf8-47c9-8f40-0e6e97ac30eb"
+storage_version_token = "1792139251284406"
+content_type = "text/markdown"

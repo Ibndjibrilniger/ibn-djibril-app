@@ -9,6 +9,12 @@ Al Izza must remain excluded from finance/payment services.
 
 **How to apply:** Maintain the exclusion when changing financial service data, merging alternate interfaces, or importing older versions.
 
+Financial services in the application are a presentation/contact catalogue, not transactions executed in the app. Do not describe listed brands as official partners without evidence.
+
+**Why:** The user explicitly requires these factual boundaries in company communications.
+
+**How to apply:** Preserve this distinction in product copy, marketing videos, financial-service screens and claims of affiliation.
+
 Continue working on the existing imported application rather than rebuilding, replacing, restructuring, or migrating it. Preserve current business functionality and do not change Railway production configuration unless absolutely necessary.
 
 **Why:** The user explicitly requires targeted changes in the existing architecture and continuity of the production application.
