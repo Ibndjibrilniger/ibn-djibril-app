@@ -9,7 +9,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#008751">
-  <meta name="description" content="Ibn_Djibril Niger Tech - Services numériques, réseaux et télécommunications">
+  <meta name="description" content="Ibn_Djibril Niger Tech au Niger : équipements réseau, Starlink, téléphones et accessoires. Commande simple sur WhatsApp.">
   <title>Ibn_Djibril Niger Tech 🇳🇪</title>
 
   <style>
@@ -103,30 +103,36 @@
 #service-detail table{font-size:16px;min-width:680px!important}
 }
 </style>
-  <link rel="stylesheet" href="/marketplace-ultra.css?v=20260923">
-  <link rel="stylesheet" href="/accueil-catalogue-prioritaire.css?v=20261016-logos1">
+  <link rel="stylesheet" href="/accueil-catalogue-prioritaire.css?v=20261102-commerce1">
+  <link rel="stylesheet" href="/commerce-home.css?v=20261102-commerce1">
   <link rel="stylesheet" href="/install-pwa-pro.css?v=20260923">
   <script src="/install-pwa-pro.js?v=20260925-install2" defer></script>
+  <script src="/commerce-launch.js?v=20261102-commerce1" defer></script>
 </head>
 
 <body>
 
+  <div id="ibn-launch-splash" role="status" aria-live="polite" aria-label="Chargement de votre espace technologique">
+    <div class="ibn-splash-inner">
+      <img class="ibn-splash-logo" src="/icons/logo.png" alt="">
+      <h1 class="ibn-splash-brand">Ibn_Djibril Niger Tech 🇳🇪</h1>
+      <p class="ibn-splash-message">Chargement de votre espace technologique…</p>
+      <div class="ibn-splash-loader" aria-hidden="true"></div>
+    </div>
+  </div>
+
   <header>
-    <img src="/icons/logo.png" alt="Ibn_Djibril Niger Tech" style="width:180px;max-width:70%;height:auto;border-radius:20px;margin-bottom:15px;">
-    <h1>Ibn_Djibril Niger Tech 🇳🇪</h1>
-    <p>Solutions numériques • Réseaux • Télécommunications</p>
+    <img class="shop-brand-mark" src="/icons/logo.png" alt="Logo Ibn_Djibril Niger Tech" width="86" height="86">
+    <div class="shop-brand-copy">
+      <h1>Ibn_Djibril Niger Tech 🇳🇪</h1>
+      <p>Équipements réseau • Téléphones • Accessoires</p>
+      <p class="shop-local-note">Conseil et commande directe au Niger</p>
+    </div>
   </header>
 
   <main>
 
-    <section class="welcome">
-      <h2>Bienvenue 👋</h2>
-      <p>
-        Découvrez nos produits et services numériques,
-        informatiques et télécoms.
-      </p>
-    </section>
-
+    <template id="ibn-legacy-source">
     <section class="services">
 
       <div class="service" onclick="showService(this)">
@@ -164,10 +170,11 @@
 <div class="service" onclick="showService(this)"><h3>📱 Téléphones & Accessoires</h3><p>📱 Smartphones Android Tecno, Samsung et Itel<br>📞 Téléphones à boutons<br>📱 itel IT5606<br>🔌 Chargeurs Android et chargeurs rapides<br>⚡ Chargeurs et accessoires Oraimo<br>🎧 Écouteurs filaires et Bluetooth<br>🎧 Casques Bluetooth<br>🔗 Câbles USB, Type-C et câbles de recharge<br>🔋 Power banks<br>🔊 Haut-parleurs Bluetooth<br>📻 Radios<br>🛡️ Anti-chocs pour smartphones et téléphones à boutons<br>📱 Pochettes et étuis de protection<br>🪟 Protections écran<br>💾 Cartes mémoire et accessoires de stockage<br>🔌 Adaptateurs, multiprises, fils et câbles électriques<br><br><strong>💬 Tous les prix sont à discuter</strong></p></div>
 <div class="service" onclick="showService(this)"><h3>📶 Antennes & Accessoires réseau</h3><p>Solutions complètes Wi-Fi Business, antennes longue portée et accessoires réseau.</p><div style="overflow-x:auto;margin-top:15px;"><table style="width:100%;border-collapse:collapse;min-width:650px;"><thead><tr style="background:#008751;color:white;"><th style="padding:12px;border:1px solid #ddd;">Produit / Offre</th><th style="padding:12px;border:1px solid #ddd;">Détails</th><th style="padding:12px;border:1px solid #ddd;">Prix</th></tr></thead><tbody><tr><td style="padding:10px;border:1px solid #ddd;"><strong>🚀 Wi-Fi Business Pro</strong></td><td style="padding:10px;border:1px solid #ddd;">Starlink Standard + Grandstream AX6000 + MikroTik hAP ax3 + câblage + configuration + installation + abonnement initial</td><td style="padding:10px;border:1px solid #ddd;"><strong>590 000 FCFA</strong></td></tr><tr><td style="padding:10px;border:1px solid #ddd;"><strong>📡 Wi-Fi Business Mini</strong></td><td style="padding:10px;border:1px solid #ddd;">Starlink Mini V4 + équipements réseau + MikroTik + câblage + configuration + installation + abonnement initial</td><td style="padding:10px;border:1px solid #ddd;"><strong>520 000 FCFA</strong></td></tr><tr><td style="padding:10px;border:1px solid #ddd;">LiteBeam 5AC Gen2</td><td style="padding:10px;border:1px solid #ddd;">Antenne réseau longue portée</td><td style="padding:10px;border:1px solid #ddd;">85 000 FCFA / unité</td></tr><tr><td style="padding:10px;border:1px solid #ddd;">LiteBeam simple / Point-to-Point</td><td style="padding:10px;border:1px solid #ddd;">Liaison Point-to-Point</td><td style="padding:10px;border:1px solid #ddd;">60 000 FCFA / unité</td></tr><tr><td style="padding:10px;border:1px solid #ddd;">Wavlink</td><td style="padding:10px;border:1px solid #ddd;">Antenne Wi-Fi extérieure</td><td style="padding:10px;border:1px solid #ddd;">105 000 FCFA / unité</td></tr><tr><td style="padding:10px;border:1px solid #ddd;">COMFAST M5</td><td style="padding:10px;border:1px solid #ddd;">Antenne réseau sans fil</td><td style="padding:10px;border:1px solid #ddd;">35 000 FCFA / unité</td></tr><tr><td style="padding:10px;border:1px solid #ddd;">Câble réseau RJ45</td><td style="padding:10px;border:1px solid #ddd;">Câblage réseau</td><td style="padding:10px;border:1px solid #ddd;">300 FCFA / mètre</td></tr><tr><td style="padding:10px;border:1px solid #ddd;">Chargeur / Adaptateur PoE</td><td style="padding:10px;border:1px solid #ddd;">Alimentation pour antennes réseau</td><td style="padding:10px;border:1px solid #ddd;">12 000 FCFA</td></tr><tr><td style="padding:10px;border:1px solid #ddd;">Grandstream AX6000</td><td style="padding:10px;border:1px solid #ddd;">Équipement Wi-Fi professionnel</td><td style="padding:10px;border:1px solid #ddd;">Disponible sur demande</td></tr></tbody></table></div></div>
 </section>
+</template>
 <section id="contact" style="background:white;margin:20px;padding:20px;border-radius:18px;box-shadow:0 4px 18px rgba(0,0,0,.12);text-align:center;">
 <h2>📞 Contact</h2>
   <p style="text-align:center;font-size:20px;line-height:1.6;margin:8px 0 14px;"><strong>+227 96 78 48 70</strong><br><strong>+227 91 44 51 87</strong></p>
-<p>Contactez Ibn_Djibril Niger Tech 🇳🇪 pour vos besoins en Wi-Fi, réseaux, Starlink, téléphones et services numériques.</p>
+<p>Échangez directement avec Ibn_Djibril Niger Tech pour vos équipements réseau, téléphones et accessoires. Nous confirmons la disponibilité et les tarifs avant commande.</p>
 <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:18px;">
 <a href="https://wa.me/22796784870" style="padding:12px 18px;background:#008751;color:white;text-decoration:none;border-radius:12px;font-weight:bold;">💬 WhatsApp</a>
 <a href="tg://resolve?phone=22791445187" style="padding:12px 18px;background:#168aad;color:white;text-decoration:none;border-radius:12px;font-weight:bold;">✈️ Telegram</a>
@@ -181,38 +188,15 @@
     © 2026 Ibn_Djibril Niger Tech 🇳🇪
   </footer>
 
-<script>
-function showService(el) {
-  const titre = el.querySelector("h3").innerText;
-  if (titre.includes("Services de transfert")) {
-    window.openTransferSheet();
-    return;
-  }
-
-  const clone = el.cloneNode(true);
-  clone.removeAttribute("onclick");
-  const h3 = clone.querySelector("h3");
-  if (h3) h3.remove();
-
-  document.getElementById("detail-title").innerText = titre;
-  document.getElementById("detail-text").innerHTML = clone.innerHTML;
-  const actions = document.getElementById("detail-actions");
-  actions.innerHTML = "";
-
-  const detail = document.getElementById("service-detail");
-  detail.style.display = "block";
-  detail.scrollIntoView({behavior:"smooth",block:"start"});
-}
-</script>
 <!-- IBN_CATALOGUE_ULTRA -->
 <script src="/catalogue-data.js?v=20260925-stock3"></script>
 <script src="/prix-produits.js?v=20260925"></script>
-<script src="/catalogue-ultra.js?v=20260925-stock3" defer></script>
+<script src="/catalogue-ultra.js?v=20261102-commerce1" defer></script>
 <script src="/countries.js?v=20260925b"></script>
 <script src="/panier.js?v=20260925b" defer></script>
 <script src="/boutique-location.js?v=20260925b" defer></script>
-<script src="/accueil-catalogue-prioritaire.js?v=20261016-logos1" defer></script>
+<script src="/accueil-catalogue-prioritaire.js?v=20261102-commerce1" defer></script>
   <script src="/admin-access.js?v=20260925" defer></script>
-<script src="/pwa-update.js?v=20261016-finance3" defer></script>
+<script src="/pwa-update.js?v=20261102-commerce1" defer></script>
 </body>
 </html>

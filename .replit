@@ -9,3 +9,27 @@ expertMode = true
 [[ports]]
 localPort = 5000
 externalPort = 80
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Aperçu catalogue"
+
+[[workflows.workflow]]
+name = "Aperçu catalogue"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "node tests/support/catalogue-preview.cjs"
+waitForPort = 5000
+
+[workflows.workflow.metadata]
+outputType = "webview"

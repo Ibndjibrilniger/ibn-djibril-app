@@ -136,9 +136,9 @@ test('homepage and dashboard use identical finance UI on desktop and mobile', { 
         await page.keyboard.press('Escape');
         assert.equal(await page.evaluate(() => document.body.classList.contains('ibn-no-scroll')), false);
         if (route === '/') {
-          await page.locator('.service').filter({ hasText: 'Services de transfert' }).click();
+          await page.locator('#ibn-transfer-catalogue-card').click();
           await assertSheet(page);
-          assert.equal(await page.locator('#service-detail').isVisible(), false);
+          assert.equal(await page.locator('#service-detail').count(), 0);
           await page.locator('.ibn-transfer-sheet-close').click();
           await page.locator('#ibn-transfer-catalogue-card').focus();
           await page.keyboard.press('Enter');
@@ -151,10 +151,11 @@ test('homepage and dashboard use identical finance UI on desktop and mobile', { 
           await page.keyboard.press('Space');
           await assertSheet(page);
           await page.locator('.ibn-transfer-sheet-close').click();
-          // Other service details must still work after the title/titre fix.
-          await page.locator('.service').first().click();
-          await visible(page, '#service-detail');
-          assert.ok((await page.locator('#detail-title').innerText()).length > 0);
+          // The retired text dashboards are replaced by actual catalogue details.
+          await page.locator('.ibn-cat-card[data-id="starlink-standard-x"] .ibn-cat-cta').click();
+          await visible(page, '.ibn-modal.open');
+          assert.match(await page.locator('#ibn-detail-heading').innerText(), /Starlink/);
+          await page.keyboard.press('Escape');
           assert.ok(await page.locator('.ibn-cat-card').count() > 1);
         } else {
           await page.locator('[data-service="starlink"]').click();

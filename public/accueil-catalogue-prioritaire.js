@@ -42,14 +42,21 @@
   }
 
   function insertTransferCardIntoCatalogue() {
-    const grid = $(".ibn-cat-grid");
-    if (!grid || $("#ibn-transfer-catalogue-card")) return !!grid;
+    const destination = $(".ibn-featured-categories");
+    if (!destination) return false;
+    const existing = $("#ibn-transfer-catalogue-card");
+    if (existing) {
+      if (existing.parentElement !== destination) destination.prepend(existing);
+      return true;
+    }
 
     const card = document.createElement("article");
     card.id = "ibn-transfer-catalogue-card";
     card.className = "ibn-cat-card ibn-transfer-catalogue-card";
     card.setAttribute("role","button");
     card.setAttribute("tabindex","0");
+    card.setAttribute("aria-label","Ouvrir les services de transfert et de paiement");
+    card.dataset.openTransfer = "true";
     card.innerHTML = `
       <img class="ibn-cat-img ibn-transfer-logo"
            src="/media/products/catalogue/transfert-money-logo.png?v=20260923"
@@ -65,16 +72,11 @@
       </div>
     `;
 
-    const first = grid.firstElementChild;
-    if (first) grid.insertBefore(card, first);
-    else grid.appendChild(card);
-
-    const open = () => openTransferSheet();
-    card.addEventListener("click", open);
+    destination.appendChild(card);
     card.addEventListener("keydown", e => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
-        open();
+        openTransferSheet();
       }
     });
     return true;
@@ -334,28 +336,14 @@ window.openTransferSheet = openTransferSheet;
 
     const welcome = $(".welcome", main);
     const catalogue = $("#ibn-catalogue-ultra");
-    const services = $(".services", main);
-    const detail = $("#service-detail", main);
-    const products = $("#products", main);
     const contact = $("#contact", main);
 
-    if (!catalogue || !services || !products || !contact) return false;
+    if (!catalogue || !contact) return false;
 
-    // Ordre final:
-    // accueil -> catalogue photos (transfert en premier) -> anciennes grandes cartes
-    // -> détail éventuel -> ancienne longue boutique/accessoires -> contact
+    // Homepage structure: introduction -> single catalogue -> existing contacts.
     if (welcome) welcome.insertAdjacentElement("afterend", catalogue);
     else main.prepend(catalogue);
-
-    catalogue.insertAdjacentElement("afterend", services);
-
-    if (detail) services.insertAdjacentElement("afterend", detail);
-    if (detail) detail.insertAdjacentElement("afterend", products);
-    else services.insertAdjacentElement("afterend", products);
-
-    products.insertAdjacentElement("afterend", contact);
-
-    movePhoneCardLast();
+    catalogue.insertAdjacentElement("afterend", contact);
 
     // Ancien bloc de priorité séparé, créé par la version précédente:
     const oldPriority = $("#ibn-transfer-priority");
@@ -366,8 +354,8 @@ window.openTransferSheet = openTransferSheet;
   }
 
   function run() {
-    // Dashboard shares the finance sheet, not the homepage catalogue layout.
-    if (!$(".services")) return;
+    // The finance directory is also used elsewhere; only reorder on the storefront.
+    if (!$("#ibn-catalogue-ultra") && !$(".services")) return;
     let tries = 0;
     const attempt = () => {
       tries++;

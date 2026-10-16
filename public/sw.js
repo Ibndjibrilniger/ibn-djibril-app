@@ -1,5 +1,5 @@
 // Changing this release also triggers an update for existing PWA clients.
-const RELEASE = "20261016-logos1";
+const RELEASE = "20261102-commerce1";
 
 self.addEventListener("install", event => {
   event.waitUntil(

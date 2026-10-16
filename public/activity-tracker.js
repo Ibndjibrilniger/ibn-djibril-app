@@ -48,6 +48,8 @@
     }
     const country=target.closest('#ibn-finance-tabs [data-country]');
     if (country) {track('finance_category',country.dataset.country);return;}
+    if (target.closest('[data-open-phone]')) {track('service_view','accessoires');return;}
+    if (target.closest('[data-open-offers]')) {track('service_view','catalogue');return;}
     const product=target.closest('.ibn-cat-card[data-id]');
     if (product) {
       track(target.closest('.ibn-add-cart')?'action':'service_view',product.dataset.id);return;
@@ -64,7 +66,7 @@
     }
     const service=target.closest('.service-card[data-service]');
     if (service && service.dataset.service!=='transferts') {track('service_view',service.dataset.service);return;}
-    if (target.closest('.ibn-cat-chip')) {track('click','catalogue');return;}
+    if (target.closest('.ibn-cat-chip,[data-feature-category]')) {track('click','catalogue');return;}
     if (target.closest('.service')) {track('service_view','catalogue');return;}
     if (target.closest('button')?.id?.match(/calcul|test/i)) track('action','calcul');
   },true);

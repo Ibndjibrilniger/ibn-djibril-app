@@ -20,3 +20,9 @@ Railway deploys the repository's `main` branch automatically.
 **Why:** The user explicitly supplied this deployment behavior in their release instructions.
 
 **How to apply:** Treat a push to `main` as a production release, not merely a remote backup. Preserve the existing Railway setup and obtain explicit release authorization before pushing.
+
+The user wants one illustrated commercial homepage catalogue, not the old redundant text dashboards. Remove only their presentation after retaining every useful description, offer and the complete Téléphones & Accessoires list. Keep the exact “Tous les prix sont à discuter” notice.
+
+**Why:** The user explicitly requires visual modernization without losing products, prices, cart contents, WhatsApp orders, financial services, private Admin analytics, contacts or PWA functionality.
+
+**How to apply:** Reuse the imported application and real assets. Do not change PostgreSQL data for visual cleanup. Never replace negotiated prices with numbers or overwrite Admin-managed prices with conflicting old display prices. Keep distinct published offers reachable without duplicating product cards.

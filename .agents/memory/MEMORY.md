@@ -1,3 +1,4 @@
 - [Product scope](product-scope.md) — Al Izza must remain excluded; preserve the imported app and Railway production setup.
 - [Private activity policy](private-activity-policy.md) — analytics belong in the existing private Admin; minimize collection and preserve unmanaged prices.
 - [Build portability](build-portability.md) — Replit can write internal registry URLs into npm lockfiles; keep committed public dependencies reachable by Railway.
+- [Browser test resources](browser-test-resources.md) — run browser-heavy suites sequentially; concurrent screenshots can produce false timeouts.
