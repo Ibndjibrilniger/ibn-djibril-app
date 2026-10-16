@@ -5,6 +5,21 @@
   const $$ = (s, root=document) => [...root.querySelectorAll(s)];
   const norm = s => (s || "").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
 
+  // Presentation only: the existing country/service URLs below remain authoritative.
+  const FINANCE_LOGO_VERSION = "20261016-logos1";
+  const FINANCE_LOGOS = {
+    "MyNITA": "nita", "NITA": "nita", "AMANATA": "amana",
+    "Airtel Money": "airtel", "Moov Flooz": "moov-niger",
+    "Wave": "wave", "Orange Money": "orange", "Coris Money": "coris",
+    "Zamani Cash": "zamani", "MTN MoMo": "mtn", "Moov Money": "moov-benin",
+    "Celtiis Cash": "celtiis", "B-MO": "bmo", "UBA": "uba",
+    "FirstBank": "firstbank", "Zenith Bank": "zenith", "Union Bank": "union",
+    "Access Bank": "access", "GTCO": "gtco", "Monnify": "monnify",
+    "Telecel Cash": "telecel", "MoneyGram": "moneygram", "Ria": "ria",
+    "MoneyFusion": "moneyfusion", "Binance / USDT": "binance"
+  };
+  const DARK_LOGOS = new Set(["moov-niger", "moov-benin", "monnify"]);
+
   function findTransferServiceCard() {
     return $$(".service").find(card => {
       const h = $("h3", card);
@@ -176,11 +191,7 @@
             margin-bottom:16px;
           "></div>
 
-          <div id="ibn-finance-services" style="
-            display:grid;
-            grid-template-columns:repeat(2,minmax(0,1fr));
-            gap:10px;
-          "></div>
+          <div id="ibn-finance-services"></div>
 
           <div style="
             margin-top:18px;
@@ -262,33 +273,34 @@
       `).join("");
 
     $("#ibn-finance-services", overlay).innerHTML =
-      data.services.map(([name, url]) => `
-        <div style="
-          padding:14px;
-          border:1px solid #e5e5e5;
-          border-radius:14px;
-          background:#fff;
-          box-shadow:0 4px 12px rgba(0,0,0,.06);
-        ">
-          <strong style="display:block;margin-bottom:8px;">
-            ${name}
-          </strong>
-
-          <a
-            href="${url}"
-            target="_blank"
-            rel="noopener noreferrer"
-            style="
-              display:inline-block;
-              text-decoration:none;
-              font-weight:700;
-              color:#008751;
-            "
-          >
-            🔗 Accéder
+      data.services.map(([name, url]) => {
+        const logo = FINANCE_LOGOS[name];
+        const initials = name.split(/[\s/-]+/).filter(Boolean)
+          .slice(0, 2).map(word => word[0]).join("");
+        return `
+          <a class="ibn-finance-service-card"
+             href="${url}" target="_blank" rel="noopener noreferrer"
+             aria-label="${name} — Accéder au site dans un nouvel onglet">
+            <span class="ibn-finance-service-logo-wrap${DARK_LOGOS.has(logo) ? " is-dark" : ""}${logo ? "" : " is-fallback"}">
+              ${logo ? `<img class="ibn-finance-service-logo"
+                src="/media/services/${logo}.webp?v=${FINANCE_LOGO_VERSION}"
+                alt="Logo de ${name}" width="280" height="120" decoding="async">` : ""}
+              <span class="ibn-finance-logo-fallback" role="img"
+                    aria-label="Représentation graphique de ${name}">${initials}</span>
+            </span>
+            <strong class="ibn-finance-service-name">${name}</strong>
+            <span class="ibn-finance-service-action">🔗 Accéder</span>
           </a>
-        </div>
-      `).join("");
+        `;
+      }).join("");
+
+    $$(".ibn-finance-service-logo", overlay).forEach(image => {
+      const showFallback = () => {
+        image.closest(".ibn-finance-service-logo-wrap").classList.add("is-fallback");
+      };
+      image.addEventListener("error", showFallback, {once: true});
+      if (image.complete && image.naturalWidth === 0) showFallback();
+    });
 
     $$("[data-country]", overlay).forEach(button => {
       button.addEventListener("click", () => {

@@ -7,6 +7,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const http = require('node:http');
 const { chromium } = require('playwright');
+const captureDir = process.env.TRANSFER_CAPTURE_DIR;
 
 const root = path.join(__dirname, '..');
 const financeSource = fs.readFileSync(path.join(root, 'public/accueil-catalogue-prioritaire.js'), 'utf8');
@@ -104,6 +105,20 @@ test('homepage and dashboard use identical finance UI on desktop and mobile', { 
         assert.equal(await page.evaluate(() => document.body.classList.contains('ibn-no-scroll')), true);
         for (const [country, data] of Object.entries(finance)) {
           await page.locator(`[data-country="${country}"]`).click();
+          await page.waitForFunction(() =>
+            [...document.querySelectorAll('#ibn-finance-services img')]
+              .every(img => img.complete && img.naturalWidth > 0));
+          assert.equal(await page.locator('#ibn-finance-services img').count(), data.services.length);
+          assert.equal(await page.locator('#ibn-finance-services .is-fallback').count(), 0);
+          for (const img of await page.locator('#ibn-finance-services img').all()) {
+            assert.ok(await img.getAttribute('alt'));
+            assert.equal(await img.evaluate(el => getComputedStyle(el).objectFit), 'contain');
+          }
+          assert.equal(await page.locator('.ibn-transfer-sheet').evaluate(el => el.scrollWidth <= el.clientWidth), true);
+          if (captureDir && route === '/' && country === 'Niger') {
+            fs.mkdirSync(captureDir, { recursive: true });
+            await page.screenshot({ path: path.join(captureDir, `finance-${viewport.width}.png`) });
+          }
           assert.deepEqual(await page.locator('#ibn-finance-services strong').allTextContents()
             .then(names => names.map(name => name.trim())), Array.from(data.services, service => service[0]));
           const links = await page.locator('#ibn-finance-services a').evaluateAll(elements => elements.map(a => ({
@@ -155,6 +170,42 @@ test('homepage and dashboard use identical finance UI on desktop and mobile', { 
       assert.deepEqual(errors, [], 'no JavaScript or console errors');
       await context.close();
     }
+  });
+});
+
+test('clicking a card or its action opens one correct new tab; missing logos have a visible fallback', { timeout: 45000 }, async () => {
+  await fixture(async ({ browser, base }) => {
+    const context = await browser.newContext({ viewport: { width: 390, height: 844 }, serviceWorkers: 'block' });
+    const page = await context.newPage();
+    await context.route('https://www.nitatransfert.com/**', route =>
+      route.fulfill({ contentType: 'text/html', body: '<p>Outbound link test fixture</p>' }));
+    await page.goto(base, { waitUntil: 'networkidle' });
+    await page.locator('#ibn-transfer-catalogue-card').click();
+    for (const selector of ['.ibn-finance-service-logo', '.ibn-finance-service-action']) {
+      const opened = [];
+      const track = popup => opened.push(popup);
+      context.on('page', track);
+      const popupPromise = context.waitForEvent('page');
+      await page.locator('.ibn-finance-service-card').first().locator(selector).click();
+      const popup = await popupPromise;
+      await popup.waitForLoadState();
+      assert.equal(popup.url(), finance.Niger.services[0][1]);
+      assert.equal(opened.length, 1);
+      assert.equal(await popup.evaluate(() => window.opener === null), true);
+      context.off('page', track);
+      await popup.close();
+    }
+    await page.keyboard.press('Escape');
+    await page.route('**/media/services/nita.webp*', route => route.abort());
+    await page.reload({ waitUntil: 'networkidle' });
+    await page.locator('#ibn-transfer-catalogue-card').click();
+    const fallback = page.locator('.ibn-finance-service-card').first();
+    await fallback.locator('.is-fallback').waitFor();
+    assert.equal(await fallback.locator('img').isVisible(), false);
+    assert.equal(await fallback.locator('.ibn-finance-logo-fallback').isVisible(), true);
+    assert.equal(await fallback.getAttribute('href'), finance.Niger.services[0][1]);
+    await page.locator('.ibn-transfer-sheet-close').click();
+    await context.close();
   });
 });
 

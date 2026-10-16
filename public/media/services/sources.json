@@ -1,0 +1,196 @@
+[
+  {
+    "id": "access",
+    "url": "https://www.accessbankplc.com/Content/images/access-logo-2.png",
+    "sourceType": "official",
+    "file": "access.webp",
+    "bytes": 2614,
+    "sha256": "174732aadb1bda304d1880d10d5f2aff44f7ec3ab8a2c1e82901ad27675442e5"
+  },
+  {
+    "id": "airtel",
+    "url": "https://www.airtel.africa/sites/default/files/airtel-logo_0.png",
+    "sourceType": "official",
+    "file": "airtel.webp",
+    "bytes": 3634,
+    "sha256": "cae32508e4a176ec33143174930398f881dbb3ad01f9fd1ee5e1efd233596c4f"
+  },
+  {
+    "id": "amana",
+    "url": "https://play-lh.googleusercontent.com/VXDu6FNrz0TrAR0VZ-txL1oKfUTTgfUTB8Rl6VgPTA83PSiW458bo7FECzaiPQIg7LFbg8dsEDT22R2iDfxFrSM=w240-h480",
+    "sourceType": "official",
+    "file": "amana.webp",
+    "bytes": 7120,
+    "sha256": "7e0b4ce3309b5ae5f4b70d9fe7fdd38fef32cc8e9efc7fae5c3142bba539b870"
+  },
+  {
+    "id": "binance",
+    "url": "https://bin.bnbstatic.com/static/images/common/favicon.ico",
+    "sourceType": "official",
+    "file": "binance.webp",
+    "bytes": 510,
+    "sha256": "3a85e4a4bfdee6e42c00fe9a08e4f50e56993c9df6ee519be7085c56b07e7409"
+  },
+  {
+    "id": "bmo",
+    "url": "https://bmo.bj/bmo-logo.png",
+    "sourceType": "official",
+    "file": "bmo.webp",
+    "bytes": 14312,
+    "sha256": "fc2eb9b74cf0ccabced0774f0c33220c451f32afd0ee2387805932ec87fc9641"
+  },
+  {
+    "id": "celtiis",
+    "url": "https://www.celtiis.bj/celtiis-logo-rounded.svg",
+    "sourceType": "official",
+    "file": "celtiis.webp",
+    "bytes": 1358,
+    "sha256": "565d2714c8aa1b8badbe41dedfc38bfd6a8feb6fa32da6185391558e5cec2dfb"
+  },
+  {
+    "id": "coris",
+    "url": "https://coris.money/wp-content/uploads/2022/06/logo-coris-money.svg",
+    "sourceType": "official",
+    "file": "coris.webp",
+    "bytes": 2420,
+    "sha256": "12fee6b10a4c9463038873763de45924bfc93b52767b34776bec9f741cac1b56"
+  },
+  {
+    "id": "firstbank",
+    "url": "https://www.mediaroomhub.com/wp-content/uploads/2017/09/FirstBank-logo.jpg",
+    "sourceType": "reference",
+    "file": "firstbank.webp",
+    "note": "FirstBank logo reproduced by business publication; not the unrelated FirstRewards loyalty-program mark.",
+    "bytes": 4612,
+    "sha256": "1539848e0ef189383dcea7c18c7d4a1867d69200f9c15c9bcacf255e9a94b96a"
+  },
+  {
+    "id": "gtco",
+    "url": "https://www.gtcoplc.com/",
+    "sourceType": "official",
+    "file": "gtco.webp",
+    "note": "Header inline SVG from the official GTCO group website.",
+    "bytes": 4886,
+    "sha256": "5e9c4b1c57307c485c648fa4ad2e4bdaab87680436f68a2f49acbe2c09635bc7"
+  },
+  {
+    "id": "moneyfusion",
+    "url": "https://moneyfusion.net/logo.svg",
+    "sourceType": "official",
+    "file": "moneyfusion.webp",
+    "bytes": 3310,
+    "sha256": "e10680971bcde65295ed91eeab68b8717cc26f5e77d1bb61001f07a6e39b2cf5"
+  },
+  {
+    "id": "moneygram",
+    "url": "https://images.ctfassets.net/toryt1tt0roy/3tKKo9I8Lr4qJRwqhdEGcT/29ad15e2d505f5c0a9dfbfb1e0a71fb7/logo-moneygram-black.svg",
+    "sourceType": "official",
+    "file": "moneygram.webp",
+    "bytes": 2670,
+    "sha256": "695b60bd6b9b65f54cb322387db59d08fef58edba5c76ed8b3d9747af594aa57"
+  },
+  {
+    "id": "monnify",
+    "url": "https://paylink.monnify.com/images/monnify-by-teamapt-logo.svg",
+    "sourceType": "official",
+    "file": "monnify.webp",
+    "bytes": 984,
+    "sha256": "d57ff1777a0ea56caf2c1513af5c3cfeceda97271b9eebc4a6326fbd1340776c"
+  },
+  {
+    "id": "moov-benin",
+    "url": "https://www.moov-africa.bj/wp-content/uploads/2022/10/LOGO-MOOV-AFRICA-.png",
+    "sourceType": "official",
+    "file": "moov-benin.webp",
+    "bytes": 4926,
+    "sha256": "a51ee9c2ade8682c8e3b50932b8bce0bbe3b3d64e0727aba1a6e0a686e8f3e96"
+  },
+  {
+    "id": "moov-niger",
+    "url": "https://www.moov-africa.ne/wp-content/uploads/2021/04/logo-moov-africa_niger-1.png",
+    "sourceType": "official",
+    "file": "moov-niger.webp",
+    "bytes": 11034,
+    "sha256": "7d3ccf92a68f868176ba25648700242af7fda6883cc5aa79d1ed83812b6e07b3"
+  },
+  {
+    "id": "mtn",
+    "url": "https://www.mtn.bj/wp-content/themes/mtn-vivid-wp/public/img/mtn-logo.svg",
+    "sourceType": "official",
+    "file": "mtn.webp",
+    "bytes": 6810,
+    "sha256": "895546bb7538418b450c9c770eab9fdf474c6302ef05478b7e681a1678019df6"
+  },
+  {
+    "id": "nita",
+    "url": "https://www.nitatransfert.com/assets/img/nita-logo-officiel.png",
+    "sourceType": "official",
+    "file": "nita.webp",
+    "bytes": 3010,
+    "sha256": "d5e1e255385e2181c70296165f2920e2f04b34656fa651aa9d606a3d202c85c7"
+  },
+  {
+    "id": "orange",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Orange_logo.svg",
+    "sourceType": "reference",
+    "file": "orange.webp",
+    "bytes": 3860,
+    "sha256": "0d050ab00e525d13b37f781a32e150203cca9f36239df7f92f143efbbc307b56"
+  },
+  {
+    "id": "ria",
+    "url": "https://files.brandlogos.net/svg/JjhxtycdZ5/Ria_Money_Transfer-OdjF3zpUT_brandlogos.net.svg",
+    "sourceType": "reference",
+    "file": "ria.webp",
+    "bytes": 2856,
+    "sha256": "a74392fd66632b3f5823e05b221a362d76d1af345f524048e278d0f04093ea4b"
+  },
+  {
+    "id": "telecel",
+    "url": "https://telecel.com.gh/icons/icon-192x192.png",
+    "sourceType": "official",
+    "file": "telecel.webp",
+    "bytes": 4192,
+    "sha256": "c7153036a03c1b120808a590d6e583374ee82295c6006f3742ed7b83fec77dee"
+  },
+  {
+    "id": "uba",
+    "url": "https://logowik.com/content/uploads/images/uba-united-bank-for-africa5589.jpg",
+    "sourceType": "reference",
+    "file": "uba.webp",
+    "bytes": 7258,
+    "sha256": "1a1162f5959fa12c40b38ae1aedf2326d2c606ad692eb4813b9ecf6da91c3c2c"
+  },
+  {
+    "id": "union",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Union_Bank_of_Nigeria_Logo.png",
+    "sourceType": "reference",
+    "file": "union.webp",
+    "bytes": 4810,
+    "sha256": "89f82ea4b9fabfc3fa690a793417ebfaffca3245625cf6d0c0f89abc3bcb6218"
+  },
+  {
+    "id": "wave",
+    "url": "https://www.wave.com/img/nav-logo.png",
+    "sourceType": "official",
+    "file": "wave.webp",
+    "bytes": 3394,
+    "sha256": "13042e3f6f5ab966d5a1cd0bdbb7ba4f5d0af7952cd9739120953a99a55fca49"
+  },
+  {
+    "id": "zamani",
+    "url": "https://www.zamanitelecom.com/sites/default/files/inline-images/Logo-Zamani-Cash%20(1).png",
+    "sourceType": "official",
+    "file": "zamani.webp",
+    "bytes": 3774,
+    "sha256": "9dc9f7174b5a5317940a9a554c50f51cdea7b3e7ed6d16ace03aba30e3e00533"
+  },
+  {
+    "id": "zenith",
+    "url": "https://www.zenithbank.com.gh/media/0kcn4w4t/zenith-logo-without-text.png?width=192&height=192",
+    "sourceType": "official",
+    "file": "zenith.webp",
+    "bytes": 4444,
+    "sha256": "4194d069945e642c66641310437c6b9fb7f629de73232217cb8e1cbb90c38434"
+  }
+]

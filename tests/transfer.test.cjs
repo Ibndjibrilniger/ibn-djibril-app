@@ -92,6 +92,30 @@ test('all existing countries, payment services and HTTPS links are retained', ()
   }
 });
 
+test('every financial service has a local optimized logo with recorded provenance', () => {
+  const data = vm.runInNewContext('(' + transfer.match(/const financeData = (\{[\s\S]*?\n  \});/)[1] + ')');
+  const logos = vm.runInNewContext('(' + transfer.match(/const FINANCE_LOGOS = (\{[\s\S]*?\n  \});/)[1] + ')');
+  const sources = JSON.parse(read('public/media/services/sources.json'));
+  const ids = new Set();
+  let services = 0;
+  for (const category of Object.values(data)) {
+    for (const [name] of category.services) {
+      services++;
+      const id = logos[name];
+      assert.ok(id, name);
+      ids.add(id);
+      const file = path.join(root, 'public/media/services', id + '.webp');
+      assert.ok(fs.existsSync(file), name);
+      assert.ok(fs.statSync(file).size < 30000, name + ': mobile asset budget');
+      const source = sources.find(record => record.id === id);
+      assert.ok(source && new URL(source.url).protocol === 'https:', name + ': source recorded');
+      assert.equal(source.sha256, require('node:crypto').createHash('sha256').update(fs.readFileSync(file)).digest('hex'));
+    }
+  }
+  assert.equal(services, 27);
+  assert.equal(ids.size, 24);
+});
+
 function workerHarness(offline = false) {
   const handlers = {};
   const requests = [];
