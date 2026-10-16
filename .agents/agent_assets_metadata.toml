@@ -152,3 +152,155 @@ mtime_ms = 1792140634626
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/8852c7b2-9093-4111-b1f1-f06cd8a76ccb/efbe8301-ea27-4097-b274-3c0b159fb34c"
 storage_version_token = "1792140712276956"
 content_type = "text/plain"
+
+[[outputs]]
+id = "Mjh0lU5PATyOZZquUTBKN"
+uri = "file://generated-artifacts/video-institutionnelle-feminine/audio/starlink.mp3"
+type = "audio"
+title = "Ibn Djibril voix feminine starlink"
+description = "Text-to-speech audio: Le Starlink Mini, compact, et le Standard donnent accès à Internet par satellite. Nous assurons l'installation, le positionnement et la configuration pour connecter vos activité…"
+logical_id = "25538238-7b10-4a9f-a13c-535876f0e9f8"
+
+[[outputs]]
+id = "Gxlij3UAdKlWIPdZQOEsy"
+uri = "file://generated-artifacts/video-institutionnelle-feminine/audio/intro.mp3"
+type = "audio"
+title = "Ibn Djibril voix feminine intro"
+description = "Text-to-speech audio: Bienvenue chez Ibn Djibril Niger Tech, votre partenaire technologique au Niger. Nous mettons la compétence et l'engagement au service de vos ambitions."
+logical_id = "99d98256-de30-41af-b415-7851e09c25b9"
+
+[[outputs]]
+id = "wBNRgZ0zELDz_OrmlYeyP"
+uri = "file://generated-artifacts/video-institutionnelle-feminine/audio/mikrotik.mp3"
+type = "audio"
+title = "Ibn Djibril voix feminine mikrotik"
+description = "Text-to-speech audio: Le R B neuf cent cinquante et un gère les accès. Les H A P ax deux et ax trois apportent le Wi-Fi six. Le L zéro zéro neuf relie vos équipements. Nous configurons la sécurité et…"
+logical_id = "7e928345-233f-4a14-9a5d-bbebcbd89a51"
+
+[[outputs]]
+id = "lpciX3hAy_b-wFDIQSYV_"
+uri = "file://generated-artifacts/video-institutionnelle-feminine/audio/network.mp3"
+type = "audio"
+title = "Ibn Djibril voix feminine network"
+description = "Text-to-speech audio: Grandstream et Wavlink étendent le Wi-Fi. Cudy partage la connexion. Ubiquiti LiteBeam relie vos sites à distance. Les câbles réseau transportent les données et le P O E aliment…"
+logical_id = "5c1e08e1-af14-46fd-a74a-26760108861b"
+
+[[outputs]]
+id = "Y-jols4n7UIv6h5oHa3ZN"
+uri = "file://generated-artifacts/video-institutionnelle-feminine/audio/finance_a.mp3"
+type = "audio"
+title = "Ibn Djibril voix feminine finance_a"
+description = "Text-to-speech audio: Notre catalogue présente également des services financiers au Niger, au Bénin, au Nigeria et au Ghana, ainsi que des services internationaux et des solutions numériques."
+logical_id = "34147fd7-c5db-4674-bda6-d93ac6a8d97b"
+
+[[outputs]]
+id = "WLIlQ-1l4t-NZb5fAZ8yz"
+uri = "file://generated-artifacts/video-institutionnelle-feminine/audio/wifi.mp3"
+type = "audio"
+title = "Ibn Djibril voix feminine wifi"
+description = "Text-to-speech audio: Pour votre Wi-Fi Zone, nous configurons les portails captifs, les tickets Internet, les abonnés et la bande passante. Notre assistance vous accompagne au quotidien."
+logical_id = "5b3d41cf-683d-46c0-a371-8aee6424c217"
+
+[[outputs]]
+id = "PlaM3YpsG1DHxNckHBEQ3"
+uri = "file://generated-artifacts/video-institutionnelle-feminine/audio/phones.mp3"
+type = "audio"
+title = "Ibn Djibril voix feminine phones"
+description = "Text-to-speech audio: Retrouvez aussi nos téléphones et accessoires : smartphones, téléphones à boutons, chargeurs, écouteurs, câbles, batteries externes, protections et cartes mémoire. Prix à discut…"
+logical_id = "4f865089-71f4-45f6-9a74-7d30e24759bd"
+
+[[outputs]]
+id = "-EZKhZ5SAZ9p6s-LK8dGg"
+uri = "file://generated-artifacts/video-institutionnelle-feminine/audio/finance_b.mp3"
+type = "audio"
+title = "Ibn Djibril voix feminine finance_b"
+description = "Text-to-speech audio: MyNITA, Airtel Money, Wave, MoneyGram, Ria, Binance et U S D T : contactez-nous pour vous informer. Aucune transaction n'est exécutée dans l'application."
+logical_id = "365293a5-d0ee-4eb7-a195-2f0750532222"
+
+[[outputs]]
+id = "sAvSpfBgfejNOSrUQXjly"
+uri = "file://generated-artifacts/video-institutionnelle-feminine/audio/maintenance.mp3"
+type = "audio"
+title = "Ibn Djibril voix feminine maintenance"
+description = "Text-to-speech audio: Maintenance informatique, dépannage réseau et assistance technique : nous accompagnons les professionnels comme les particuliers, avec sérieux et proximité."
+logical_id = "b0368f4f-c535-498f-a9bf-a957314b4882"
+
+[[outputs]]
+id = "QR3kAnuHX9MN-uypK7qFW"
+uri = "file://generated-artifacts/video-institutionnelle-feminine/audio/closing.mp3"
+type = "audio"
+title = "Ibn Djibril voix feminine closing"
+description = "Text-to-speech audio: Découvrez ibn djibril niger tech point com. Ibn Djibril Niger Tech. La technologie au service de vos ambitions. La confiance au cœur de nos engagements."
+logical_id = "9def02b0-d604-47cb-84af-ca40bfb499a5"
+
+[[outputs]]
+id = "QPkyFFpxdrNls_R2w5sRW"
+uri = "file://generated-artifacts/video-institutionnelle-feminine/audio/friday.mp3"
+type = "audio"
+title = "Ibn Djibril voix feminine friday"
+description = "Text-to-speech audio: En ce vendredi béni, meilleurs vœux à la communauté musulmane. Qu'Allah bénisse nos familles, accepte nos prières et accorde la réussite à nos projets. Joumou'a Moubarak !"
+logical_id = "f36976ef-7747-488c-8a71-54fc7bd88bb6"
+
+[[outputs]]
+id = "2xVHcEfhYGUzZxzmxMDbs"
+uri = "file://generated-artifacts/video-institutionnelle-feminine/audio/permanent.mp3"
+type = "audio"
+title = "Ibn Djibril voix feminine permanent"
+description = "Text-to-speech audio: Pour votre prochain équipement ou votre installation, échangeons sur vos besoins. Ensemble, construisons une connectivité adaptée à vos activités, avec un accompagnement attenti…"
+logical_id = "c05a33e5-ca44-4299-9883-eb1388c34b5f"
+
+[[outputs]]
+id = "oMuKl90iUvEeJs7QlGpOC"
+uri = "file://generated-artifacts/video-institutionnelle-feminine/livraison/Ibn_Djibril_Niger_Tech_A_Vendredi_Voix_Feminine_1080x1920.mp4"
+type = "video"
+title = "Voix féminine — Spéciale vendredi · 2 min 04 s"
+description = "Voix française de synthèse Lucie, explications des équipements et sous-titres français. MP4 vertical 1080 × 1920, H.264/AAC, sans musique. 16,91 Mo. Décodage intégral et lecture navigateur vérifiés."
+logical_id = "e31b79cf-ecec-4c74-b3f5-63f3faf8a366"
+content_hash = "sha256:652d32eb5b295d8312ce9f5b69b8df7e23bfbd46313e1256be52edf6d560ae38"
+size = 16914163
+mtime_ms = 1792141659454
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/e31b79cf-ecec-4c74-b3f5-63f3faf8a366/9f041ff5-baec-4414-ad6f-5708a01e3613"
+storage_version_token = "1792141799186025"
+content_type = "video/mp4"
+
+[[outputs]]
+id = "XO49aojkiPOTthLBaeYbv"
+uri = "file://generated-artifacts/video-institutionnelle-feminine/livraison/Ibn_Djibril_Niger_Tech_B_Institutionnelle_Voix_Feminine_1080x1920.mp4"
+type = "video"
+title = "Voix féminine — Institutionnelle permanente · 2 min 06 s"
+description = "Présentation des équipements et services avec voix féminine française de synthèse, sous-titres et conclusion permanente. MP4 vertical 1080 × 1920, sans musique. 17,07 Mo. Décodage et lecture navigateur vérifiés."
+logical_id = "e0f3a7b4-a0ff-47d7-859d-bd5c76c3c55f"
+content_hash = "sha256:1b0e752711dd1ff8aebebfdc2ce339e5f2261ec331ca277a168eadd2a817e3b0"
+size = 17073195
+mtime_ms = 1792141668006
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/e0f3a7b4-a0ff-47d7-859d-bd5c76c3c55f/a98c2103-1841-41ad-b9be-f317be954241"
+storage_version_token = "1792141800299419"
+content_type = "video/mp4"
+
+[[outputs]]
+id = "_GIk7hn8BRq8oR6c2t7ex"
+uri = "file://generated-artifacts/affiches-vendredi/livraison/Ibn_Djibril_Niger_Tech_Happy_Djuma_Karim_1080x1350.png"
+type = "image"
+title = "Affiche — Happy Djuma Karim"
+description = "Affiche vert profond et doré, logo officiel Ibn_Djibril Niger Tech, vœux du vendredi et site officiel. PNG 1080 × 1350 prêt à télécharger et partager."
+logical_id = "1ffa8d59-8b3b-4007-bb30-4d7ebbf01da0"
+content_hash = "sha256:7380d5b89b3cbc283dd1ffa76859f5b4ac71b3023ef2e954a2806dfe5877befb"
+size = 830550
+mtime_ms = 1792141365015
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/1ffa8d59-8b3b-4007-bb30-4d7ebbf01da0/758e20b4-84f0-4b7b-98db-48299cdcdcbf"
+storage_version_token = "1792141801021579"
+content_type = "image/png"
+
+[[outputs]]
+id = "A9r6tM75sUcycYniXLUsW"
+uri = "file://generated-artifacts/affiches-vendredi/livraison/Ibn_Djibril_Niger_Tech_Djuma_Moubarak_1080x1350.png"
+type = "image"
+title = "Affiche — Djuma Moubarak"
+description = "Affiche crème et vert, logo officiel et message de paix et de bénédictions. PNG 1080 × 1350 prêt à télécharger et partager."
+logical_id = "6fcb1563-ff38-4bec-8af3-d93638c25ccc"
+content_hash = "sha256:583050a81d3437326542b49ef3e71955c2ba32a018ba1eaeb0d328b6c91c14df"
+size = 658742
+mtime_ms = 1792141365743
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/6fcb1563-ff38-4bec-8af3-d93638c25ccc/382fdf0c-67c0-4be8-9b70-ff43d7407c7f"
+storage_version_token = "1792141801663283"
+content_type = "image/png"
