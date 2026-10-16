@@ -210,6 +210,7 @@
   }
   function show(id){
     const p=DATA.find(x=>x.id===id); if(!p)return;
+    modal.dataset.productId=id;
     const gallery=(p.images||[]).map((src,i)=>`<figure><img src="${esc(src)}" alt="${esc(p.name)} — photo ${i+1}" loading="${i?"lazy":"eager"}" decoding="async"></figure>`).join("");
     const detail=modal.querySelector(".ibn-detail");
     detail.innerHTML=`
@@ -237,5 +238,11 @@
   modal.addEventListener("click",e=>{if(e.target===modal)close();});
   document.addEventListener("keydown",e=>{if(e.key==="Escape"&&modal.classList.contains("open"))close();});
   search.addEventListener("input",renderCards);
+  window.addEventListener("ibn:prices-updated",()=>{
+    renderCards();
+    const product=DATA.find(item=>item.id===modal.dataset.productId);
+    const price=modal.querySelector(".ibn-price-detail");
+    if(product && price)price.textContent="Prix : "+product.price;
+  });
   renderChips(); renderCards();
 })();
