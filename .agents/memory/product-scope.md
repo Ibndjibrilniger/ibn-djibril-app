@@ -33,6 +33,12 @@ The business is registered in Niger, not Nigeria, according to the user's explic
 
 **How to apply:** Use Niger in commercial eligibility requests. This is a user declaration, not verification of registration documents or merchant approval; do not request or store registration or tax identifiers here.
 
+Marketing should prioritize Niger before expanding to West Africa. The user wants visibility for network and telecommunications equipment searches and short promotional videos in other applications.
+
+**Why:** The user explicitly said to focus on their country first.
+
+**How to apply:** Scope advertising proposals to Niger first and verify the platform's actual geographic availability. This goal is not permission to spend money, claim guaranteed reach or imply an official manufacturer partnership.
+
 Continue working on the existing imported application rather than rebuilding, replacing, restructuring, or migrating it. Preserve current business functionality and do not change Railway production configuration unless absolutely necessary.
 
 **Why:** The user explicitly requires targeted changes in the existing architecture and continuity of the production application.
