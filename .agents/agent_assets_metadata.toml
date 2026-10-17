@@ -388,3 +388,271 @@ mtime_ms = 1792220212848
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/76e401a5-7f14-43d5-a6fb-527ee3a50826/b7b51263-9f90-4de5-ab5f-04ea5f0d1114"
 storage_version_token = "1792220278495607"
 content_type = "application/pdf"
+
+[[outputs]]
+id = "B3_xJ_j2u2nveNAHxqxTZ"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-01.mp3"
+type = "audio"
+title = "transferts_feminine_01"
+description = "Text-to-speech audio: Bienvenue chez Ibn Djibril Niger Tech, votre espace de services numériques au Niger !"
+logical_id = "50432b98-e3d8-40ba-ab57-16957515fd19"
+
+[[outputs]]
+id = "2wwmlFTVKa_ay2YOK3ci1"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-02.mp3"
+type = "audio"
+title = "transferts_feminine_02"
+description = "Text-to-speech audio: Vous cherchez des informations sur un transfert d’argent ou un service Mobile Money ? Découvrez notre application mobile web."
+logical_id = "ce934e59-bc71-4df3-8738-cb70a17a7b3c"
+
+[[outputs]]
+id = "U3fnrlXLw2QoyNzFBYyfc"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-03.mp3"
+type = "audio"
+title = "transferts_feminine_03"
+description = "Text-to-speech audio: Ouvrez ibn djibril niger tech point com, puis touchez Services de transfert d’argent. Choisissez une rubrique pour découvrir les services répertoriés."
+logical_id = "fffe3ed0-5c1c-49fc-95d3-bd4d5072e8c7"
+
+[[outputs]]
+id = "1HAMLRP4m-SGROWmLFSAA"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-04.mp3"
+type = "audio"
+title = "transferts_feminine_04"
+description = "Text-to-speech audio: Au Niger : MyNITA, AMANATA, Airtel Money, Moov Flooz, Orange Money, Wave, Zamani Cash et Coris Money."
+logical_id = "8135966d-1bce-4ab1-a615-91d7834d1e3c"
+
+[[outputs]]
+id = "j9yCZL-gWJMtO8peWJgK_"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-05.mp3"
+type = "audio"
+title = "transferts_feminine_05"
+description = "Text-to-speech audio: Pour le Bénin : MTN MoMo, Moov Money, Celtiis Cash, B-MO et MyNITA."
+logical_id = "39cf4b12-67f0-4f3b-8422-fb908adbe7a5"
+
+[[outputs]]
+id = "RsJ6Q5b6gVQS9eO9HTxyV"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-06.mp3"
+type = "audio"
+title = "transferts_feminine_06"
+description = "Text-to-speech audio: Pour le Nigeria : U B A, FirstBank, Zenith Bank, Access Bank, G T C O, Union Bank et Monnify."
+logical_id = "2992375a-4c78-4d78-b96e-c5738c999d06"
+
+[[outputs]]
+id = "pmiq8ORMfmxMzLG_ASkEZ"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-07.mp3"
+type = "audio"
+title = "transferts_feminine_07"
+description = "Text-to-speech audio: Au Ghana : MTN MoMo et Telecel Cash."
+logical_id = "201d63b9-1932-4d64-bb45-ac5bfca5044b"
+
+[[outputs]]
+id = "ryY6ztDGutnS6GzNVPWOJ"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-08.mp3"
+type = "audio"
+title = "transferts_feminine_08"
+description = "Text-to-speech audio: La rubrique International présente MoneyGram, Ria, MoneyFusion et NITA."
+logical_id = "f40c5850-f8ce-4905-b882-b6f4c8ffb720"
+
+[[outputs]]
+id = "wttDiMAnsQr61-Vat07Zy"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-09.mp3"
+type = "audio"
+title = "transferts_feminine_09"
+description = "Text-to-speech audio: Côté solutions numériques, retrouvez la rubrique Binance et U S D T. Cette présentation n’est pas un conseil d’investissement."
+logical_id = "e05d2f5a-51a3-45f0-8c72-374e7c785968"
+
+[[outputs]]
+id = "_w-tpPIMHGGidyMAFWsl7"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-10.mp3"
+type = "audio"
+title = "transferts_feminine_10"
+description = "Text-to-speech audio: Comment découvrir un service ? Sélectionnez votre pays, puis touchez la carte qui vous intéresse. Le bouton Accéder ouvre le site de l’opérateur dans un nouvel onglet."
+logical_id = "a736599b-ec3f-44ce-a380-f96bbf1e4c37"
+
+[[outputs]]
+id = "LOtcSl1zgN559eQY_iZIg"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-11.mp3"
+type = "audio"
+title = "transferts_feminine_11"
+description = "Text-to-speech audio: Pour joindre notre équipe, revenez à l’accueil. Les boutons WhatsApp et téléphone vous permettent de nous contacter pour demander des renseignements."
+logical_id = "d5c4f3fd-15be-4ed7-bd22-e4d15048d3f5"
+
+[[outputs]]
+id = "baWBR_KlrOaiQxM98yrj3"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-12.mp3"
+type = "audio"
+title = "transferts_feminine_12"
+description = "Text-to-speech audio: Attention : aucune opération financière n’est exécutée automatiquement dans notre application. Les services répertoriés ne constituent pas une garantie de partenariat ni de disp…"
+logical_id = "42245eb9-4f27-4a65-866a-6eb5d4553ebc"
+
+[[outputs]]
+id = "X_uY1qXwToOPfmyKhV5hN"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-13.mp3"
+type = "audio"
+title = "transferts_feminine_13"
+description = "Text-to-speech audio: Ne communiquez jamais votre mot de passe, votre code PIN ou votre code de validation."
+logical_id = "5d516ca1-1561-4055-b174-5ed18529bc87"
+
+[[outputs]]
+id = "q7cleDeq7iy7CUMqFbj7w"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-14.mp3"
+type = "audio"
+title = "transferts_feminine_14"
+description = "Text-to-speech audio: Découvrez dès maintenant ibn djibril niger tech point com."
+logical_id = "d0f09ef7-93fa-422d-b03c-cfef21ed4aa9"
+
+[[outputs]]
+id = "RHe1qIEXF17aFKA3SK2I5"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-15.mp3"
+type = "audio"
+title = "transferts_feminine_15"
+description = "Text-to-speech audio: Ibn Djibril Niger Tech : votre partenaire technologique, votre contact de confiance !"
+logical_id = "93235131-e194-4dbf-b7b9-310bfa5fbe37"
+
+[[outputs]]
+id = "2cGGIQ5wFERGx_tNMvSl7"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-01.mp3"
+type = "audio"
+title = "transferts_masculine_01"
+description = "Text-to-speech audio: Bienvenue chez Ibn Djibril Niger Tech, votre espace de services numériques au Niger !"
+logical_id = "3e4684a4-ff67-43dd-9af9-18f7edd24593"
+
+[[outputs]]
+id = "KogA7V0dBRx78NAJoR_x8"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-02.mp3"
+type = "audio"
+title = "transferts_masculine_02"
+description = "Text-to-speech audio: Vous cherchez des informations sur un transfert d’argent ou un service Mobile Money ? Découvrez notre application mobile web."
+logical_id = "1cbb9153-5ebf-40e8-ad4a-f4acfc835da2"
+
+[[outputs]]
+id = "iOLEIdKXIVzpcg0k0AKs7"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-03.mp3"
+type = "audio"
+title = "transferts_masculine_03"
+description = "Text-to-speech audio: Ouvrez ibn djibril niger tech point com, puis touchez Services de transfert d’argent. Choisissez une rubrique pour découvrir les services répertoriés."
+logical_id = "66f1598b-b919-4426-a756-e06330d4aaee"
+
+[[outputs]]
+id = "erbQpJYFNZYPjCZFgGU96"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-04.mp3"
+type = "audio"
+title = "transferts_masculine_04"
+description = "Text-to-speech audio: Au Niger : MyNITA, AMANATA, Airtel Money, Moov Flooz, Orange Money, Wave, Zamani Cash et Coris Money."
+logical_id = "a852baab-a281-4b5c-afc6-3799a9738e2b"
+
+[[outputs]]
+id = "4vqdLItpRt6ZAJ9Bwp7GR"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-05.mp3"
+type = "audio"
+title = "transferts_masculine_05"
+description = "Text-to-speech audio: Pour le Bénin : MTN MoMo, Moov Money, Celtiis Cash, B-MO et MyNITA."
+logical_id = "f729bc59-e8b7-4df6-bf97-284a9a31467c"
+
+[[outputs]]
+id = "jq3rozMBm6O8J3PN1f1e0"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-06.mp3"
+type = "audio"
+title = "transferts_masculine_06"
+description = "Text-to-speech audio: Pour le Nigeria : U B A, FirstBank, Zenith Bank, Access Bank, G T C O, Union Bank et Monnify."
+logical_id = "e72efc52-3e08-41d2-86cc-6a1b37b9b113"
+
+[[outputs]]
+id = "ysTs0nob8h4fjQ2UsclKO"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-07.mp3"
+type = "audio"
+title = "transferts_masculine_07"
+description = "Text-to-speech audio: Au Ghana : MTN MoMo et Telecel Cash."
+logical_id = "48f65e62-c50c-4609-81ff-73229401bf24"
+
+[[outputs]]
+id = "ma593m_aXN0R7KoNLo0oG"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-08.mp3"
+type = "audio"
+title = "transferts_masculine_08"
+description = "Text-to-speech audio: La rubrique International présente MoneyGram, Ria, MoneyFusion et NITA."
+logical_id = "8e9e091a-2b36-49d9-965d-eef2adce09bb"
+
+[[outputs]]
+id = "-FFNfkfp-cBfFaS3Oz70B"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-09.mp3"
+type = "audio"
+title = "transferts_masculine_09"
+description = "Text-to-speech audio: Côté solutions numériques, retrouvez la rubrique Binance et U S D T. Cette présentation n’est pas un conseil d’investissement."
+logical_id = "eb104e35-00a3-427c-86ec-6b77c66fc9bf"
+
+[[outputs]]
+id = "iIfE9siBvF7EnMasmP49u"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-10.mp3"
+type = "audio"
+title = "transferts_masculine_10"
+description = "Text-to-speech audio: Comment découvrir un service ? Sélectionnez votre pays, puis touchez la carte qui vous intéresse. Le bouton Accéder ouvre le site de l’opérateur dans un nouvel onglet."
+logical_id = "2dda99f9-812d-43d8-ae65-4cb07384b5d0"
+
+[[outputs]]
+id = "JNe3l_y7XWyyxzopjFnMI"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-11.mp3"
+type = "audio"
+title = "transferts_masculine_11"
+description = "Text-to-speech audio: Pour joindre notre équipe, revenez à l’accueil. Les boutons WhatsApp et téléphone vous permettent de nous contacter pour demander des renseignements."
+logical_id = "b6e64e66-959d-4cb2-ad3b-fa0102d4f4d0"
+
+[[outputs]]
+id = "R_2ymD5VUaAdSO7r9Wj3R"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-12.mp3"
+type = "audio"
+title = "transferts_masculine_12"
+description = "Text-to-speech audio: Attention : aucune opération financière n’est exécutée automatiquement dans notre application. Les services répertoriés ne constituent pas une garantie de partenariat ni de disp…"
+logical_id = "25b0d27a-25c9-4f73-9568-b48fd243026a"
+
+[[outputs]]
+id = "xDeGt_vPKlk_MzctRM01f"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-13.mp3"
+type = "audio"
+title = "transferts_masculine_13"
+description = "Text-to-speech audio: Ne communiquez jamais votre mot de passe, votre code PIN ou votre code de validation."
+logical_id = "2f3e3b7f-1219-467e-b852-c753b21f6b58"
+
+[[outputs]]
+id = "rVgFOQSXj_l5Fi0Fu7U55"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-14.mp3"
+type = "audio"
+title = "transferts_masculine_14"
+description = "Text-to-speech audio: Découvrez dès maintenant ibn djibril niger tech point com."
+logical_id = "1e569a50-ffe0-4070-9cd7-c9c8b38a502d"
+
+[[outputs]]
+id = "CrWaBd-ISFbEgbvZdYt94"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-15.mp3"
+type = "audio"
+title = "transferts_masculine_15"
+description = "Text-to-speech audio: Ibn Djibril Niger Tech : votre partenaire technologique, votre contact de confiance !"
+logical_id = "7d542c47-ccc0-40a2-9805-d0db2ceb4ac2"
+
+[[outputs]]
+id = "I-zgh49VLT5zJkYB9eh_0"
+uri = "file://generated-artifacts/publicites-transferts/livraison/Ibn_Djibril_Transferts_Voix_Feminine.mp4"
+type = "video"
+title = "Publicité transferts — Voix féminine"
+description = "90 secondes • MP4 vertical 1080 × 1920 • Voix de synthèse féminine francophone • Sous-titres français • Sans musique."
+logical_id = "676336ad-103a-4796-8328-aed7b1cb9ef5"
+content_hash = "sha256:1cdbfbb2806d47a5e4a7a4d8ce66bbee434d6b86c1c6cb700580946acffb7a34"
+size = 7689038
+mtime_ms = 1792273312878
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/676336ad-103a-4796-8328-aed7b1cb9ef5/7d828418-ef2c-421c-acc8-6e80c53c6b08"
+storage_version_token = "1792273442596454"
+content_type = "video/mp4"
+
+[[outputs]]
+id = "0-GtNjtXxycpUoebi3ctm"
+uri = "file://generated-artifacts/publicites-transferts/livraison/Ibn_Djibril_Transferts_Voix_Masculine.mp4"
+type = "video"
+title = "Publicité transferts — Voix masculine"
+description = "90 secondes • MP4 vertical 1080 × 1920 • Voix de synthèse masculine francophone • Même montage et mêmes sous-titres • Sans musique."
+logical_id = "5901bb58-f3d4-49e3-99e6-ba15098f0bc0"
+content_hash = "sha256:42300dd078b9a1b2dadba0d91c35661f2fb63afc0e49d5d3682a6411fe4793f0"
+size = 7720991
+mtime_ms = 1792273315246
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/5901bb58-f3d4-49e3-99e6-ba15098f0bc0/2d9077b6-2778-41c0-bb06-b8c88179ec46"
+storage_version_token = "1792273443372981"
+content_type = "video/mp4"
