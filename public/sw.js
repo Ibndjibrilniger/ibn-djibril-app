@@ -1,5 +1,5 @@
 // Changing this release also triggers an update for existing PWA clients.
-const RELEASE = "20261103-preferences-nav1";
+const RELEASE = "20261018-private-analytics2";
 
 self.addEventListener("install", event => {
   event.waitUntil(

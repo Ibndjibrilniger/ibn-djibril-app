@@ -43,3 +43,20 @@ public prices. Do not expose credentials, connection strings or raw errors.
 Financial API research is in `docs/etude-api-financieres-niger.md`. No payment API
 is activated by these interface changes. A production connector requires
 separate explicit approval, merchant verification and legal validation.
+
+## Visitor analytics operations
+
+The private activities module adds nullable technical metadata columns to its
+existing PostgreSQL session table through idempotent `ADD COLUMN IF NOT EXISTS`.
+No business table is migrated. The existing 90-day analytics retention remains.
+New public events require an explicit statistics opt-in; old saved statistics
+are not backfilled with invented device or location values.
+
+Geography stays unavailable by default. `ANALYTICS_COUNTRY_HEADER`, and optional
+`ANALYTICS_REGION_HEADER` / `ANALYTICS_CITY_HEADER`, may only name headers that
+the production edge demonstrably strips and overwrites. Never enable a freely
+client-supplied header. No IP-geolocation provider or production secret was added.
+
+`ADMIN_CAPTURE_DIR=generated-artifacts/analytics-verification npm test` also saves
+authenticated desktop and Android regression screenshots using the rollback-only
+test fixture. It does not log in to or change the production Admin.

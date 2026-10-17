@@ -45,6 +45,13 @@ module.exports = function registerActivities(app, requireAdmin, pool) {
       res.json({ok:true,events:result.rows.slice(0,2000),truncated:result.rows.length>2000});
     } catch (_) {res.status(503).json({ok:false,error:'Chronologie indisponible.'});}
   });
+  app.get('/api/admin/activities/visitors/:id',async(req,res) => {
+    if (!store.UUID.test(req.params.id)) return res.status(400).json({ok:false,error:'Visiteur invalide.'});
+    try {
+      await ensure();
+      res.json(await store.visitorDetail(pool,req.params.id));
+    } catch (_) {res.status(503).json({ok:false,error:'Fiche visiteur indisponible.'});}
+  });
   app.get('/api/admin/activities/export.csv',async(req,res) => {
     let f;
     try {f=store.filters(req.query);} catch(error) {return res.status(400).json({ok:false,error:error.message});}
@@ -52,7 +59,8 @@ module.exports = function registerActivities(app, requireAdmin, pool) {
       await ensure();
       // A stable ID upper bound prevents a live stream from growing forever.
       const bound=await pool.query(`SELECT COALESCE(MAX(e.id),0) id ${store.JOIN} WHERE ${f.where}`,f.values);
-      const columns=['occurred_at','visitor_id','session_id','country','device','browser','os','type','page','service'];
+      const columns=['occurred_at','visitor_id','session_id','country','region','city','device','brand','model',
+        'browser','browser_version','os','os_version','language','source','type','page','service'];
       res.set('Content-Type','text/csv; charset=utf-8');
       res.set('Content-Disposition','attachment; filename="activites.csv"');
       res.write('\uFEFF'+columns.map(store.csvCell).join(',')+'\r\n');
@@ -86,6 +94,7 @@ module.exports = function registerActivities(app, requireAdmin, pool) {
           req.get('sec-fetch-site')==='cross-site') return res.status(403).json({ok:false});
     } catch (_) {return res.status(403).json({ok:false});}
     if (req.get('DNT')==='1' || req.get('Sec-GPC')==='1') return res.status(204).end();
+    if (req.body?.consent!=='granted') return res.status(204).end();
     let events;
     try {events=store.validateBatch(req.body,pages,services);}
     catch (_) {return res.status(400).json({ok:false,error:'Activités invalides.'});}
@@ -104,7 +113,7 @@ module.exports = function registerActivities(app, requireAdmin, pool) {
     fs.readFile(path.join(__dirname,'public',filename),'utf8',(error,html)=>{
       if (error) return next(error);
       res.set('Cache-Control','no-store');
-      res.type('html').send(html.replace(/<\/body>/i,'<script src="/activity-tracker.js?v=20261016-admin1" defer></script></body>'));
+      res.type('html').send(html.replace(/<\/body>/i,'<script src="/activity-consent.js?v=20261018-privacy2" defer></script><script src="/activity-tracker.js?v=20261018-privacy2" defer></script></body>'));
     });
   });
   return {

@@ -12,7 +12,7 @@
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand">
-        <span class="brand-mark" aria-hidden="true">📊</span>
+        <span class="brand-mark" aria-hidden="true">ID</span>
         <div>
           <h1>Données & Activités</h1>
           <p>Ibn_Djibril Niger Tech · Administration privée</p>
@@ -28,13 +28,13 @@
         <h2 id="page-title">Les visites, sans détour.</h2>
         <p>Suivez les parcours et interactions enregistrés sur le site.</p>
       </div>
-      <span class="timezone">Heure affichée : Africa/Porto-Novo (UTC+1)</span>
+      <span class="timezone">Heure affichée : Niger · Africa/Porto-Novo (UTC+1)</span>
     </section>
 
     <section class="panel filters" aria-labelledby="filters-title">
       <div class="filter-heading">
         <h3 id="filters-title">Période & filtres</h3>
-        <span class="hint">Les dates sont interprétées à l’heure du Bénin.</span>
+        <span class="hint">Dates interprétées à l’heure du Niger (UTC+1).</span>
       </div>
       <div class="period-row" role="group" aria-label="Période d’affichage">
         <button class="period-btn" type="button" data-period="today" aria-pressed="true">Aujourd’hui</button>
@@ -50,7 +50,7 @@
       <div class="field-grid">
         <div class="field"><label for="country">Pays</label><select id="country"><option value="">Tous les pays</option></select></div>
         <div class="field"><label for="device">Appareil</label><select id="device">
-          <option value="">Tous les appareils</option><option value="mobile">Mobile</option><option value="tablet">Tablette</option><option value="desktop">Ordinateur</option>
+          <option value="">Tous les appareils</option><option value="mobile">Mobile</option><option value="tablet">Tablette</option><option value="desktop">Ordinateur</option><option value="unknown">Non disponible</option>
         </select></div>
         <div class="field"><label for="type">Type d’activité</label><select id="type">
           <option value="">Tous les types</option>
@@ -70,23 +70,48 @@
     </section>
 
     <section class="stats-grid" aria-label="Indicateurs d’activité">
-      <article class="stat"><span class="stat-label">👥 Visiteurs aujourd’hui</span><strong class="stat-value" data-stat="todayVisitors">—</strong></article>
-      <article class="stat"><span class="stat-label">🔵 Visiteurs uniques</span><strong class="stat-value" data-stat="visitors">—</strong></article>
-      <article class="stat"><span class="stat-label">🟢 Sessions</span><strong class="stat-value" data-stat="sessions">—</strong></article>
-      <article class="stat"><span class="stat-label">📄 Pages consultées</span><strong class="stat-value" data-stat="pages">—</strong></article>
-      <article class="stat"><span class="stat-label">🛍️ Services/produits consultés</span><strong class="stat-value" data-stat="services">—</strong></article>
-      <article class="stat"><span class="stat-label">🖱️ Clics</span><strong class="stat-value" data-stat="clicks">—</strong></article>
-      <article class="stat"><span class="stat-label">🔗 Clics vers des services externes</span><strong class="stat-value" data-stat="external">—</strong></article>
-      <article class="stat"><span class="stat-label">📊 Nombre total d’activités</span><strong class="stat-value" data-stat="total">—</strong></article>
+      <article class="stat"><span class="stat-label">Visiteurs aujourd’hui</span><strong class="stat-value" data-stat="todayVisitors">—</strong></article>
+      <article class="stat"><span class="stat-label">Visiteurs actifs · 5 min</span><strong class="stat-value" data-stat="activeVisitors">—</strong></article>
+      <article class="stat"><span class="stat-label">Visites aujourd’hui</span><strong class="stat-value" data-stat="todayVisits">—</strong></article>
+      <article class="stat"><span class="stat-label">Visites · 7 jours</span><strong class="stat-value" data-stat="weekVisits">—</strong></article>
+      <article class="stat"><span class="stat-label">Visites · 30 jours</span><strong class="stat-value" data-stat="monthVisits">—</strong></article>
+      <article class="stat"><span class="stat-label">Visiteurs uniques · période</span><strong class="stat-value" data-stat="visitors">—</strong></article>
+      <article class="stat"><span class="stat-label">Sessions · période</span><strong class="stat-value" data-stat="sessions">—</strong></article>
+      <article class="stat"><span class="stat-label">Pages consultées</span><strong class="stat-value" data-stat="pages">—</strong></article>
+      <article class="stat"><span class="stat-label">Services / produits consultés</span><strong class="stat-value" data-stat="services">—</strong></article>
+      <article class="stat"><span class="stat-label">Clics</span><strong class="stat-value" data-stat="clicks">—</strong></article>
+      <article class="stat"><span class="stat-label">Clics vers des services externes</span><strong class="stat-value" data-stat="external">—</strong></article>
+      <article class="stat"><span class="stat-label">Activités enregistrées</span><strong class="stat-value" data-stat="total">—</strong></article>
+    </section>
+
+    <section class="insight-grid" aria-label="Répartition des visiteurs et interactions">
+      <article class="panel ranking-panel">
+        <h3>Origine déclarée par le réseau</h3>
+        <p>Navigateurs uniques par pays estimé, fourni uniquement par un proxy de confiance. Un navigateur peut apparaître dans plusieurs pays ; ces nombres ne s’additionnent pas nécessairement au total unique.</p>
+        <div id="countries-state" class="rank-empty" aria-live="polite">Chargement des répartitions…</div>
+        <ol id="countries-ranking" class="rank-list" aria-label="Visiteurs par pays" hidden></ol>
+      </article>
+      <article class="panel ranking-panel">
+        <h3>Appareils utilisés</h3>
+        <p>Visiteurs uniques par catégorie d’appareil ; une personne peut utiliser plusieurs catégories.</p>
+        <div id="devices-state" class="rank-empty" aria-live="polite">Chargement des répartitions…</div>
+        <ol id="devices-ranking" class="rank-list" aria-label="Visiteurs par type d’appareil" hidden></ol>
+      </article>
+      <article class="panel ranking-panel">
+        <h3>Services et produits consultés</h3>
+        <p>Nombre d’interactions enregistrées, pas le nombre de clients ni de ventes.</p>
+        <div id="services-state" class="rank-empty" aria-live="polite">Chargement des répartitions…</div>
+        <ol id="services-ranking" class="rank-list" aria-label="Interactions par service ou produit" hidden></ol>
+      </article>
     </section>
 
     <section class="panel events-panel" aria-labelledby="events-title">
       <div class="table-head">
         <div class="table-title">
           <h3 id="events-title">Activités récentes</h3>
-          <p id="table-caption">Horodatages affichés en heure du Bénin</p>
+          <p id="table-caption">Horodatages affichés en heure du Niger (UTC+1)</p>
         </div>
-        <a class="export-btn" id="export-link" href="/api/admin/activities/export.csv">📥 Exporter CSV</a>
+        <a class="export-btn" id="export-link" href="/api/admin/activities/export.csv">Exporter CSV</a>
       </div>
       <div id="table-state" class="state" aria-live="polite">
         <span class="state-icon" aria-hidden="true">◌</span>
@@ -96,9 +121,8 @@
       <div class="table-wrap" id="table-wrap" hidden>
         <table>
           <thead><tr>
-            <th scope="col">Date & heure · Bénin</th><th scope="col">Activité</th><th scope="col">Page</th>
-            <th scope="col">Service</th><th scope="col">Visiteur</th><th scope="col">Session</th>
-            <th scope="col">Pays</th><th scope="col">Appareil</th><th scope="col">Navigateur / OS</th>
+            <th scope="col">Date · Niger</th><th scope="col">Pays</th><th scope="col">Appareil</th>
+            <th scope="col">Navigateur</th><th scope="col">Activité</th><th scope="col">Visiteur</th><th scope="col">Session</th>
           </tr></thead>
           <tbody id="events-body"></tbody>
         </table>
@@ -113,13 +137,11 @@
     </section>
 
     <aside class="privacy-note">
-      <span class="privacy-icon" aria-hidden="true">🔒</span>
       <div><strong>Respect de la vie privée</strong>
-        Les identifiants sont pseudonymisés, aléatoires et réinitialisables via le stockage du navigateur.
-        L’identifiant visiteur expire après 30 jours ; une session expire après 30 minutes d’inactivité.
-        Aucune adresse IP brute ni donnée de formulaire n’est enregistrée. Les activités sont conservées pendant 90 jours.
-        Le suivi respecte « Ne pas me pister » et Global Privacy Control.
-        Le pays reste inconnu sans en-tête géographique fourni par un proxy de confiance.
+        Le suivi est activé uniquement avec le consentement explicite requis (opt-in) et respecte « Ne pas me pister » ainsi que Global Privacy Control.
+        L’identifiant aléatoire désigne un navigateur pseudonymisé, pas une personne ; il peut être réinitialisé dans le stockage du navigateur et expire après 30 jours.
+        Une session expire après 30 minutes d’inactivité. Aucune empreinte numérique ni adresse IP brute n’est utilisée ou conservée, et aucune donnée de formulaire n’est enregistrée.
+        Les événements sont conservés 90 jours. « Actif » signifie une activité durant les 5 dernières minutes. Le pays reste inconnu sans en-tête géographique d’un proxy de confiance.
       </div>
     </aside>
   </main>
@@ -127,9 +149,12 @@
   <dialog id="session-dialog" aria-labelledby="dialog-title">
     <div class="dialog-header">
       <div><h2 id="dialog-title">Parcours d’une session</h2><p id="dialog-session-id"></p></div>
-      <button class="icon-close" id="close-dialog" type="button" aria-label="Fermer le détail de session">×</button>
+      <div class="dialog-header-actions">
+        <button class="refresh-btn" id="refresh-dialog" type="button">Actualiser</button>
+        <button class="icon-close" id="close-dialog" type="button" aria-label="Fermer le détail">×</button>
+      </div>
     </div>
-    <div class="dialog-body" id="dialog-content"></div>
+    <div class="dialog-body" id="dialog-content" aria-live="polite"></div>
   </dialog>
 </body>
 </html>

@@ -1,26 +1,40 @@
 (() => {
   'use strict';
+  if (window.__ibnActivityTrackerLoaded) return;
+  window.__ibnActivityTrackerLoaded = true;
   if (location.pathname.startsWith('/admin') || navigator.doNotTrack === '1' || navigator.globalPrivacyControl || !window.crypto?.randomUUID) return;
+  const allowed = () => window.IbnActivityPrivacy?.allowed() === true;
+  let started = false;
+  function startTracking() {
+  if (started || !allowed()) return;
+  started = true;
   const slug = value => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,80);
+  const validID = value => typeof value==='string' && /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
   let visitor, session, queue = [], timer;
   const idle = 30 * 60 * 1000, visitorTTL = 30 * 86400000;
   try {
     const previous = JSON.parse(localStorage.getItem('ibn-activity-visitor') || 'null');
-    visitor = previous?.expires > Date.now() ? previous.id : crypto.randomUUID();
+    visitor = previous?.expires > Date.now() && validID(previous.id) ? previous.id : crypto.randomUUID();
     localStorage.setItem('ibn-activity-visitor',JSON.stringify({id:visitor,expires:previous?.id===visitor?previous.expires:Date.now()+visitorTTL}));
     session = JSON.parse(sessionStorage.getItem('ibn-activity-session') || 'null');
+    if (!validID(session?.id) || !Number.isFinite(session?.last)) session=null;
   } catch (_) { visitor = crypto.randomUUID(); }
   function activeSession() {
-    if (!session || Date.now()-session.last > idle) session = {id:crypto.randomUUID()};
+    if (!visitor) {
+      visitor=crypto.randomUUID();
+      try {localStorage.setItem('ibn-activity-visitor',JSON.stringify({id:visitor,expires:Date.now()+visitorTTL}));} catch (_) {}
+    }
+    if (!session || Date.now()-session.last > idle) session = {id:crypto.randomUUID(),source:source()};
     session.last=Date.now();
     try {sessionStorage.setItem('ibn-activity-session',JSON.stringify(session));} catch (_) {}
     return session.id;
   }
   async function flush() {
     clearTimeout(timer);
+    if (!allowed()) {queue=[];return;}
     if (!queue.length) return;
     const events=queue.splice(0,20);
-    const body=JSON.stringify({visitor,session:activeSession(),events});
+    const body=JSON.stringify({visitor,session:activeSession(),source:session.source,consent:'granted',events});
     try {
       const response=await fetch('/api/activities',{method:'POST',headers:{'Content-Type':'application/json'},body,
         credentials:'same-origin',keepalive:true,cache:'no-store'});
@@ -29,11 +43,29 @@
     // Deliberately no persistent queue/retries: never block navigation or replay old activity.
   }
   function track(type,service='') {
+    if (!allowed()) return;
     activeSession();
     queue.push({id:crypto.randomUUID(),type,page:location.pathname,service:slug(service)});
     if (queue.length>=20) void flush();
     else {clearTimeout(timer);timer=setTimeout(flush,120);}
   }
+  // Only coarse, allowlisted attribution; never transmit URLs, searches,
+  // query parameters, contact addresses or advertising click identifiers.
+  function source() {
+    try {
+      const host = new URL(document.referrer).hostname.toLowerCase();
+      if (host === location.hostname) return 'internal';
+      if (/(^|\.)google\.(com|fr|ne|bj|ng|com\.gh)$/.test(host)) return 'google';
+      if (/(^|\.)bing\.com$/.test(host)) return 'bing';
+      if (/(^|\.)(facebook\.com|fb\.com)$/.test(host)) return 'facebook';
+      if (/(^|\.)instagram\.com$/.test(host)) return 'instagram';
+      if (/(^|\.)(whatsapp\.com|wa\.me)$/.test(host)) return 'whatsapp';
+      if (/(^|\.)tiktok\.com$/.test(host)) return 'tiktok';
+      return 'other';
+    } catch (_) {return document.referrer ? 'other' : 'direct';}
+  }
+  activeSession();
+  if (!session.source) session.source=source();
   track('page_view');
   document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')void flush();});
   window.addEventListener('pagehide',()=>void flush());
@@ -91,4 +123,17 @@
     if (open && !financeOpen) {track('finance_open','transferts');track('finance_category','Niger');}
     financeOpen=open;
   }).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['class']});
+  let lastInteraction=Date.now();
+  for (const type of ['pointerdown','keydown','scroll']) document.addEventListener(type,()=>{lastInteraction=Date.now();},{passive:true});
+  setInterval(()=>{
+    if (allowed() && document.visibilityState==='visible' && Date.now()-lastInteraction<5*60000)
+      track('heartbeat');
+  },60000);
+  window.addEventListener('ibn:analytics-consent',()=>{
+    if (!allowed()) {queue=[];clearTimeout(timer);visitor=null;session=null;}
+    else if (!visitor) track('page_view');
+  });
+  }
+  window.addEventListener('ibn:analytics-consent', startTracking);
+  startTracking();
 })();
