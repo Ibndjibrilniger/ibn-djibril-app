@@ -1,0 +1,143 @@
+/* Shared visitor display preferences. Keep brand colors and original product imagery intact. */
+html[data-text-size="large"] { font-size: 112.5%; }
+html[data-text-size="large"] .ibn-preferences-page { font-size:1rem; }
+html[data-text-size="large"] .ibn-cat-card p,
+html[data-text-size="large"] .ibn-feature-copy small,
+html[data-text-size="large"] .ibn-pref-section > p,
+html[data-text-size="large"] .ibn-pref-control label,
+html[data-text-size="large"] .ibn-phone-list li { font-size:1rem !important; }
+html[data-text-size="large"] .ibn-cat-card h3,
+html[data-text-size="large"] .ibn-feature-copy strong { font-size:1.125rem !important; }
+html[data-theme="dark"] .ibn-admin-page .panel,
+html[data-theme="dark"] .ibn-admin-page .product { background:#20352a; color:#edf5ee; border-color:#3c5848; }
+html[data-theme="dark"] .ibn-admin-page input,
+html[data-theme="dark"] .ibn-admin-page select { background:#15251d; color:#edf5ee; border-color:#547360; }
+html[data-theme="dark"] .ibn-admin-page .category { color:#b4eacb; }
+html[data-density="compact"] main { padding-top: 14px; padding-bottom: 24px; }
+html[data-density="compact"] .ibn-feature-tile { min-height: 82px; }
+html[data-density="compact"] .ibn-cat-card .ibn-cat-body { padding: 11px !important; }
+html[data-density="compact"] .ibn-cat-grid { gap: 10px !important; }
+html[data-density="compact"] #contact { padding: 17px !important; }
+html[data-reduced-motion="true"] *, html[data-reduced-motion="true"] *::before, html[data-reduced-motion="true"] *::after {
+  scroll-behavior: auto !important; animation-duration: .01ms !important;
+  animation-iteration-count: 1 !important; transition-duration: .01ms !important;
+}
+
+/* Site-wide night palette: no image filters, so logos and product photos remain true. */
+html[data-theme="dark"] { color-scheme: dark; background:#15251d; }
+html[data-theme="dark"] body { background:#15251d !important; color:#ecf3ed !important; }
+html[data-theme="dark"] main, html[data-theme="dark"] #ibn-catalogue-ultra { color:#ecf3ed !important; }
+html[data-theme="dark"] .welcome,
+html[data-theme="dark"] .ibn-cat-card,
+html[data-theme="dark"] .ibn-feature-tile,
+html[data-theme="dark"] .ibn-offers-link,
+html[data-theme="dark"] #contact,
+html[data-theme="dark"] .ibn-supplementary,
+html[data-theme="dark"] .ibn-supplement-card {
+  background:#20352a !important; border-color:#3c5848 !important; color:#edf5ee !important;
+}
+html[data-theme="dark"] .welcome h2,
+html[data-theme="dark"] .ibn-feature-copy strong,
+html[data-theme="dark"] .ibn-cat-card h3,
+html[data-theme="dark"] #contact h2,
+html[data-theme="dark"] .ibn-supplement-card h3 { color:#f3f7f2 !important; }
+html[data-theme="dark"] .welcome p,
+html[data-theme="dark"] .ibn-feature-copy small,
+html[data-theme="dark"] .ibn-cat-card p,
+html[data-theme="dark"] #contact p,
+html[data-theme="dark"] .ibn-supplement-card p { color:#c0d0c5 !important; }
+html[data-theme="dark"] .ibn-cat-search,
+html[data-theme="dark"] .ibn-cat-chip,
+html[data-theme="dark"] .ibn-sheet,
+html[data-theme="dark"] .ibn-sheet-top,
+html[data-theme="dark"] .ibn-legacy-detail,
+html[data-theme="dark"] .ibn-phone-list li { background:#20352a !important; color:#edf5ee !important; border-color:#3c5848 !important; }
+html[data-theme="dark"] .ibn-detail h2,
+html[data-theme="dark"] .ibn-detail .sub,
+html[data-theme="dark"] .ibn-legacy-detail summary,
+html[data-theme="dark"] .ibn-legacy-detail p,
+html[data-theme="dark"] .ibn-legacy-detail small { color:#d8e6db !important; }
+html[data-theme="dark"] .ibn-gallery figure,
+html[data-theme="dark"] .ibn-specs li,
+html[data-theme="dark"] .ibn-phone-editorial,
+html[data-theme="dark"] .ibn-phone-mark { background:#2b4435 !important; color:#edf5ee !important; border-color:#45614f !important; }
+html[data-theme="dark"] body>footer { color:#bdcfc2 !important; }
+html[data-theme="dark"] #ibn-cart-panel,
+html[data-theme="dark"] #ibn-cart-overlay .ibn-cart-item,
+html[data-theme="dark"] #ibn-cart-overlay .ibn-checkout { background:#20352a !important; color:#edf5ee !important; border-color:#3c5848 !important; }
+html[data-theme="dark"] #ibn-cart-overlay .ibn-cart-head,
+html[data-theme="dark"] #ibn-cart-overlay .ibn-cart-name,
+html[data-theme="dark"] #ibn-cart-overlay .ibn-empty { color:#edf5ee !important; }
+html[data-theme="dark"] #ibn-cart-overlay .ibn-cart-close { background:#35513f !important; color:#edf5ee !important; }
+html[data-theme="dark"] #ibn-cart-overlay .ibn-checkout input,
+html[data-theme="dark"] #ibn-cart-overlay .ibn-checkout textarea { color:#edf5ee !important; background:#15251d !important; border-color:#547360 !important; }
+html[data-theme="dark"] #ibn-finance-services .ibn-finance-service-card { background:#20352a !important; border-color:#3c5848 !important; color:#edf5ee !important; }
+html[data-theme="dark"] #ibn-finance-services .ibn-finance-service-name { color:#edf5ee !important; }
+html[data-theme="dark"] .ibn-transfer-sheet-content > div[style*="background:#f4f4f4"] { background:#2b4435 !important; }
+html[data-theme="dark"] .ibn-transfer-sheet { background:#20352a !important; color:#edf5ee !important; }
+html[data-theme="dark"] .ibn-transfer-sheet-content > div[style*="background:linear-gradient"] { background:linear-gradient(135deg,#07553a,#087747) !important; }
+html[data-theme="dark"] #ibn-finance-tabs button { border:1px solid #547360 !important; }
+html[data-theme="dark"] #ibn-transfer-sheet-content,
+html[data-theme="dark"] .ibn-transfer-sheet-content > div[style*="background:#f4f4f4"] { color:#e8f2eb !important; }
+html[data-theme="dark"] body > #ibn-boutique-location .ibn-location-shop { background:#20352a !important; color:#edf5ee !important; border-color:#3c5848 !important; }
+html[data-theme="dark"] body:has(.bottom-nav) { background:#15251d !important; color:#edf5ee !important; }
+html[data-theme="dark"] body:has(.bottom-nav) .categories button,
+html[data-theme="dark"] body:has(.bottom-nav) .product,
+html[data-theme="dark"] body:has(.bottom-nav) .info-box,
+html[data-theme="dark"] body:has(.bottom-nav) .contact { background:#20352a !important; border-color:#3c5848 !important; color:#edf5ee !important; }
+html[data-theme="dark"] body:has(.bottom-nav) .product-desc,
+html[data-theme="dark"] body:has(.bottom-nav) .section-head p { color:#c0d0c5 !important; }
+html[data-theme="dark"] body:has(.bottom-nav) .search-box input { color:#edf5ee !important; background:#20352a !important; }
+html[data-theme="dark"] body:has(.bottom-nav) .product-image { background:#2b4435 !important; }
+
+.ibn-preferences-page {
+  --pref-ink:#19372b; --pref-muted:#63766a; --pref-green:#087747; --pref-paper:#f3f6f2;
+  max-width:920px; margin:0 auto; padding:24px 18px 48px; color:var(--pref-ink);
+  font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+.ibn-preferences-page * { box-sizing:border-box; }
+.ibn-pref-top { display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:20px; }
+.ibn-pref-brand { display:flex; align-items:center; gap:12px; font-weight:850; }
+.ibn-pref-brand img { width:54px; height:54px; object-fit:contain; border-radius:14px; background:#fff; }
+.ibn-pref-back,.ibn-pref-link { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:10px 15px; border:1px solid #cddbd1; border-radius:12px; color:#075e3a; background:#fffefa; font-weight:800; text-decoration:none; cursor:pointer; }
+.ibn-pref-hero { padding:26px; border-radius:23px; color:white; background:linear-gradient(115deg,#07553a,#087747 72%,#348052); }
+.ibn-pref-eyebrow { color:#d3eadb; font-size:12px; font-weight:850; letter-spacing:.12em; text-transform:uppercase; }
+.ibn-pref-hero h1 { margin:5px 0 7px; font-size:clamp(30px,7vw,46px); line-height:1.04; letter-spacing:-.045em; }
+.ibn-pref-hero p { max-width:650px; color:#e3f0e7; }
+.ibn-pref-status { margin-top:14px; padding:12px 14px; border:1px solid #e0a564; border-radius:12px; color:#75410e; background:#fff2df; }
+.ibn-pref-status[hidden] { display:none; }
+.ibn-pref-section { margin-top:16px; padding:21px; border:1px solid #dce5dd; border-radius:20px; background:#fffefa; box-shadow:0 6px 22px rgba(25,67,46,.045); }
+.ibn-pref-section h2 { margin-bottom:5px; font-size:21px; letter-spacing:-.025em; }
+.ibn-pref-section > p { color:#63766a; }
+.ibn-pref-controls { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin-top:16px; }
+.ibn-pref-control { min-width:0; padding:13px; border:1px solid #dce5dd; border-radius:14px; background:#f8faf6; }
+.ibn-pref-control label,.ibn-pref-control legend { display:block; margin-bottom:8px; font-weight:800; }
+.ibn-pref-control select { width:100%; min-height:46px; padding:9px 11px; border:1px solid #bdcec2; border-radius:10px; color:#19372b; background:#fff; font:inherit; }
+.ibn-pref-check { display:flex; align-items:flex-start; gap:11px; min-height:46px; cursor:pointer; }
+.ibn-pref-check input { width:21px; height:21px; flex:none; accent-color:#087747; }
+.ibn-pref-note { margin-top:12px; padding:11px 13px; border-left:4px solid #e77d25; border-radius:8px; background:#fff4e8; color:#5f4934; font-size:14px; }
+.ibn-pref-meta { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; margin-top:14px; }
+.ibn-pref-meta div { padding:12px; border-radius:12px; background:#f1f6f1; }
+.ibn-pref-meta dt { color:#63766a; font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.06em; }
+.ibn-pref-meta dd { margin-top:3px; font-weight:800; overflow-wrap:anywhere; }
+.ibn-pref-actions { display:flex; flex-wrap:wrap; gap:9px; margin-top:14px; }
+.ibn-pref-link.primary { border-color:#087747; background:#087747; color:#fff; }
+.ibn-pref-legal p + p { margin-top:9px; }
+.ibn-pref-contact { display:flex; flex-wrap:wrap; gap:9px; margin-top:12px; }
+.ibn-pref-contact a { min-height:44px; display:inline-flex; align-items:center; padding:10px 14px; border-radius:11px; color:#fff; background:#087747; text-decoration:none; font-weight:800; }
+.ibn-preferences-page :focus-visible { outline:3px solid #e77d25; outline-offset:3px; }
+html[data-theme="dark"] .ibn-preferences-page { --pref-ink:#eff5ef; color:#edf5ee; }
+html[data-theme="dark"] .ibn-pref-section { background:#20352a; border-color:#3c5848; }
+html[data-theme="dark"] .ibn-pref-section > p,html[data-theme="dark"] .ibn-pref-legal { color:#ccdbcf; }
+html[data-theme="dark"] .ibn-pref-control,html[data-theme="dark"] .ibn-pref-meta div { background:#2b4435; border-color:#45614f; }
+html[data-theme="dark"] .ibn-pref-control select { color:#edf5ee; background:#15251d; border-color:#547360; }
+html[data-theme="dark"] .ibn-pref-back,html[data-theme="dark"] .ibn-pref-link:not(.primary) { background:#2b4435; color:#e8f2eb; border-color:#547360; }
+html[data-theme="dark"] .ibn-pref-note,html[data-theme="dark"] .ibn-pref-status { background:#453522; color:#ffe7c4; }
+@media(max-width:620px) {
+  .ibn-preferences-page { padding:14px 12px 32px; }
+  .ibn-pref-top { align-items:flex-start; }
+  .ibn-pref-brand { font-size:13px; }
+  .ibn-pref-brand img { width:46px; height:46px; }
+  .ibn-pref-hero,.ibn-pref-section { padding:18px; border-radius:17px; }
+  .ibn-pref-controls,.ibn-pref-meta { grid-template-columns:1fr; }
+}

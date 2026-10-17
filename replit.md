@@ -26,3 +26,20 @@ Browser tests use `/repl/tools/bin/chromium` or `CHROMIUM_PATH`.
 Admin integration tests use an existing **development/test** PostgreSQL connection
 and create their fixture schema inside a rolled-back transaction. Never point
 these tests at a production database.
+
+## Display preferences and private settings
+
+The existing public catalogue links to `/parametres.html`. Preferences are local
+to the browser: system/light/dark theme, display density, text size and reduced
+motion. French is the only implemented interface language. Storage failures are
+reported explicitly; these controls never update products or server settings.
+
+`/admin/settings` and its assets use the existing Admin session guard.
+`GET /api/admin/settings` is read-only and private. Its synchronization status
+describes a current read of the existing price source, not an invented historical
+sync time. It must preserve the price subset managed by Admin and all other
+public prices. Do not expose credentials, connection strings or raw errors.
+
+Financial API research is in `docs/etude-api-financieres-niger.md`. No payment API
+is activated by these interface changes. A production connector requires
+separate explicit approval, merchant verification and legal validation.

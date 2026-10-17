@@ -320,6 +320,7 @@
   const featured = root.querySelector(".ibn-featured-categories");
   const categories = ["Tout", ...new Set(DATA.map(product => product.category))];
   let active = "Tout";
+  let activeCategories = null;
   let returnFocus = null;
   let modalOpen = false;
   let hasHistoryEntry = false;
@@ -337,24 +338,34 @@
   }
 
   function renderFeatured() {
-    const firstCategories = [...new Set(DATA.map(product => product.category))].slice(0, 4);
-    const tiles = firstCategories.map(category => {
+    const access = [
+      { label: "Starlink et Internet satellite", categories: ["Starlink"], note: "Connexion et kits Internet satellite" },
+      { label: "MikroTik et routeurs", categories: ["MikroTik", "Routeurs & Wi-Fi"], note: "Routeurs, Wi-Fi et équipements" },
+      { label: "Antennes et équipements réseau", categories: ["Antennes & PtP", "Énergie & PoE", "Câblage & Fibre", "Maintenance"], note: "Antennes, liaisons et accessoires réseau" }
+    ];
+    const tiles = access.map(item => {
+      const category = item.categories.find(name => DATA.some(product => product.category === name));
+      if (!category) return "";
       const image = categoryImage(category);
-      return `<button type="button" class="ibn-feature-tile" data-feature-category="${esc(category)}">
+      return `<button type="button" class="ibn-feature-tile" data-feature-categories="${esc(item.categories.join("|"))}">
         <span class="ibn-feature-image"><img src="${esc(image)}" alt="" loading="lazy" decoding="async"></span>
-        <span class="ibn-feature-copy"><span class="ibn-feature-kicker">CATÉGORIE</span><strong>${esc(category)}</strong><small>Parcourir les équipements</small></span>
+        <span class="ibn-feature-copy"><span class="ibn-feature-kicker">ÉQUIPEMENTS</span><strong>${esc(item.label)}</strong><small>${esc(item.note)}</small></span>
       </button>`;
     }).join("");
+    const services = `<button type="button" class="ibn-feature-tile" data-open-services>
+      <span class="ibn-feature-image"><img src="/icons/logo.png" alt="" loading="lazy" decoding="async"></span>
+      <span class="ibn-feature-copy"><span class="ibn-feature-kicker">INSTALLATION & ASSISTANCE</span><strong>Installations Wi-Fi Zone et prestations techniques</strong><small>Solutions et services déjà présentés par la boutique</small></span>
+    </button>`;
     const phone = `<button type="button" class="ibn-feature-tile" data-open-phone>
       <span class="ibn-feature-image"><img src="/icons/logo.png" alt="Logo officiel Ibn_Djibril Niger Tech" loading="lazy" decoding="async"></span>
-      <span class="ibn-feature-copy"><span class="ibn-feature-kicker">CATÉGORIE</span><strong>TÉLÉPHONES & ACCESSOIRES</strong><small>Tecno, Samsung, Itel, Oraimo et plus</small></span>
+      <span class="ibn-feature-copy"><span class="ibn-feature-kicker">EN DERNIER</span><strong>Téléphones &amp; Accessoires</strong><small>Tecno, Samsung, Itel, Oraimo et plus</small></span>
     </button>`;
-    featured.innerHTML = phone + tiles;
+    featured.innerHTML = tiles + services + phone;
   }
 
   function renderChips() {
     chips.innerHTML = categories.map(category =>
-      `<button type="button" class="ibn-cat-chip${category === active ? " active" : ""}" data-cat="${esc(category)}" aria-pressed="${category === active}">${esc(category)}</button>`
+      `<button type="button" class="ibn-cat-chip${(category === active || (activeCategories && activeCategories.includes(category))) ? " active" : ""}" data-cat="${esc(category)}" aria-pressed="${category === active || !!(activeCategories && activeCategories.includes(category))}">${esc(category)}</button>`
     ).join("");
   }
   function stockInfo(product) {
@@ -371,7 +382,7 @@
   function renderCards() {
     const query = search.value.trim().toLocaleLowerCase("fr");
     const filtered = DATA.filter(product =>
-      (active === "Tout" || product.category === active) &&
+      (activeCategories ? activeCategories.includes(product.category) : (active === "Tout" || product.category === active)) &&
       (!query || [product.name, product.subtitle, product.category, ...(product.specs || [])]
         .join(" ").toLocaleLowerCase("fr").includes(query))
     );
@@ -421,6 +432,21 @@
         ${item.historicalPrice ? `<small>Montant historique, à confirmer avant commande : ${esc(item.historicalPrice)}. Ce montant ne remplace pas le tarif actuel du catalogue.</small>` : ""}
       </details>
     </article>`).join("") + `</div><h3 class="ibn-contact-title">Confirmer une offre ou un service</h3>${contactActions()}`;
+  }
+
+  function populateServices() {
+    const serviceTitles = new Set(["Wi-Fi & Internet", "Wi-Fi Business Pro", "Wi-Fi Business Mini", "Informatique"]);
+    const services = LEGACY_SUPPLEMENTS.filter(item => serviceTitles.has(item.title));
+    return `<div class="category">INSTALLATION & PRESTATIONS</div>
+      <h2 id="ibn-detail-heading">Wi-Fi Zone et prestations techniques</h2>
+      <p class="sub">Les services ci-dessous reprennent les informations déjà publiées par Ibn_Djibril Niger Tech. Contactez l’équipe pour préciser votre besoin et confirmer la disponibilité.</p>
+      <div class="ibn-supplementary-grid">${services.map(item => `<article class="ibn-supplement-card">
+        <h3>${esc(item.originalLabel || item.title)}</h3>
+        <p>${esc(item.description)}</p>
+        ${item.legacyLine ? `<p class="ibn-legacy-line">${esc(item.legacyLine)}</p>` : ""}
+        ${item.historicalPrice ? `<small class="legacy-price-note">Montant historique à confirmer avant commande ; il ne remplace pas le tarif actuel du catalogue.</small>` : ""}
+      </article>`).join("")}</div>
+      <h3 class="ibn-contact-title">Parler à l’équipe de votre installation</h3>${contactActions()}`;
   }
 
   function contactActions() {
@@ -508,6 +534,10 @@
     delete modal.dataset.productId;
     openModal(renderSupplements(), "Offres et services déjà publiés", trigger, "offres-services");
   }
+  function showServices(trigger) {
+    delete modal.dataset.productId;
+    openModal(populateServices(), "Installations Wi-Fi Zone et prestations techniques", trigger, "installations-prestations");
+  }
 
   root.addEventListener("click", event => {
     const add = event.target.closest(".ibn-add-cart");
@@ -515,6 +545,16 @@
     const categoryButton = event.target.closest("[data-feature-category]");
     if (categoryButton) {
       active = categoryButton.dataset.featureCategory;
+      activeCategories = null;
+      renderChips();
+      renderCards();
+      grid.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+      return;
+    }
+    const groupedCategoryButton = event.target.closest("[data-feature-categories]");
+    if (groupedCategoryButton) {
+      activeCategories = groupedCategoryButton.dataset.featureCategories.split("|").filter(category => categories.includes(category));
+      active = "__group__";
       renderChips();
       renderCards();
       grid.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
@@ -522,6 +562,10 @@
     }
     if (event.target.closest("[data-open-phone]")) {
       showPhones(event.target.closest("[data-open-phone]"));
+      return;
+    }
+    if (event.target.closest("[data-open-services]")) {
+      showServices(event.target.closest("[data-open-services]"));
       return;
     }
     if (event.target.closest("[data-open-offers]")) {
@@ -535,6 +579,7 @@
     const chip = event.target.closest("[data-cat]");
     if (chip) {
       active = chip.dataset.cat;
+      activeCategories = null;
       renderChips();
       renderCards();
     }

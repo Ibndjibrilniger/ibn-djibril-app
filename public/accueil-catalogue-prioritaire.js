@@ -46,7 +46,7 @@
     if (!destination) return false;
     const existing = $("#ibn-transfer-catalogue-card");
     if (existing) {
-      if (existing.parentElement !== destination) destination.prepend(existing);
+      if (existing.parentElement !== destination || destination.firstElementChild !== existing) destination.prepend(existing);
       return true;
     }
 
@@ -72,7 +72,7 @@
       </div>
     `;
 
-    destination.appendChild(card);
+    destination.prepend(card);
     card.addEventListener("keydown", e => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
@@ -365,7 +365,16 @@ window.openTransferSheet = openTransferSheet;
       return false;
     };
 
-    if (attempt()) return;
+    if (attempt()) {
+      const destination = $(".ibn-featured-categories");
+      if (destination) {
+        // renderFeatured may rebuild its children; preserve the finance entry as
+        // the first access tile after any such render without duplicating it.
+        const keepTransferFirst = new MutationObserver(() => insertTransferCardIntoCatalogue());
+        keepTransferFirst.observe(destination, { childList: true });
+      }
+      return;
+    }
 
     const timer = setInterval(() => {
       if (attempt() || tries > 50) clearInterval(timer);

@@ -15,6 +15,12 @@ Financial services in the application are a presentation/contact catalogue, not 
 
 **How to apply:** Preserve this distinction in product copy, marketing videos, financial-service screens and claims of affiliation.
 
+Studying financial APIs does not authorize activating them in production or creating a fake functional transfer interface. Real transactions require explicit user agreement, a verified merchant account and validation of the legal obligations.
+
+**Why:** The user explicitly separated the financial API study from improvements to the existing catalogue and settings.
+
+**How to apply:** Keep research separate from transaction code. Obtain the required validation before any future production financial integration; do not request or expose confidential financial credentials.
+
 Continue working on the existing imported application rather than rebuilding, replacing, restructuring, or migrating it. Preserve current business functionality and do not change Railway production configuration unless absolutely necessary.
 
 **Why:** The user explicitly requires targeted changes in the existing architecture and continuity of the production application.

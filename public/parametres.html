@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#087747">
+  <meta name="description" content="Préférences d’affichage, informations et confidentialité — Ibn_Djibril Niger Tech.">
+  <title>Paramètres — Ibn_Djibril Niger Tech</title>
+  <script src="/preferences.js?v=20261103-pref1"></script>
+  <link rel="stylesheet" href="/preferences.css?v=20261103-pref1">
+</head>
+<body>
+  <main class="ibn-preferences-page" id="main">
+    <nav class="ibn-pref-top" aria-label="Navigation">
+      <a class="ibn-pref-brand" href="/" aria-label="Accueil Ibn_Djibril Niger Tech">
+        <img src="/icons/logo.png" alt="" width="54" height="54">
+        <span>Ibn_Djibril Niger Tech</span>
+      </a>
+      <a class="ibn-pref-back" href="/" data-testid="settings-back">Retour à l’accueil</a>
+    </nav>
+    <header class="ibn-pref-hero">
+      <div class="ibn-pref-eyebrow">Votre espace public</div>
+      <h1>⚙️ Paramètres</h1>
+      <p>Réglez le confort d’affichage de cette application sur votre téléphone. Ces choix restent sur cet appareil.</p>
+    </header>
+    <p class="ibn-pref-status" id="ibn-pref-storage-status" role="status" aria-live="polite" hidden></p>
+
+    <section class="ibn-pref-section" aria-labelledby="display-title">
+      <h2 id="display-title">Affichage et accessibilité</h2>
+      <p>Les changements s’appliquent immédiatement aux pages publiques.</p>
+      <div class="ibn-pref-controls">
+        <div class="ibn-pref-control">
+          <label for="pref-theme">Thème</label>
+          <select id="pref-theme" name="theme" data-testid="pref-theme">
+            <option value="system">Selon le système</option><option value="light">Clair</option><option value="dark">Sombre</option>
+          </select>
+        </div>
+        <div class="ibn-pref-control">
+          <label for="pref-density">Densité de l’affichage</label>
+          <select id="pref-density" name="density" data-testid="pref-density">
+            <option value="comfortable">Confortable</option><option value="compact">Compacte</option>
+          </select>
+        </div>
+        <div class="ibn-pref-control">
+          <label for="pref-text-size">Taille du texte</label>
+          <select id="pref-text-size" name="textSize" data-testid="pref-text-size">
+            <option value="standard">Standard</option><option value="large">Grande</option>
+          </select>
+        </div>
+        <div class="ibn-pref-control">
+          <label class="ibn-pref-check" for="pref-motion">
+            <input id="pref-motion" type="checkbox" name="reducedMotion" data-testid="pref-motion">
+            <span>Réduire les animations</span>
+          </label>
+          <small>La préférence de réduction d’animations de votre système est toujours respectée.</small>
+        </div>
+      </div>
+      <p class="ibn-pref-note">Langue : français. Aucune autre traduction de l’interface n’est actuellement disponible.</p>
+    </section>
+
+    <section class="ibn-pref-section" aria-labelledby="business-title">
+      <h2 id="business-title">L’entreprise et l’assistance</h2>
+      <p>Informations publiées par la boutique — contactez l’équipe pour confirmer disponibilité et tarifs.</p>
+      <dl class="ibn-pref-meta">
+        <div><dt>Entreprise</dt><dd>Ibn_Djibril Niger Tech</dd></div>
+        <div><dt>Localisation</dt><dd>Tara, Niger</dd></div>
+        <div><dt>Téléphone</dt><dd><a href="tel:+22796784870">+227 96 78 48 70</a></dd></div>
+        <div><dt>Téléphone</dt><dd><a href="tel:+22791445187">+227 91 44 51 87</a></dd></div>
+        <div><dt>Version de l’application</dt><dd id="ibn-app-version">Vérification de la version…</dd></div>
+        <div><dt>Identifiant de version de l’interface</dt><dd>ui-2026.11.03-pref1</dd></div>
+      </dl>
+      <div class="ibn-pref-actions">
+        <a class="ibn-pref-link primary" href="https://wa.me/22796784870" target="_blank" rel="noopener noreferrer">Contacter sur WhatsApp</a>
+        <a class="ibn-pref-link" href="https://maps.app.goo.gl/UxHmcbGBuQQ8ftpj6" target="_blank" rel="noopener noreferrer">Localisation sur Maps</a>
+      </div>
+    </section>
+
+    <section class="ibn-pref-section ibn-pref-legal" id="confidentialite" aria-labelledby="privacy-title">
+      <h2 id="privacy-title">Confidentialité</h2>
+      <p>Les réglages de cette page concernent uniquement l’affichage et sont conservés dans le stockage local de votre navigateur. Ils ne sont pas transmis à la boutique et aucune donnée n’est collectée par ce mécanisme de préférences.</p>
+      <p>L’application peut compter des événements techniques de première partie pour ses statistiques « Données &amp; Activités » et utiliser le stockage nécessaire au panier. Ces traitements sont distincts des préférences ci-dessus. Les boutons WhatsApp, téléphone, cartes et liens de services financiers ouvrent des services externes soumis à leurs propres règles et politiques.</p>
+      <p>Ne transmettez jamais de mot de passe, code PIN ou code OTP dans un échange de commande. Pour une demande relative à l’application, contactez directement la boutique aux numéros affichés.</p>
+    </section>
+    <section class="ibn-pref-section ibn-pref-legal" id="conditions" aria-labelledby="terms-title">
+      <h2 id="terms-title">Conditions d’utilisation</h2>
+      <p>Le catalogue présente les équipements, descriptions et tarifs publiés par la boutique. Les prix et disponibilités doivent être confirmés directement auprès de l’équipe avant commande. Toute commande est convenue avec la boutique par ses moyens de contact habituels.</p>
+      <p>Les liens de paiement, transfert, cartes et autres services mènent à des opérateurs tiers. Cette interface ne réalise pas de transaction financière ni ne prétend fournir une API de paiement. Les informations et services tiers relèvent de leurs opérateurs respectifs.</p>
+      <p>Aucune condition juridique, garantie ou politique commerciale supplémentaire n’est publiée dans cette page faute d’informations officielles à reproduire.</p>
+    </section>
+    <footer class="ibn-pref-section"><p>© 2026 Ibn_Djibril Niger Tech</p></footer>
+  </main>
+  <script src="/preferences-page.js?v=20261103-pref1" defer></script>
+</body>
+</html>

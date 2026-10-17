@@ -45,6 +45,8 @@ body>header .shop-brand-copy{position:relative;z-index:1}
 body>header h1{margin:0 0 5px;font-size:clamp(20px,4vw,30px);line-height:1.12;letter-spacing:-.035em}
 body>header p{font-size:14px;color:rgba(255,255,255,.85)}
 body>header .shop-local-note{margin-top:4px;color:rgba(255,255,255,.66);font-size:11px}
+.shop-settings-link{position:absolute;right:18px;top:16px;z-index:2;display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:8px 13px;border:1px solid rgba(255,255,255,.4);border-radius:12px;color:#fff;background:rgba(3,57,36,.28);text-decoration:none;font-size:13px;font-weight:850}
+.shop-settings-link:hover{background:rgba(3,57,36,.48)}
 main{width:min(1260px,100%);max-width:none;margin:0 auto;padding:22px 22px 38px}
 main>.services,#produits,#service-detail{display:none!important}
 .welcome{
@@ -190,6 +192,7 @@ body>footer{padding:22px 12px 28px;color:#738278;font-size:12px}
 body.is-launching{overflow:hidden}
 @media(max-width:700px){
   body>header{margin:8px 8px 0;padding:17px 16px;border-radius:19px;gap:13px}
+  .shop-settings-link{position:relative;right:auto;top:auto;grid-column:2;justify-self:start;min-height:40px;margin-top:4px;padding:7px 10px;font-size:12px}
   .shop-brand-mark{width:66px;height:66px;border-radius:14px}
   main{padding:15px 12px 28px}
   .welcome{padding:17px!important;border-radius:17px!important}

@@ -67,17 +67,18 @@ app.use(express.json({
   limit: '100kb'
 }));
 
+const SESSION_COOKIE_OPTIONS = {
+  httpOnly: true,
+  sameSite: 'lax',
+  secure: false,
+  maxAge: 2 * 60 * 60 * 1000
+};
 app.use(session({
   name: 'ibn_admin_session',
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: {
-    httpOnly: true,
-    sameSite: 'lax',
-    secure: false,
-    maxAge: 2 * 60 * 60 * 1000
-  }
+  cookie: SESSION_COOKIE_OPTIONS
 }));
 
 function requireAdmin(req, res, next) {
@@ -549,6 +550,13 @@ app.post(
 
 
 require('./product-admin-routes')(app, requireAdmin);
+require('./admin-settings-routes')(app, requireAdmin, {
+  hasDatabase: () => Boolean(process.env.DATABASE_URL),
+  readManagedPrices: readPricesStore,
+  readLocalPrices: loadPrices,
+  sessionCookie: SESSION_COOKIE_OPTIONS,
+  getVersion: () => process.env.RAILWAY_GIT_COMMIT_SHA || process.env.APP_VERSION || '1.0.2'
+});
 
 app.get('/api/prices',async(req,res)=>{
   res.set('Cache-Control','no-store, no-cache, must-revalidate');
