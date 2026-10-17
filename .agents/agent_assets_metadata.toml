@@ -304,3 +304,17 @@ mtime_ms = 1792141365743
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/6fcb1563-ff38-4bec-8af3-d93638c25ccc/382fdf0c-67c0-4be8-9b70-ff43d7407c7f"
 storage_version_token = "1792141801663283"
 content_type = "image/png"
+
+[[outputs]]
+id = "HyTKquYBJvHsN97ywXT2C"
+uri = "file://generated-artifacts/ameliorations-application/Etude_API_financieres_Niger.pdf"
+type = "pdf"
+title = "Étude des API financières accessibles au Niger"
+description = "Rapport de 8 pages : iFUTUR/iMoney, FedaPay, Airtel Money Niger, NITA/MyNITA et piste transfrontalière Thunes. Conditions connues, documents marchands, frais publiés, documentation, sandbox, limites et exigences réglementaires. 17 références officielles. Aucun paiement ni accès Live activé."
+logical_id = "ba0511bd-c695-454b-9b73-a5f9a5a70027"
+content_hash = "sha256:7e2fec398bf0a424921805aa3baefb5a9ddf82456275721587a51bf7517b0142"
+size = 2068524
+mtime_ms = 1792198789276
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/ba0511bd-c695-454b-9b73-a5f9a5a70027/bfb5ead1-ccd7-4bbc-942c-533414a6cabd"
+storage_version_token = "1792199072452149"
+content_type = "application/pdf"
