@@ -318,3 +318,31 @@ mtime_ms = 1792198789276
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/ba0511bd-c695-454b-9b73-a5f9a5a70027/bfb5ead1-ccd7-4bbc-942c-533414a6cabd"
 storage_version_token = "1792199072452149"
 content_type = "application/pdf"
+
+[[outputs]]
+id = "kmmUGs_rIDyfvgslD87D1"
+uri = "file://generated-artifacts/demandes-partenariats/Dossier_demandes_partenariats.pdf"
+type = "pdf"
+title = "Dossier de demandes — MyNITA, AmanaTa, iMoney et Airtel"
+description = "9 pages : parcours possibles, justificatifs à préparer, contacts officiels, frais connus, quatre courriels à compléter et questionnaire pour obtenir un devis complet. Aucune demande envoyée ni dépense engagée."
+logical_id = "c1e5805f-7e24-43e1-a93a-ed0c2e08d4b8"
+content_hash = "sha256:bf3291b7a02ea2af790b17dfe662ca7d17c03ab41d610060f1542b02076be062"
+size = 57223
+mtime_ms = 1792218194733
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/c1e5805f-7e24-43e1-a93a-ed0c2e08d4b8/e778c533-1ba4-4043-acff-bee68e51b0e8"
+storage_version_token = "1792218253215252"
+content_type = "application/pdf"
+
+[[outputs]]
+id = "l81Cbyw5BfM93F21ki3A3"
+uri = "file://generated-artifacts/demandes-partenariats/Demandes_MyNITA_AmanaTa_iMoney_Airtel.docx"
+type = "word_document"
+title = "Version Word modifiable — demandes de partenariat"
+description = "Remplacez les champs entre crochets puis copiez uniquement le courrier du prestataire choisi et le questionnaire. Ne transmettez vos justificatifs qu’au prestataire, par son canal sécurisé."
+logical_id = "e48fccbe-51fb-4ac7-afac-1882798c75af"
+content_hash = "sha256:d465021cef75f5b62b189757853c4191df947f130659ecb365df0ba88311aa82"
+size = 31853
+mtime_ms = 1792218191553
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/e48fccbe-51fb-4ac7-afac-1882798c75af/805e3f8a-82a3-4298-a15a-9e98e1b20db1"
+storage_version_token = "1792218253836615"
+content_type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"

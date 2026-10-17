@@ -21,6 +21,12 @@ Studying financial APIs does not authorize activating them in production or crea
 
 **How to apply:** Keep research separate from transaction code. Obtain the required validation before any future production financial integration; do not request or expose confidential financial credentials.
 
+The requested future financial journey is access to customers' own MyNITA, AmanaTa and Mobile Money services, not just payment collection for equipment sales. Provider-authorized redirection, merchant collection and third-party money transfers are distinct products and permissions. The user prioritizes low fees.
+
+**Why:** The user clarified the intended customer experience and asked to minimize the cost of the services.
+
+**How to apply:** Ask providers which operations they actually permit and compare total costs, including settlement and fixed fees, before selecting a pilot. Do not promise automatic login or all account operations, or treat a collection contract as a transfer mandate.
+
 Continue working on the existing imported application rather than rebuilding, replacing, restructuring, or migrating it. Preserve current business functionality and do not change Railway production configuration unless absolutely necessary.
 
 **Why:** The user explicitly requires targeted changes in the existing architecture and continuity of the production application.
