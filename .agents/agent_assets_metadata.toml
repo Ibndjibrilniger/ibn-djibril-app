@@ -374,3 +374,17 @@ mtime_ms = 1792218405604
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/724a7449-57a0-45ff-bb1d-e248879ae641/678cc347-f4e0-495a-9a07-cf73d19ac872"
 storage_version_token = "1792218421090883"
 content_type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+
+[[outputs]]
+id = "uPtgvO2aO8YpRn1ud7HCE"
+uri = "file://generated-artifacts/promotion-niger/Plan_promotion_Niger_7_jours.pdf"
+type = "pdf"
+title = "Plan de promotion au Niger — 7 jours"
+description = "PDF de 4 pages : calendrier, textes prêts à adapter, option sans achat publicitaire, scénario indicatif de 15 000 FCFA maximum à valider, mesure des demandes WhatsApp et conditions avant lancement. Aucune campagne créée ou publiée ; aucune dépense engagée."
+logical_id = "76e401a5-7f14-43d5-a6fb-527ee3a50826"
+content_hash = "sha256:494f4dfd9e104af167bb7c2c8ac96bcd4eaf05e4b5204c279919a115393a6c57"
+size = 49280
+mtime_ms = 1792220212848
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/76e401a5-7f14-43d5-a6fb-527ee3a50826/b7b51263-9f90-4de5-ab5f-04ea5f0d1114"
+storage_version_token = "1792220278495607"
+content_type = "application/pdf"
