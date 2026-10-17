@@ -346,3 +346,31 @@ mtime_ms = 1792218191553
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/e48fccbe-51fb-4ac7-afac-1882798c75af/805e3f8a-82a3-4298-a15a-9e98e1b20db1"
 storage_version_token = "1792218253836615"
 content_type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+
+[[outputs]]
+id = "LJwQaPObFhmjMJnJSjYMd"
+uri = "file://generated-artifacts/demandes-partenariats/Dossier_demandes_partenariats_Niger.pdf"
+type = "pdf"
+title = "Dossier actualisé — entreprise immatriculée au Niger"
+description = "PDF de 9 pages : quatre courriers personnalisés pour le Niger, contacts officiels, justificatifs à préparer et questionnaire tarifaire. Remplace la version où le pays restait à confirmer."
+logical_id = "6ccd3a71-73bd-47f0-bfcc-53a67f6227a7"
+content_hash = "sha256:0fc4d9c2e8515f7450279756bfa1caa0f9ad01a10fbb51d003b2520c74756366"
+size = 57004
+mtime_ms = 1792218408480
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/6ccd3a71-73bd-47f0-bfcc-53a67f6227a7/43ef9708-3b2d-4a47-ba1e-5aedf3e5c0ea"
+storage_version_token = "1792218420396261"
+content_type = "application/pdf"
+
+[[outputs]]
+id = "1uk7D9mHrV658L7TOOV0G"
+uri = "file://generated-artifacts/demandes-partenariats/Demandes_partenariats_Niger.docx"
+type = "word_document"
+title = "Courriers modifiables — Niger confirmé"
+description = "Version Word actualisée pour NITA/MyNITA, AmanaTa, iFUTUR/iMoney et Airtel Money Niger. Complétez les champs restants hors conversation avant envoi."
+logical_id = "724a7449-57a0-45ff-bb1d-e248879ae641"
+content_hash = "sha256:cc6984d7f86086398740f0d407c0a9a40333f8c550ce6c61dc499a9e5f2fdce0"
+size = 32074
+mtime_ms = 1792218405604
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/724a7449-57a0-45ff-bb1d-e248879ae641/678cc347-f4e0-495a-9a07-cf73d19ac872"
+storage_version_token = "1792218421090883"
+content_type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"

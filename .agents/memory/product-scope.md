@@ -27,6 +27,12 @@ The requested future financial journey is access to customers' own MyNITA, Amana
 
 **How to apply:** Ask providers which operations they actually permit and compare total costs, including settlement and fixed fees, before selecting a pilot. Do not promise automatic login or all account operations, or treat a collection contract as a transfer mandate.
 
+The business is registered in Niger, not Nigeria, according to the user's explicit confirmation.
+
+**Why:** The user clarified the registration country when preparing provider applications.
+
+**How to apply:** Use Niger in commercial eligibility requests. This is a user declaration, not verification of registration documents or merchant approval; do not request or store registration or tax identifiers here.
+
 Continue working on the existing imported application rather than rebuilding, replacing, restructuring, or migrating it. Preserve current business functionality and do not change Railway production configuration unless absolutely necessary.
 
 **Why:** The user explicitly requires targeted changes in the existing architecture and continuity of the production application.

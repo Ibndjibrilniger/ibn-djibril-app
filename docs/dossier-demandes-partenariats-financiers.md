@@ -17,7 +17,7 @@ La demande d’informations ne constitue ni une souscription ni un ordre de paie
 
 ## 2. Vos documents : préparer, sans les envoyer dans la conversation
 
-RCCM signifie Registre du commerce et du crédit mobilier. Le pays d’immatriculation doit être confirmé : Niger et Nigeria ne sont pas interchangeables. L’acceptation d’une structure étrangère doit être confirmée par chaque prestataire.
+RCCM signifie Registre du commerce et du crédit mobilier. Vous avez confirmé que votre entreprise est immatriculée au Niger. Cette déclaration ne remplace pas l’examen des justificatifs et de l’éligibilité par chaque prestataire.
 
 NIF signifie numéro d’identification fiscale. Si votre document porte un autre sigle, conserver son intitulé exact ; ne pas le remplacer arbitrairement. Aucun numéro ni scan n’est nécessaire ici.
 
@@ -67,7 +67,8 @@ Commencer par une demande commune aux prestataires puis retenir une seule soluti
 Enseigne : Ibn_Djibril Niger Tech
 Site : https://ibndjibrilnigertech.com
 Dénomination légale exacte : [À COMPLÉTER]
-Pays et ville d’immatriculation : [À CONFIRMER]
+Pays d’immatriculation : Niger
+Ville d’immatriculation : [À COMPLÉTER]
 Forme juridique : [À COMPLÉTER]
 Représentant et qualité : [À COMPLÉTER]
 Coordonnées professionnelles de réponse : [À COMPLÉTER]
@@ -84,7 +85,7 @@ Objet : Demande d’éligibilité et de proposition économique — parcours MyN
 
 Madame, Monsieur,
 
-Je représente [DÉNOMINATION LÉGALE], immatriculée à [PAYS, VILLE], exploitant l’enseigne Ibn_Djibril Niger Tech et le site https://ibndjibrilnigertech.com.
+Je représente [DÉNOMINATION LÉGALE], immatriculée au Niger, à [VILLE], exploitant l’enseigne Ibn_Djibril Niger Tech et le site https://ibndjibrilnigertech.com.
 
 Nous souhaitons étudier un parcours permettant à nos visiteurs d’accéder à MyNITA par un lien officiel ou un mécanisme autorisé et, selon votre offre et nos habilitations, de régler nos ventes ou d’effectuer les opérations que vous autorisez. Nous ne demandons pas l’accès aux identifiants confidentiels des clients.
 
@@ -107,7 +108,7 @@ Objet : Demande de parcours officiel AmanaTa et conditions de partenariat — Ib
 
 Madame, Monsieur,
 
-Je représente [DÉNOMINATION LÉGALE], immatriculée à [PAYS, VILLE], exploitant Ibn_Djibril Niger Tech : https://ibndjibrilnigertech.com.
+Je représente [DÉNOMINATION LÉGALE], immatriculée au Niger, à [VILLE], exploitant Ibn_Djibril Niger Tech : https://ibndjibrilnigertech.com.
 
 Nous souhaitons orienter nos visiteurs vers AmanaTa ou proposer un parcours officiellement autorisé. Merci de préciser si vous fournissez un lien d’ouverture d’application, un paiement marchand hébergé ou une API, et les opérations réellement ouvertes à une entreprise de notre profil.
 
@@ -130,7 +131,7 @@ Objet : Demande de devis à faible coût et couverture Niger — iMoney / Ibn_Dj
 
 Madame, Monsieur,
 
-Je représente [DÉNOMINATION LÉGALE], immatriculée à [PAYS, VILLE], exploitant Ibn_Djibril Niger Tech : https://ibndjibrilnigertech.com.
+Je représente [DÉNOMINATION LÉGALE], immatriculée au Niger, à [VILLE], exploitant Ibn_Djibril Niger Tech : https://ibndjibrilnigertech.com.
 
 Nous étudions une solution unique pour limiter les abonnements et intégrations multiples. Merci de confirmer les moyens activables pour notre structure : MyNITA, Amana, Airtel Niger, Moov Niger et Zamani Niger, en distinguant appels API directs, liens de paiement et produits nécessitant un contrat distinct.
 
@@ -155,7 +156,7 @@ Madame, Monsieur,
 
 Votre adresse est publiée sur la page officielle du portail professionnel Airtel Money Niger. Si notre demande relève d’un autre service, merci de la transmettre à l’équipe Entreprises / API / Paiement marchand.
 
-Je représente [DÉNOMINATION LÉGALE], immatriculée à [PAYS, VILLE], exploitant Ibn_Djibril Niger Tech : https://ibndjibrilnigertech.com.
+Je représente [DÉNOMINATION LÉGALE], immatriculée au Niger, à [VILLE], exploitant Ibn_Djibril Niger Tech : https://ibndjibrilnigertech.com.
 
 Nous souhaitons connaître les parcours officiellement disponibles pour orienter nos clients vers Airtel Money et encaisser nos ventes. Merci de préciser séparément tout service de décaissement ou de paiements en masse, ainsi que les habilitations nécessaires pour des opérations pour tiers.
 
@@ -173,7 +174,7 @@ Cordialement,
 
 ## Annexe à joindre aux demandes — questionnaire de comparaison
 
-1. Acceptez-vous une entreprise de notre pays et de notre forme juridique ? Quelles pièces et quel canal sécurisé demandez-vous ?
+1. Acceptez-vous une entreprise immatriculée au Niger et de notre forme juridique ? Quelles pièces et quel canal sécurisé demandez-vous ?
 2. Quels parcours sont autorisés : lien officiel, encaissement de nos ventes, consultation avec consentement, décaissement, transfert pour tiers ? Quel contrat ou mandat pour chacun ?
 3. Quels pays, opérateurs, devises, plafonds et restrictions sont effectivement couverts pour notre contrat ?
 4. Existe-t-il des liens officiels d’ouverture d’application ou une authentification déléguée documentée ? Lesquels ? Quelles règles de marque, de sécurité et de retour vers notre site ?
@@ -186,7 +187,7 @@ Cordialement,
 
 ## Avant envoi et avant paiement
 
-- Confirmer le pays et la dénomination légale ; remplacer tous les champs entre crochets.
+- Vérifier la dénomination légale et la ville d’immatriculation au Niger ; remplacer tous les champs entre crochets.
 - Copier uniquement le courriel du destinataire concerné et le questionnaire, pas l’ensemble de ce guide.
 - Ne revendiquer aucun agrément, partenariat ni volume non établi.
 - Commencer sans pièces jointes sensibles ; demander la procédure officielle de dépôt.
@@ -208,4 +209,4 @@ Tarif marchand Airtel : https://www.airtel.ne/paiement-marchand
 Définition officielle RCCM, OHADA : https://rccm.ohada.org/staticPage/index?alias=rccm&lang=fr
 Instruction BCEAO sur les services de paiement : https://www.bceao.int/fr/reglementations/instruction-ndeg001-01-2024-du-23-janvier-2024-relative-aux-services-de-paiement
 
-Sources publiques consultées ; aucun tarif négocié, compte marchand, accès authentifié ou acceptation de l’entreprise n’est confirmé. Le pays d’immatriculation et l’intitulé de l’attestation fiscale restent à préciser. Ce dossier commercial ne remplace pas un avis juridique.
+Sources publiques consultées ; aucun tarif négocié, compte marchand, accès authentifié ou acceptation de l’entreprise n’est confirmé. L’immatriculation au Niger est déclarée par le propriétaire ; les justificatifs n’ont pas été examinés. L’intitulé de l’attestation fiscale reste à préciser. Ce dossier commercial ne remplace pas un avis juridique.
