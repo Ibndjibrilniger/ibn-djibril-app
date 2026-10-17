@@ -36,6 +36,8 @@ async function initialize(pool) {
     ALTER TABLE activity_sessions ADD COLUMN IF NOT EXISTS region VARCHAR(80);
     ALTER TABLE activity_sessions ADD COLUMN IF NOT EXISTS city VARCHAR(80);
     ALTER TABLE activity_sessions ADD COLUMN IF NOT EXISTS source VARCHAR(20);
+    ALTER TABLE activity_sessions ADD COLUMN IF NOT EXISTS country_source VARCHAR(32);
+    ALTER TABLE activity_sessions ADD COLUMN IF NOT EXISTS technical_observed_at TIMESTAMPTZ;
   `);
 }
 
@@ -64,21 +66,30 @@ function validateBatch(body, pages, services) {
 async function record(pool, body, events, meta) {
   const source = SOURCES.has(body.source) ? body.source : null;
   const inserted = await pool.query(`INSERT INTO activity_sessions
-    (session_id,visitor_id,country,device,browser,os,brand,model,os_version,browser_version,language,region,city,source)
-    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)
+    (session_id,visitor_id,country,device,browser,os,brand,model,os_version,browser_version,language,region,city,source,country_source,technical_observed_at)
+    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,statement_timestamp())
     ON CONFLICT (session_id) DO UPDATE SET session_id=EXCLUDED.session_id
     WHERE activity_sessions.visitor_id=EXCLUDED.visitor_id RETURNING session_id`,
   [body.session, body.visitor, meta.country, meta.device, meta.browser, meta.os,
-    meta.brand,meta.model,meta.os_version,meta.browser_version,meta.language,meta.region,meta.city,source]);
+    meta.brand,meta.model,meta.os_version,meta.browser_version,meta.language,meta.region,meta.city,source,meta.country_source]);
   if (!inserted.rowCount) throw new Error('Session invalide.');
-  await pool.query(`WITH recorded AS (INSERT INTO activity_events(event_id,session_id,type,page,service,occurred_at)
+  const result=await pool.query(`WITH recorded AS (INSERT INTO activity_events(event_id,session_id,type,page,service,occurred_at)
     SELECT (x.event->>'id')::uuid,$1::uuid,x.event->>'type',x.event->>'page',x.event->>'service',
       statement_timestamp()+(x.ordinality*INTERVAL '1 microsecond')
     FROM jsonb_array_elements($2::jsonb) WITH ORDINALITY AS x(event,ordinality)
     ON CONFLICT (event_id) DO NOTHING RETURNING occurred_at)
-    UPDATE activity_sessions SET last_at=(SELECT MAX(occurred_at) FROM recorded)
-    WHERE session_id=$1 AND EXISTS (SELECT 1 FROM recorded)`,
-  [body.session, JSON.stringify(events)]);
+    , updated AS (UPDATE activity_sessions SET last_at=(SELECT MAX(occurred_at) FROM recorded),
+      country=COALESCE(country,$3), country_source=CASE WHEN country IS NULL THEN $4 ELSE country_source END,
+      brand=COALESCE(brand,$5),model=COALESCE(model,$6),os_version=COALESCE(os_version,$7),
+      browser_version=COALESCE(browser_version,$8),language=COALESCE(language,$9),
+      region=CASE WHEN country IS NULL OR country=$3 THEN COALESCE(region,$10) ELSE region END,
+      city=CASE WHEN country IS NULL OR country=$3 THEN COALESCE(city,$11) ELSE city END,
+      technical_observed_at=statement_timestamp()
+      WHERE session_id=$1 AND EXISTS (SELECT 1 FROM recorded) RETURNING session_id)
+    SELECT COUNT(*)::int recorded FROM recorded`,
+  [body.session, JSON.stringify(events),meta.country,meta.country_source,meta.brand,meta.model,
+    meta.os_version,meta.browser_version,meta.language,meta.region,meta.city]);
+  return result.rows[0].recorded;
 }
 
 function dateValue(value, fallback) {
@@ -121,7 +132,8 @@ function filters(query) {
 
 const JOIN = 'FROM activity_events e JOIN activity_sessions s ON s.session_id=e.session_id';
 const COLUMNS = `e.id,e.session_id,e.occurred_at,e.type,e.page,e.service,s.visitor_id,s.country,s.device,s.browser,s.os,
-  s.brand,s.model,s.os_version,s.browser_version,s.language,s.region,s.city,s.source,s.first_at,s.last_at`;
+  s.brand,s.model,s.os_version,s.browser_version,s.language,s.region,s.city,s.source,s.first_at,s.last_at,
+  s.country_source,s.technical_observed_at`;
 
 async function report(pool, query) {
   const f = filters(query);

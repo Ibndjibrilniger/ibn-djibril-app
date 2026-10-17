@@ -19,6 +19,7 @@
     "dotenv": "^18.0.3",
     "express": "^5.2.1",
     "express-session": "^1.19.0",
+    "geoip-country": "^5.0.202610170130",
     "libphonenumber-js": "^1.13.14",
     "multer": "^2.4.0",
     "pg": "^8.16.3"

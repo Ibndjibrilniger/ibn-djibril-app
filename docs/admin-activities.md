@@ -35,8 +35,8 @@ restent inchangés.
 
 ## Confidentialité et limites
 
-Le serveur ajoute un script non visuel de première partie aux trois pages HTML
-publiques. Il n’est jamais ajouté aux pages Admin. Le suivi respecte DNT et
+Le serveur ajoute un choix de consentement et un collecteur de première partie aux pages HTML
+publiques. Il n’est jamais ajouté aux pages Admin. Le suivi nécessite un accord explicite et respecte DNT et
 Global Privacy Control ; il ne lit aucun champ de formulaire.
 
 Un identifiant visiteur aléatoire expire après 30 jours. Une session par onglet
@@ -55,11 +55,44 @@ formulaires/boutons de calcul ou test identifiables par leur ID peuvent produire
 une action sans enregistrer leurs valeurs. Les mouvements de souris, frappes,
 recherches saisies et actions Admin ne sont pas suivis.
 
-Le pays reste `NULL` par défaut : ne pas déduire un pays d’une langue ou d’un
-fuseau horaire. `ANALYTICS_COUNTRY_HEADER` peut désigner un en-tête géographique
+Le pays est estimé localement avec la base GeoLite2 Country incluse dans
+`geoip-country`, après consentement. Aucune IP n'est conservée ni envoyée à un
+service externe. Sur Railway, seul `X-Real-IP`, documenté comme réécrit par son
+edge, est accepté dans le contexte Railway/HTTPS/domaine connu. Les appelants du
+réseau privé Railway doivent rester de confiance ; les en-têtes arbitraires ne
+sont pas acceptés dans les autres environnements. Ailleurs, seule une adresse
+publique de socket direct peut être utilisée. IP privée, réservée ou absente :
+pays `NULL`. Ne jamais déduire un pays d’une langue ou d’un fuseau horaire.
+La ville et la région ne sont pas déduites du pays ou de sa capitale.
+`ANALYTICS_COUNTRY_HEADER` peut également désigner un en-tête géographique
 **écrasé par un proxy de confiance** si l’hébergement en fournit un. Ne pas
 activer ce réglage pour un en-tête librement contrôlable par le client. Aucun
 changement de configuration Railway n’est imposé.
+
+La base GeoLite2 est créée par [MaxMind](https://www.maxmind.com/) :
+consulter la [licence/EULA](https://www.maxmind.com/en/geolite2/eula) incluse
+dans la dépendance et maintenir ses données à jour, au moins mensuellement.
+La dépendance et sa base sont verrouillées dans npm, sans téléchargement à
+l'exécution. Les sorties sont des estimations du réseau, pas une localisation
+certaine : les VPN et opérateurs peuvent déplacer le pays apparent.
+
+L'accusé HTTP `X-Activity-Status: recorded` et `X-Activity-Count` n'est envoyé
+qu'après l'insertion PostgreSQL. `duplicate` signifie une réception déjà faite ;
+`disabled` signifie aucun accord ou protection navigateur. Les retries sont
+limités à deux, seulement en mémoire, avec les mêmes UUID et le même corps.
+Un changement de consentement annule les retries de la génération précédente.
+
+Le diagnostic `/api/admin/activities/diagnostic`, protégé par la session Admin,
+montre les totaux réels tous filtres confondus et le dernier enregistrement.
+Le tableau visible s'actualise toutes les 30 secondes, hors édition ou dialogue.
+Les liens privés avec `session` ou `visitor` UUID et période permettent de
+retrouver précisément une visite de test sans exposer les statistiques publiques.
+
+Les anciennes colonnes ajoutées sans données restent `NULL` après migration :
+ni IP historique ni user-agent complet n'ont été stockés, donc les anciennes
+informations ne peuvent pas être reconstruites. Une nouvelle requête réelle
+peut compléter une session encore active ; `technical_observed_at` horodate
+cette observation et ne constitue pas la reconstitution de son passé.
 
 L’ingestion refuse les origines différentes, valide les champs et limite
 les événements par visiteur et globalement par processus/minute. Les événements

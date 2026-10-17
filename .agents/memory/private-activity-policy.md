@@ -26,6 +26,27 @@ and trusted-proxy approximate geography. Do not request high-entropy device hint
 GPS or external IP lookups to fill unavailable values. A browser identifier is
 not a person; distinguish declared device family from an exact hardware model.
 
+Do not declare visitor-analytics verification complete just because a new commit
+is served publicly. Require a newly consented test visit to be visible in the
+production private Admin, including its detail view. If production authentication
+is unavailable, report this remaining check explicitly; never bypass Admin auth.
+
+**Why:** The user corrected the earlier completion: they require an operational
+PostgreSQL-to-Admin chain, not just a working-looking interface or a public release.
+
+**How to apply:** Separate local rollback-fixture proof, production write receipts,
+and production private-screen proof. Never present one as proof of the others.
+
+Prefer local IP-country estimation over an external per-visitor IP lookup service.
+Keep only the country estimate, not the IP; no guess from language, capital or
+hosting-server location. Geography must be labelled approximate.
+
+**Why:** The user now explicitly requests reliable IP-based country estimates when
+authorized, while preserving privacy and avoiding unnecessary service fees.
+
+**How to apply:** Use only the platform's documented real-client address boundary,
+reject reserved/private addresses, respect consent, and keep the dataset current.
+
 Price synchronization must target only prices already managed by Admin.
 Preserve prices/products outside that managed set rather than replacing the
 whole public catalogue with an Admin-only list.

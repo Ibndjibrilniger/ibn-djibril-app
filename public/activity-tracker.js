@@ -4,13 +4,17 @@
   window.__ibnActivityTrackerLoaded = true;
   if (location.pathname.startsWith('/admin') || navigator.doNotTrack === '1' || navigator.globalPrivacyControl || !window.crypto?.randomUUID) return;
   const allowed = () => window.IbnActivityPrivacy?.allowed() === true;
+  function collectionStatus(status,count=0) {
+    window.IbnActivityCollection={status,count,at:new Date().toISOString()};
+    window.dispatchEvent(new Event('ibn:activity-status'));
+  }
   let started = false;
   function startTracking() {
   if (started || !allowed()) return;
   started = true;
   const slug = value => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,80);
   const validID = value => typeof value==='string' && /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
-  let visitor, session, queue = [], timer;
+  let visitor, session, queue = [], timer, consentEpoch=0;
   const idle = 30 * 60 * 1000, visitorTTL = 30 * 86400000;
   try {
     const previous = JSON.parse(localStorage.getItem('ibn-activity-visitor') || 'null');
@@ -34,13 +38,28 @@
     if (!allowed()) {queue=[];return;}
     if (!queue.length) return;
     const events=queue.splice(0,20);
+    const epoch=consentEpoch;
     const body=JSON.stringify({visitor,session:activeSession(),source:session.source,consent:'granted',events});
-    try {
-      const response=await fetch('/api/activities',{method:'POST',headers:{'Content-Type':'application/json'},body,
-        credentials:'same-origin',keepalive:true,cache:'no-store'});
-      if (!response.ok) window.dispatchEvent(new Event('ibn:activity-unavailable'));
-    } catch (_) {window.dispatchEvent(new Event('ibn:activity-unavailable'));}
-    // Deliberately no persistent queue/retries: never block navigation or replay old activity.
+    // Bounded, in-memory retries reuse the exact event IDs. PostgreSQL deduplicates.
+    // Nothing is saved to disk, and consent revocation stops any further attempt.
+    for(let attempt=0;attempt<3 && allowed() && epoch===consentEpoch;attempt++) {
+      try {
+        const response=await fetch('/api/activities',{method:'POST',headers:{'Content-Type':'application/json'},body,
+          credentials:'same-origin',keepalive:true,cache:'no-store'});
+        if (!allowed() || epoch!==consentEpoch) return;
+        const status=response.headers.get('X-Activity-Status');
+        if (response.ok && ['recorded','duplicate','disabled'].includes(status)) {
+          collectionStatus(status,Number(response.headers.get('X-Activity-Count'))||0);
+          return;
+        }
+        if(response.status<500 && response.status!==429) break;
+      } catch (_) {}
+      if(attempt<2) await new Promise(resolve=>setTimeout(resolve,500*(attempt+1)));
+    }
+    if (allowed() && epoch===consentEpoch) {
+      collectionStatus('unavailable');
+      window.dispatchEvent(new Event('ibn:activity-unavailable'));
+    }
   }
   function track(type,service='') {
     if (!allowed()) return;
@@ -130,7 +149,8 @@
       track('heartbeat');
   },60000);
   window.addEventListener('ibn:analytics-consent',()=>{
-    if (!allowed()) {queue=[];clearTimeout(timer);visitor=null;session=null;}
+    consentEpoch++;
+    if (!allowed()) {queue=[];clearTimeout(timer);visitor=null;session=null;collectionStatus('disabled');}
     else if (!visitor) track('page_view');
   });
   }

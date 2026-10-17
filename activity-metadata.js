@@ -1,4 +1,5 @@
 'use strict';
+const geography = require('./activity-geography');
 
 const SOURCES = new Set(['direct', 'internal', 'google', 'bing', 'facebook', 'instagram', 'whatsapp', 'tiktok', 'other']);
 const clean = (value, max = 80) => {
@@ -60,12 +61,14 @@ function metadata(req) {
   // These opt-in deployment headers MUST be stripped/overwritten by the trusted
   // edge. Never enable a client-provided header as a geolocation source.
   const countryHeader = process.env.ANALYTICS_COUNTRY_HEADER;
-  const country = countryHeader ? countryCode(req.get(countryHeader)) : null;
-  const region = country && process.env.ANALYTICS_REGION_HEADER ? clean(req.get(process.env.ANALYTICS_REGION_HEADER)) : null;
-  const city = country && process.env.ANALYTICS_CITY_HEADER ? clean(req.get(process.env.ANALYTICS_CITY_HEADER)) : null;
+  const headerCountry = countryHeader ? countryCode(req.get(countryHeader)) : null;
+  const country = headerCountry || countryCode(geography.countryFor(req));
+  const country_source = headerCountry ? 'trusted_header' : country ? 'geolite2' : null;
+  const region = headerCountry && process.env.ANALYTICS_REGION_HEADER ? clean(req.get(process.env.ANALYTICS_REGION_HEADER)) : null;
+  const city = headerCountry && process.env.ANALYTICS_CITY_HEADER ? clean(req.get(process.env.ANALYTICS_CITY_HEADER)) : null;
   return { country, region, city, device, browser, browser_version:clean(browser_version,24), os,
     os_version:clean(os_version,40), brand, model,
-    language: /^[a-z]{2,3}(?:-[a-z0-9]{2,8}){0,3}$/i.test(language) ? language.slice(0, 35) : null };
+    country_source, language: /^[a-z]{2,3}(?:-[a-z0-9]{2,8}){0,3}$/i.test(language) ? language.slice(0, 35) : null };
 }
 
 module.exports = { metadata, SOURCES, countryCode };

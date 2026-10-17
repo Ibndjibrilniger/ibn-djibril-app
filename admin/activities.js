@@ -223,6 +223,7 @@
         version.textContent = String(browserVersion);
         browserCell.append(version);
       }
+      cell(row, '', event.os && event.os!=='Autre' ? [event.os,event.os_version].filter(Boolean).join(' ') : UNKNOWN);
       const activity = cell(row, '', '');
       activity.replaceChildren();
       const pill = document.createElement('span');
@@ -251,7 +252,7 @@
         const link = document.createElement('button');
         link.className = 'visitor-link';
         link.type = 'button';
-        link.textContent = String(event.visitor_id);
+        link.textContent = 'Voir fiche · '+String(event.visitor_id);
         link.setAttribute('aria-label', `Ouvrir l’historique du navigateur ${event.visitor_id}`);
         link.addEventListener('click', () => openVisitor(event.visitor_id));
         visitorCell.append(link);
@@ -328,6 +329,7 @@
   }
 
   async function load() {
+    void loadDiagnostic();
     const requestId = ++state.request;
     ui.status.textContent = 'Chargement des activités…';
     clearInsights('loading');
@@ -379,6 +381,19 @@
       clearInsights('error');
       setState('error', 'Impossible de charger les activités', 'Les données ne sont pas disponibles actuellement. Vos filtres sont conservés ; réessayez.', true);
       ui.status.textContent = 'Données indisponibles';
+    }
+  }
+
+  async function loadDiagnostic() {
+    const target=$('#collection-diagnostic');
+    try {
+      const response=await fetch('/api/admin/activities/diagnostic',{credentials:'same-origin',cache:'no-store'});
+      if (!response.ok) throw new Error('Diagnostic indisponible');
+      const data=await response.json();
+      if (!data.ok) throw new Error('Diagnostic invalide');
+      target.textContent=`PostgreSQL accessible · ${formatNumber(data.events)} activité(s) conservée(s), tous filtres confondus · Dernier enregistrement : ${formatDate(data.last_recorded_at)} · ${formatNumber(data.events_without_country)} sans pays. Pays : GeoLite2 local, base ${data.countryDatabase}. Les visites sans consentement ne sont pas comptées.`;
+    } catch {
+      target.textContent='Impossible de vérifier la collecte PostgreSQL. Vérifiez votre session Admin et réessayez ; aucun enregistrement nouveau n’est confirmé ici.';
     }
   }
 
@@ -565,6 +580,9 @@
     appendMeta(metadata, 'Navigateur', latest ? [latest.browser, latest.browser_version].filter(Boolean).join(' ') || UNKNOWN : UNKNOWN);
     appendMeta(metadata, 'Langue', latest ? present(latest.language) : UNKNOWN);
     appendMeta(metadata, 'Pays', latest ? countryName(latest.country) : UNKNOWN);
+    appendMeta(metadata, 'Source du pays', latest?.country_source==='geolite2'?'GeoLite2 / MaxMind — calcul local':
+      latest?.country_source==='trusted_header'?'En-tête du proxy configuré':UNKNOWN);
+    appendMeta(metadata, 'Dernière observation technique', formatDate(latest?.technical_observed_at));
     appendMeta(metadata, 'Région / ville', latest ? [latest.region, latest.city].filter(Boolean).join(' · ') || UNKNOWN : UNKNOWN);
     const sources = {direct:'Accès direct ou source non transmise',internal:'Navigation interne',
       google:'Google',bing:'Bing',facebook:'Facebook',instagram:'Instagram',whatsapp:'WhatsApp',
@@ -572,7 +590,7 @@
     appendMeta(metadata, 'Source de visite', sources[latest?.source]);
     appendMeta(metadata, 'Durée approximative · dernière session', latest ? durationLabel(latest.approx_duration_seconds) : UNKNOWN);
     technical.append(metadata);
-    textNode(technical, 'p', 'La durée est une estimation calculée à partir des événements et ne mesure pas le temps réel passé à l’écran. Le réseau et l’appareil ne garantissent pas une localisation précise.', 'table-caption-note');
+    textNode(technical, 'p', 'La durée est une estimation calculée à partir des événements et ne mesure pas le temps réel passé à l’écran. Les métadonnées peuvent être complétées par une nouvelle requête de cette session : elles ne reconstituent pas les anciennes visites. Le réseau et l’appareil ne garantissent pas une localisation précise.', 'table-caption-note');
     ui.dialogContent.append(technical);
 
     const sessionSection = document.createElement('section');
@@ -669,11 +687,32 @@
     if (event.target === ui.dialog) ui.dialog.close();
   });
   ui.dialog.addEventListener('close', () => {
+    // The close event can arrive after another row has already opened a new
+    // dialog. Never invalidate that request or steal focus from its trigger.
+    if (ui.dialog.open) return;
     state.detailRequest += 1;
     state.dialogMode = '';
-    if (dialogTrigger?.isConnected) dialogTrigger.focus();
+    if (document.activeElement===document.body && dialogTrigger?.isConnected) dialogTrigger.focus();
   });
 
+  $('#refresh-activities').addEventListener('click',()=>load());
   updateRange('today');
+  const initial=new URLSearchParams(location.search);
+  for(const key of ['visitor','session']) {
+    const value=initial.get(key);
+    if(value && /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value)) ui[key].value=value;
+  }
+  const from=initial.get('from'),to=initial.get('to');
+  if(/^\d{4}-\d{2}-\d{2}$/.test(from||'') && /^\d{4}-\d{2}-\d{2}$/.test(to||'') && from<=to) {
+    ui.from.value=state.from=from;ui.to.value=state.to=to;state.period='custom';
+    document.querySelectorAll('.period-btn').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.period==='custom')));
+  }
+  setInterval(()=>{
+    if(document.visibilityState==='visible' && !ui.dialog.open &&
+      !document.activeElement?.matches('input,select')) {
+      if(state.period!=='custom') updateRange(state.period);
+      load();
+    }
+  },30000);
   load();
 })();

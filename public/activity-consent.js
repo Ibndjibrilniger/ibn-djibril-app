@@ -37,7 +37,7 @@
     const text = document.createElement('p');
     text.textContent = blocked()
       ? 'Le suivi est désactivé par la protection de votre navigateur. Aucun identifiant statistique n’est créé.'
-      : 'Acceptez-vous des statistiques privées de fréquentation ? Pays approximatif si disponible, appareil, navigateur et pages consultées. Sans adresse IP conservée, GPS, numéro personnel ni contenu des formulaires. Vous pouvez refuser sans limiter les services.';
+      : 'Acceptez-vous des statistiques privées de fréquentation ? Appareil, navigateur, pages consultées et pays estimé par calcul local à partir de l’IP, sans conserver cette IP ni l’envoyer à un service tiers. Sans GPS ni données de formulaire. Vous pouvez refuser sans limiter les services.';
     banner.append(title, text);
     for (const [value, label] of [['granted', 'Accepter les statistiques'], ['denied', 'Refuser les statistiques']]) {
       const button = document.createElement('button');
@@ -62,8 +62,22 @@
     window.dispatchEvent(new Event('ibn:analytics-consent'));
   });
   const css = document.createElement('link');
-  css.rel = 'stylesheet'; css.href = '/activity-consent.css?v=20261018-privacy2';
+  css.rel = 'stylesheet'; css.href = '/activity-consent.css?v=20261018-collection3';
   document.head.append(css);
   document.querySelector('#analytics-choice')?.addEventListener('click', open);
+  function status() {
+    const target=document.querySelector('#analytics-status');
+    if (!target) return;
+    const current=window.IbnActivityCollection?.status;
+    target.textContent=!allowed()?'Statistiques désactivées : aucun événement ne sera envoyé sans votre accord.':
+      current==='recorded'?'Enregistrement confirmé par PostgreSQL pour cette page.':
+      current==='duplicate'?'Les événements de cette page ont déjà été reçus (sans doublon).':
+      current==='unavailable'?'Enregistrement indisponible : les statistiques de cette page n’ont pas pu être confirmées. Les services restent accessibles.':
+      current==='disabled'?'Le serveur a désactivé le suivi pour cette requête.':
+      'Statistiques autorisées ; en attente de confirmation du serveur pour cette page.';
+  }
+  window.addEventListener('ibn:activity-status',status);
+  window.addEventListener('ibn:analytics-consent',status);
+  status();
   if (!choice && !blocked() && !location.pathname.startsWith('/admin')) open();
 })();

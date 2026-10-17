@@ -1,5 +1,5 @@
 // Changing this release also triggers an update for existing PWA clients.
-const RELEASE = "20261018-private-analytics2";
+const RELEASE = "20261018-collection-geolite3";
 
 self.addEventListener("install", event => {
   event.waitUntil(

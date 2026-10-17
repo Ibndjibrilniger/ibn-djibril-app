@@ -27,6 +27,9 @@
         <p class="eyebrow">Vue d’ensemble · Activité du site</p>
         <h2 id="page-title">Les visites, sans détour.</h2>
         <p>Suivez les parcours et interactions enregistrés sur le site.</p>
+        <p>Seules les visites avec consentement sont comptées. Actualisation automatique toutes les 30 secondes lorsque cet écran est visible.</p>
+        <p id="collection-diagnostic" role="status">Vérification de la collecte PostgreSQL…</p>
+        <button id="refresh-activities" class="reset-btn" type="button">Actualiser les statistiques</button>
       </div>
       <span class="timezone">Heure affichée : Niger · Africa/Porto-Novo (UTC+1)</span>
     </section>
@@ -87,7 +90,7 @@
     <section class="insight-grid" aria-label="Répartition des visiteurs et interactions">
       <article class="panel ranking-panel">
         <h3>Origine déclarée par le réseau</h3>
-        <p>Navigateurs uniques par pays estimé, fourni uniquement par un proxy de confiance. Un navigateur peut apparaître dans plusieurs pays ; ces nombres ne s’additionnent pas nécessairement au total unique.</p>
+        <p>Pays approximatif issu d’un proxy configuré ou calculé localement avec GeoLite2 (MaxMind). Une IP de VPN/opérateur peut situer le réseau ailleurs que la personne. Un navigateur peut apparaître dans plusieurs pays.</p>
         <div id="countries-state" class="rank-empty" aria-live="polite">Chargement des répartitions…</div>
         <ol id="countries-ranking" class="rank-list" aria-label="Visiteurs par pays" hidden></ol>
       </article>
@@ -122,7 +125,7 @@
         <table>
           <thead><tr>
             <th scope="col">Date · Niger</th><th scope="col">Pays</th><th scope="col">Appareil</th>
-            <th scope="col">Navigateur</th><th scope="col">Activité</th><th scope="col">Visiteur</th><th scope="col">Session</th>
+            <th scope="col">Navigateur</th><th scope="col">Système</th><th scope="col">Activité</th><th scope="col">Fiche du navigateur</th><th scope="col">Session</th>
           </tr></thead>
           <tbody id="events-body"></tbody>
         </table>
@@ -141,7 +144,7 @@
         Le suivi est activé uniquement avec le consentement explicite requis (opt-in) et respecte « Ne pas me pister » ainsi que Global Privacy Control.
         L’identifiant aléatoire désigne un navigateur pseudonymisé, pas une personne ; il peut être réinitialisé dans le stockage du navigateur et expire après 30 jours.
         Une session expire après 30 minutes d’inactivité. Aucune empreinte numérique ni adresse IP brute n’est utilisée ou conservée, et aucune donnée de formulaire n’est enregistrée.
-        Les événements sont conservés 90 jours. « Actif » signifie une activité durant les 5 dernières minutes. Le pays reste inconnu sans en-tête géographique d’un proxy de confiance.
+        Les événements sont conservés 90 jours. « Actif » signifie une activité durant les 5 dernières minutes. Le pays est estimé localement avec GeoLite2 (MaxMind) lorsque l’IP publique du réseau est disponible, ou fourni par un proxy configuré. L’IP n’est pas enregistrée. Les anciennes informations manquantes ne sont pas reconstituées.
       </div>
     </aside>
   </main>

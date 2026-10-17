@@ -52,10 +52,18 @@ No business table is migrated. The existing 90-day analytics retention remains.
 New public events require an explicit statistics opt-in; old saved statistics
 are not backfilled with invented device or location values.
 
-Geography stays unavailable by default. `ANALYTICS_COUNTRY_HEADER`, and optional
-`ANALYTICS_REGION_HEADER` / `ANALYTICS_CITY_HEADER`, may only name headers that
-the production edge demonstrably strips and overwrites. Never enable a freely
-client-supplied header. No IP-geolocation provider or production secret was added.
+Country estimation uses the bundled GeoLite2 country dataset (MaxMind) locally;
+no visitor IP is stored or sent to a geolocation API. Railway's documented
+X-Real-IP is accepted only in its environment/public HTTPS edge context.
+Elsewhere only the socket's public remote address is used. Private/reserved
+addresses are rejected. Private-network Railway callers must remain trusted;
+there is no global Express trust-proxy change.
+`ANALYTICS_COUNTRY_HEADER`, and optional `ANALYTICS_REGION_HEADER` /
+`ANALYTICS_CITY_HEADER`, may only name headers that the production edge
+demonstrably strips and overwrites. Never enable a freely client-supplied header.
+No production secret was added. Region/city are not inferred from a capital.
+Keep the bundled GeoLite2 dataset current by updating the locked dependency at
+least monthly (see its license/EULA); no automatic runtime download is performed.
 
 `ADMIN_CAPTURE_DIR=generated-artifacts/analytics-verification npm test` also saves
 authenticated desktop and Android regression screenshots using the rollback-only

@@ -32,7 +32,7 @@ test('real PostgreSQL rollback-isolated admin login, price synchronization, trac
   const app=await fixture();
   let browser;
   try {
-    for (const route of ['/api/admin/prices','/api/admin/activities','/api/admin/activities/export.csv','/api/admin/activities/sessions/'+uuid(),'/api/admin/activities/visitors/'+uuid()]) {
+    for (const route of ['/api/admin/prices','/api/admin/activities','/api/admin/activities/diagnostic','/api/admin/activities/export.csv','/api/admin/activities/sessions/'+uuid(),'/api/admin/activities/visitors/'+uuid()]) {
       const response=await fetch(app.base+route,{redirect:'manual'});
       assert.equal(response.status,401,route);
     }
@@ -62,9 +62,15 @@ test('real PostgreSQL rollback-isolated admin login, price synchronization, trac
     const post=(body,origin=app.base,headers={})=>fetch(app.base+'/api/activities',{method:'POST',
       headers:{'Content-Type':'application/json',Origin:origin,'x-test-country':'NE','accept-language':'fr-NE,fr;q=0.9',
         'user-agent':'Mozilla/5.0 (Linux; Android 14; SM-A546B Build/UP1A) Chrome/120.0 Mobile',...headers},body:JSON.stringify(body)});
-    assert.equal((await post(batch)).status,204);
+    const receipt=await post(batch);
+    assert.equal(receipt.status,204);
+    assert.equal(receipt.headers.get('x-activity-status'),'recorded');
+    assert.equal(receipt.headers.get('x-activity-count'),'3');
     const beforeRetry=(await app.client.query('SELECT last_at FROM activity_sessions WHERE session_id=$1',[batch.session])).rows[0].last_at;
-    assert.equal((await post(batch)).status,204); // idempotent retries
+    const duplicate=await post(batch);
+    assert.equal(duplicate.status,204); // idempotent retries
+    assert.equal(duplicate.headers.get('x-activity-status'),'duplicate');
+    assert.equal(duplicate.headers.get('x-activity-count'),'0');
     assert.equal((await app.client.query('SELECT last_at FROM activity_sessions WHERE session_id=$1',[batch.session])).rows[0].last_at.getTime(),beforeRetry.getTime());
     assert.equal((await post({...batch,consent:undefined,session:uuid()})).status,204);
     assert.equal((await post(batch,'https://attacker.example')).status,403);
@@ -158,6 +164,7 @@ test('real PostgreSQL rollback-isolated admin login, price synchronization, trac
       assert.equal((await saved).status(),200);
       await page.locator('a[href="/admin/activities"]').click();
       await page.locator('#table-wrap:not([hidden])').waitFor();
+      await page.waitForFunction(()=>document.querySelector('#collection-diagnostic').textContent.includes('PostgreSQL accessible'));
       assert.equal(await page.locator('#events-body .identifier').first().innerText().then(text=>text.includes('Non disponible')),false);
       assert.equal(await page.locator('.stats-grid .stat').count(),12);
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
@@ -253,6 +260,83 @@ test('real PostgreSQL rollback-isolated admin login, price synchronization, trac
     assert.ok(sent>atRefusal);
     assert.notEqual(await consentPage.evaluate(()=>JSON.parse(localStorage.getItem('ibn-activity-visitor')).id),firstID);
     assert.equal(await consentPage.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+    let attempts=0;const retried=[];
+    await consentPage.route('**/api/activities',async route=>{
+      attempts++;retried.push(route.request().postDataJSON());
+      if(attempts===1)await route.fulfill({status:503,contentType:'application/json',body:'{"ok":false}'});
+      else await route.continue();
+    });
+    await consentPage.goto(app.base+'/parametres.html',{waitUntil:'networkidle'});
+    await consentPage.waitForFunction(()=>document.querySelector('#analytics-status').textContent.includes('confirmé par PostgreSQL'));
+    assert.equal(attempts,2);
+    assert.deepEqual(retried[0],retried[1]);
+    const retryIds=retried[0].events.map(event=>event.id);
+    assert.equal(Number((await app.client.query('SELECT COUNT(*) FROM activity_events WHERE event_id=ANY($1::uuid[])',[retryIds])).rows[0].count),retryIds.length);
     await consentContext.close();
+    // Exercise the actual local IP country lookup through the complete SQL/API/UI chain.
+    // Only this isolated fixture process emulates Railway's documented edge headers.
+    const previousRailway=process.env.RAILWAY_ENVIRONMENT_ID;
+    const previousCountry=process.env.ANALYTICS_COUNTRY_HEADER;
+    const probe={consent:'granted',visitor:uuid(),session:uuid(),events:[
+      {id:uuid(),type:'page_view',page:'/',service:''},
+      {id:uuid(),type:'service_view',page:'/',service:'starlink'}]};
+    try {
+      process.env.RAILWAY_ENVIRONMENT_ID='isolated-fixture-only';
+      delete process.env.ANALYTICS_COUNTRY_HEADER;
+      // Node's fetch controls Host; use HTTP here to emulate the proxy honestly.
+      const response=await new Promise((resolve,reject)=>{
+        const request=require('node:http').request(app.base+'/api/activities',{method:'POST',headers:{
+          host:'ibndjibrilnigertech.com',origin:'https://ibndjibrilnigertech.com',
+          'content-type':'application/json','x-forwarded-proto':'https',
+          'x-railway-request-id':'isolated-fixture-only','x-real-ip':'41.138.32.1',
+          'user-agent':'Mozilla/5.0 (Linux; Android 14; SM-A546B Build/UP1A) Chrome/120.0 Mobile'
+        }},response=>{response.resume();response.on('end',()=>resolve(response));});
+        request.on('error',reject);request.end(JSON.stringify(probe));
+      });
+      assert.equal(response.statusCode,204);
+      assert.equal(response.headers['x-activity-count'],'2');
+    } finally {
+      if(previousRailway===undefined)delete process.env.RAILWAY_ENVIRONMENT_ID;else process.env.RAILWAY_ENVIRONMENT_ID=previousRailway;
+      if(previousCountry===undefined)delete process.env.ANALYTICS_COUNTRY_HEADER;else process.env.ANALYTICS_COUNTRY_HEADER=previousCountry;
+    }
+    const stored=(await app.client.query('SELECT * FROM activity_sessions WHERE session_id=$1',[probe.session])).rows[0];
+    assert.equal(stored.country,'NE');assert.equal(stored.country_source,'geolite2');
+    assert.equal(stored.os,'Android');assert.equal(stored.model,'SM-A546B');assert.ok(stored.technical_observed_at);
+    assert.equal(stored.city,null);
+    assert.equal(Object.keys(stored).some(key=>/^(ip|raw_ip|client_ip)$/.test(key)),false);
+    const diagnostic=await (await fetch(app.base+'/api/admin/activities/diagnostic',{headers:{cookie}})).json();
+    assert.equal(diagnostic.ok,true);assert.ok(diagnostic.events>0);assert.ok(diagnostic.last_recorded_at);
+    const androidAdmin=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
+    const androidPage=await androidAdmin.newPage();
+    await androidPage.goto(app.base+'/admin/login');
+    await androidPage.locator('input[name="username"]').fill(app.username);
+    await androidPage.locator('input[name="password"]').fill(app.password);
+    await androidPage.locator('button[type="submit"]').click();
+    await androidPage.goto(app.base+'/admin/activities?session='+probe.session);
+    await androidPage.locator('#table-wrap:not([hidden])').waitFor();
+    assert.match(await androidPage.locator('#events-body').innerText(),/Niger/);
+    await androidPage.locator('.visitor-link').first().click();
+    await androidPage.locator('#session-dialog[open] .detail-intro').waitFor();
+    assert.match(await androidPage.locator('#dialog-content').innerText(),/SM-A546B/);
+    assert.match(await androidPage.locator('#dialog-content').innerText(),/GeoLite2 \/ MaxMind/);
+    assert.match(await androidPage.locator('#dialog-content').innerText(),/Android 14/);
+    assert.match(await androidPage.locator('#dialog-content').innerText(),/starlink/);
+    assert.match(await androidPage.locator('#dialog-content').innerText(),/Non disponible/);
+    if(process.env.ADMIN_CAPTURE_DIR)await androidPage.screenshot({path:process.env.ADMIN_CAPTURE_DIR+'/android-real-geolocation-detail.png',fullPage:true});
+    await androidAdmin.close();
+    // An additive migration never invents metadata for earlier observations.
+    const legacyVisitor=uuid(),legacySession=uuid();
+    await app.client.query(`INSERT INTO activity_sessions(session_id,visitor_id,device,browser,os)
+      VALUES($1,$2,'mobile','Chrome','Android')`,[legacySession,legacyVisitor]);
+    await app.client.query(`INSERT INTO activity_events(event_id,session_id,type,page) VALUES($1,$2,'page_view','/')`,[uuid(),legacySession]);
+    await store.initialize({query:(...args)=>app.client.query(...args)});
+    const legacy=(await app.client.query('SELECT brand,model,country,technical_observed_at FROM activity_sessions WHERE session_id=$1',[legacySession])).rows[0];
+    assert.deepEqual(legacy,{brand:null,model:null,country:null,technical_observed_at:null});
+    const newObservation=await post({consent:'granted',visitor:legacyVisitor,session:legacySession,
+      events:[{id:uuid(),type:'heartbeat',page:'/',service:''}]});
+    assert.equal(newObservation.status,204);
+    const observed=(await app.client.query('SELECT brand,model,country,technical_observed_at FROM activity_sessions WHERE session_id=$1',[legacySession])).rows[0];
+    assert.equal(observed.brand,'Samsung');assert.equal(observed.model,'SM-A546B');
+    assert.equal(observed.country,'NE');assert.ok(observed.technical_observed_at);
   } finally {await browser?.close();await app.close();}
 });

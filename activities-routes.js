@@ -34,7 +34,23 @@ module.exports = function registerActivities(app, requireAdmin, pool) {
   app.get('/api/admin/activities',async(req,res) => {
     try { store.filters(req.query); } catch(error) {return res.status(400).json({ok:false,error:error.message});}
     try {await ensure();res.json(await store.report(pool,req.query));}
-    catch (_) {res.status(503).json({ok:false,error:'Les statistiques PostgreSQL sont temporairement indisponibles.'});}
+    catch (error) {
+      console.error('ACTIVITY_REPORT_ERROR',/^[A-Z0-9]{5}$/.test(error.code||'')?error.code:'UNAVAILABLE');
+      res.status(503).json({ok:false,error:'Les statistiques PostgreSQL sont temporairement indisponibles.'});
+    }
+  });
+  app.get('/api/admin/activities/diagnostic',async(req,res) => {
+    try {
+      await ensure();
+      const result=await pool.query(`SELECT COUNT(*)::int events,
+        COUNT(DISTINCT e.session_id)::int sessions,MAX(e.occurred_at) last_recorded_at,
+        COUNT(*) FILTER (WHERE s.country IS NULL)::int events_without_country,
+        COUNT(*) FILTER (WHERE s.technical_observed_at IS NULL)::int legacy_events
+        ${store.JOIN}`);
+      res.json({ok:true,database:'connected',...result.rows[0],
+        countryMode:process.env.ANALYTICS_COUNTRY_HEADER?'trusted_header_and_local_geoip':'local_geoip',
+        countryDatabase:require('./activity-geography').databaseVersion});
+    } catch (_) {res.status(503).json({ok:false,error:'Le diagnostic PostgreSQL est indisponible.'});}
   });
   app.get('/api/admin/activities/sessions/:id',async(req,res) => {
     if (!store.UUID.test(req.params.id)) return res.status(400).json({ok:false,error:'Session invalide.'});
@@ -59,7 +75,7 @@ module.exports = function registerActivities(app, requireAdmin, pool) {
       await ensure();
       // A stable ID upper bound prevents a live stream from growing forever.
       const bound=await pool.query(`SELECT COALESCE(MAX(e.id),0) id ${store.JOIN} WHERE ${f.where}`,f.values);
-      const columns=['occurred_at','visitor_id','session_id','country','region','city','device','brand','model',
+      const columns=['occurred_at','visitor_id','session_id','country','country_source','technical_observed_at','region','city','device','brand','model',
         'browser','browser_version','os','os_version','language','source','type','page','service'];
       res.set('Content-Type','text/csv; charset=utf-8');
       res.set('Content-Disposition','attachment; filename="activites.csv"');
@@ -93,8 +109,8 @@ module.exports = function registerActivities(app, requireAdmin, pool) {
       if (!origin || new URL(origin).host!==req.get('host') ||
           req.get('sec-fetch-site')==='cross-site') return res.status(403).json({ok:false});
     } catch (_) {return res.status(403).json({ok:false});}
-    if (req.get('DNT')==='1' || req.get('Sec-GPC')==='1') return res.status(204).end();
-    if (req.body?.consent!=='granted') return res.status(204).end();
+    if (req.get('DNT')==='1' || req.get('Sec-GPC')==='1' || req.body?.consent!=='granted')
+      return res.set('X-Activity-Status','disabled').status(204).end();
     let events;
     try {events=store.validateBatch(req.body,pages,services);}
     catch (_) {return res.status(400).json({ok:false,error:'Activités invalides.'});}
@@ -103,17 +119,26 @@ module.exports = function registerActivities(app, requireAdmin, pool) {
     const used=budgets.get(req.body.visitor)||0;
     if (total+events.length>10000 || used+events.length>120) return res.status(429).json({ok:false});
     budgets.set(req.body.visitor,used+events.length);total+=events.length;
-    try {await ensure();await store.record(pool,req.body,events,store.metadata(req));res.status(204).end();}
-    catch (_) {res.status(503).json({ok:false,error:'Suivi temporairement indisponible.'});}
+    try {
+      await ensure();
+      const recorded=await store.record(pool,req.body,events,store.metadata(req));
+      res.set('X-Activity-Status',recorded?'recorded':'duplicate');
+      res.set('X-Activity-Count',String(recorded));
+      res.status(204).end();
+    }
+    catch (error) {
+      console.error('ACTIVITY_WRITE_ERROR',/^[A-Z0-9]{5}$/.test(error.code||'')?error.code:'UNAVAILABLE');
+      res.status(503).json({ok:false,error:'Suivi temporairement indisponible.'});
+    }
   });
 
-  // Inject a nonvisual, first-party tracker without modifying public HTML or finance files.
+  // Inject first-party consent and collection without altering finance behavior.
   app.get([...pages],(req,res,next) => {
     const filename=req.path==='/'?'index.html':req.path.slice(1);
     fs.readFile(path.join(__dirname,'public',filename),'utf8',(error,html)=>{
       if (error) return next(error);
       res.set('Cache-Control','no-store');
-      res.type('html').send(html.replace(/<\/body>/i,'<script src="/activity-consent.js?v=20261018-privacy2" defer></script><script src="/activity-tracker.js?v=20261018-privacy2" defer></script></body>'));
+      res.type('html').send(html.replace(/<\/body>/i,'<script src="/activity-consent.js?v=20261018-collection3" defer></script><script src="/activity-tracker.js?v=20261018-collection3" defer></script></body>'));
     });
   });
   return {
