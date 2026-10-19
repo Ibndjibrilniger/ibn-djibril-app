@@ -56,3 +56,15 @@ The user wants one illustrated commercial homepage catalogue, not the old redund
 **Why:** The user explicitly requires visual modernization without losing products, prices, cart contents, WhatsApp orders, financial services, private Admin analytics, contacts or PWA functionality.
 
 **How to apply:** Reuse the imported application and real assets. Do not change PostgreSQL data for visual cleanup. Never replace negotiated prices with numbers or overwrite Admin-managed prices with conflicting old display prices. Keep distinct published offers reachable without duplicating product cards.
+
+The official logo must not be graphically replaced without the owner's prior
+approval. Preserve the composition, symbol, company name, colors and every
+official reference and phone number. Request the original source when the
+available photograph is insufficient; never reconstruct uncertain lettering.
+
+**Why:** The user explicitly separated technical startup/performance improvements
+from approval of any improved logo.
+
+**How to apply:** Keep graphical proposals outside the published app until
+approval. A lightweight display encoding of the unchanged official image is not
+a new identity; do not describe raster enlargement as recovered vector detail.

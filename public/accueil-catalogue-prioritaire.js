@@ -58,9 +58,10 @@
     card.setAttribute("aria-label","Ouvrir les services de transfert et de paiement");
     card.dataset.openTransfer = "true";
     card.innerHTML = `
-      <img class="ibn-cat-img ibn-transfer-logo"
+      <picture><source type="image/webp" srcset="/media/products/catalogue/optimized/transfert-money-logo.webp">
+      <img class="ibn-cat-img ibn-transfer-logo" loading="lazy" decoding="async"
            src="/media/products/catalogue/transfert-money-logo.png?v=20260923"
-           alt="Services de transfert - FCFA, Naira et Dollar">
+           alt="Services de transfert - FCFA, Naira et Dollar"></picture>
       <div class="ibn-cat-body">
         <div class="ibn-cat-kicker">TRANSFERTS & PAIEMENTS</div>
         <h3>Services de transfert d’argent</h3>

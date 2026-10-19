@@ -11,6 +11,11 @@
   <meta name="theme-color" content="#008751">
   <meta name="description" content="Ibn_Djibril Niger Tech au Niger : équipements réseau, Starlink, téléphones et accessoires. Commande simple sur WhatsApp.">
   <title>Ibn_Djibril Niger Tech 🇳🇪</title>
+  <style>
+    #ibn-launch-splash{position:fixed;inset:0;z-index:1000000;display:grid;place-items:center;background:#f7faf6;text-align:center}
+    #ibn-launch-splash.is-leaving{visibility:hidden;pointer-events:none}
+    .ibn-splash-retry{display:none}#ibn-launch-splash.is-error .ibn-splash-retry{display:inline-flex}
+  </style>
   <script src="/preferences.js?v=20261103-pref1"></script>
   <link rel="stylesheet" href="/preferences.css?v=20261103-pref1">
 
@@ -105,26 +110,47 @@
 #service-detail table{font-size:16px;min-width:680px!important}
 }
 </style>
-  <link rel="stylesheet" href="/accueil-catalogue-prioritaire.css?v=20261103-nav1">
-  <link rel="stylesheet" href="/commerce-home.css?v=20261103-nav1">
+  <link rel="stylesheet" href="/accueil-catalogue-prioritaire.css?v=20261020-startup1">
+  <link rel="stylesheet" href="/commerce-home.css?v=20261020-startup1">
   <link rel="stylesheet" href="/install-pwa-pro.css?v=20260923">
   <script src="/install-pwa-pro.js?v=20260925-install2" defer></script>
-  <script src="/commerce-launch.js?v=20261103-nav1" defer></script>
+  <link rel="preload" href="/icons/logo-display-v1.webp" as="image" fetchpriority="high">
+  <noscript><style>#ibn-launch-splash{display:none}</style></noscript>
 </head>
 
 <body>
 
   <div id="ibn-launch-splash" role="status" aria-live="polite" aria-label="Chargement de votre espace technologique">
     <div class="ibn-splash-inner">
-      <img class="ibn-splash-logo" src="/icons/logo.png" alt="">
+      <img class="ibn-splash-logo" src="/icons/logo-display-v1.webp" alt="Logo officiel" width="120" height="111" fetchpriority="high">
       <h1 class="ibn-splash-brand">Ibn_Djibril Niger Tech 🇳🇪</h1>
       <p class="ibn-splash-message">Chargement de votre espace technologique…</p>
       <div class="ibn-splash-loader" aria-hidden="true"></div>
+      <progress class="ibn-splash-progress" aria-label="Ouverture du catalogue"></progress>
+      <button class="ibn-splash-retry" type="button">Réessayer</button>
     </div>
   </div>
+  <script>
+    // Independent safeguard, including when the external launch script fails.
+    (() => {
+      const splash = document.getElementById('ibn-launch-splash');
+      const retry = splash.querySelector('button');
+      retry.addEventListener('click', () => window.location.reload());
+      window.addEventListener('DOMContentLoaded', () => {
+        if (!window.IbnLaunch && document.querySelector('#ibn-catalogue-ultra .ibn-cat-grid')) splash.remove();
+      }, {once:true});
+      setTimeout(() => {
+        if (!splash.isConnected || splash.classList.contains('is-leaving')) return;
+        splash.classList.add('is-error');
+        splash.querySelector('.ibn-splash-message').textContent =
+          'Le chargement ne répond pas. Vérifiez votre connexion, puis réessayez.';
+      }, 10000);
+    })();
+  </script>
+  <script src="/commerce-launch.js?v=20261020-startup1"></script>
 
   <header>
-    <img class="shop-brand-mark" src="/icons/logo.png" alt="Logo Ibn_Djibril Niger Tech" width="86" height="86">
+    <img class="shop-brand-mark" src="/icons/logo-display-v1.webp" alt="Logo Ibn_Djibril Niger Tech" width="86" height="86" decoding="async">
     <div class="shop-brand-copy">
       <h1>Ibn_Djibril Niger Tech 🇳🇪</h1>
       <p>Équipements réseau • Téléphones • Accessoires</p>
@@ -194,11 +220,11 @@
 <!-- IBN_CATALOGUE_ULTRA -->
 <script src="/catalogue-data.js?v=20260925-stock3"></script>
 <script src="/prix-produits.js?v=20260925"></script>
-<script src="/catalogue-ultra.js?v=20261103-nav1" defer></script>
+<script src="/catalogue-ultra.js?v=20261020-startup1" defer></script>
 <script src="/countries.js?v=20260925b"></script>
 <script src="/panier.js?v=20260925b" defer></script>
 <script src="/boutique-location.js?v=20260925b" defer></script>
-<script src="/accueil-catalogue-prioritaire.js?v=20261103-nav1" defer></script>
+<script src="/accueil-catalogue-prioritaire.js?v=20261020-startup1" defer></script>
   <script src="/admin-access.js?v=20260925" defer></script>
 <script src="/pwa-update.js?v=20261103-nav1" defer></script>
 </body>

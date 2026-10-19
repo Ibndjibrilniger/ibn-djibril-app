@@ -57,6 +57,14 @@ if (
 }
 
 app.disable('x-powered-by');
+// Compress public text assets only; never compress authenticated/session responses.
+app.use(require('compression')({
+  threshold: 1024,
+  filter(req, res) {
+    if (!/\.(?:js|css)$/.test(req.path) || req.path.startsWith('/admin/')) return false;
+    return require('compression').filter(req, res);
+  }
+}));
 
 app.use(express.urlencoded({
   extended: false,
@@ -592,6 +600,8 @@ app.use(
         // Revalidate pages, worker and executable assets after each release.
         if (/\.(?:html|js|css)$/.test(filePath)) {
           res.setHeader('Cache-Control', 'no-store');
+        } else if (filePath.includes('/catalogue/optimized/') || filePath.endsWith('/logo-display-v1.webp')) {
+          res.setHeader('Cache-Control', 'public, max-age=3600, must-revalidate');
         }
       }
     }

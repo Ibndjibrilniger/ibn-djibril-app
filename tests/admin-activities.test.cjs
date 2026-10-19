@@ -39,6 +39,11 @@ test('real PostgreSQL rollback-isolated admin login, price synchronization, trac
     assert.equal((await fetch(app.base+'/admin/activities',{redirect:'manual'})).status,302);
     assert.equal((await fetch(app.base+'/admin/activities.js',{redirect:'manual'})).status,302);
     const cookie=await app.login();
+    const compressed = await fetch(app.base+'/commerce-home.css', {headers:{'Accept-Encoding':'gzip'}});
+    assert.equal(compressed.headers.get('content-encoding'),'gzip');
+    assert.match(await compressed.text(),/ibn-launch-splash/);
+    const protectedAsset = await fetch(app.base+'/admin/activities.js', {headers:{Cookie:cookie,'Accept-Encoding':'gzip'}});
+    assert.equal(protectedAsset.headers.get('content-encoding'),null);
     const id=Object.keys(app.prices)[0], value=123456;
     const response=await fetch(app.base+'/api/admin/prices/'+id,{method:'POST',headers:{
       cookie,'Content-Type':'application/json'},body:JSON.stringify({value,label:'123 456 FCFA'})});

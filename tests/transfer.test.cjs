@@ -126,7 +126,9 @@ function workerHarness(offline = false) {
   let skipped = false;
   vm.runInNewContext(read('public/sw.js'), {
     URL,
+    Response,
     self: {
+      location: {origin: 'https://example.test'},
       addEventListener: (event, handler) => { handlers[event] = handler; },
       skipWaiting: async () => { skipped = true; },
       clients: { claim: async () => { claimed = true; } }
@@ -171,7 +173,11 @@ test('HTML, versioned scripts, CSS, worker and APIs never fall back to stale cac
         request: { method: 'GET', mode: url === '/' ? 'navigate' : 'cors', url: `https://example.test${url}` },
         respondWith: promise => { response = promise; }
       });
-      if (offline) await assert.rejects(response, /offline/);
+      if (offline && url === '/') {
+        const result = await response;
+        assert.equal(result.status, 503);
+        assert.match(await result.text(), /Connexion indisponible/);
+      } else if (offline) await assert.rejects(response, /offline/);
       else assert.equal(await response, 'fresh');
       assert.equal(worker.requests[0].options.cache, 'no-store');
       assert.equal(worker.fallbacks, 0, url);

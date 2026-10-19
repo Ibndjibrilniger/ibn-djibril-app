@@ -173,22 +173,92 @@ body>footer{padding:22px 12px 28px;color:#738278;font-size:12px}
 .ibn-detail h2{color:var(--shop-ink)}
 .ibn-gallery figure{background:#f3f6f2!important}
 .ibn-specs li{background:#f1f6f1!important}
-/* Launch curtain is intentionally tiny and has a strict, offline-safe timeout. */
+/* Launch curtain: quiet, lightweight reassurance while the storefront becomes ready. */
+.ibn-cat-img picture{display:contents}
+.ibn-feature-image picture{display:block;width:100%;height:100%}
 #ibn-launch-splash{
-  position:fixed;inset:0;z-index:1000000;display:grid;place-items:center;padding:24px;
-  color:#fff;background:linear-gradient(145deg,#064b34,#087747 70%,#287d4b);
-  opacity:1;visibility:visible;transition:opacity .28s ease,visibility .28s ease;
-  animation:splash-unblock 1.8s steps(1,end) forwards
+  position:fixed;inset:0;z-index:1000000;display:grid;place-items:center;
+  padding:max(18px,env(safe-area-inset-top)) max(18px,env(safe-area-inset-right))
+    max(18px,env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left));
+  overflow:auto;color:var(--shop-ink);
+  background:
+    radial-gradient(ellipse at 50% 38%,rgba(255,255,255,.94),rgba(255,254,250,.97) 45%,rgba(232,243,237,.98) 100%);
+  opacity:1;visibility:visible;transition:opacity .2s ease,visibility .2s ease;
+  isolation:isolate
+}
+#ibn-launch-splash::before{
+  content:"";position:absolute;inset:0 0 auto;height:4px;
+  background:linear-gradient(90deg,var(--shop-orange) 0 33.33%,#fffefa 33.33% 66.66%,var(--shop-green) 66.66%);
+  pointer-events:none
 }
 #ibn-launch-splash.is-leaving{opacity:0;visibility:hidden;pointer-events:none}
-.ibn-splash-inner{width:min(340px,100%);text-align:center}
-.ibn-splash-logo{display:block;width:96px;height:96px;margin:0 auto 18px;object-fit:contain;border:4px solid rgba(255,255,255,.88);border-radius:23px;background:#fff}
-.ibn-splash-brand{font-size:21px;line-height:1.25;letter-spacing:-.025em}
-.ibn-splash-message{margin-top:8px;color:rgba(255,255,255,.82);font-size:13px}
-.ibn-splash-loader{width:132px;height:4px;margin:25px auto 0;overflow:hidden;border-radius:99px;background:rgba(255,255,255,.2)}
-.ibn-splash-loader::after{content:"";display:block;width:40%;height:100%;border-radius:inherit;background:#f18b3d;animation:splash-progress .95s ease-in-out infinite alternate}
-@keyframes splash-progress{from{transform:translateX(0)}to{transform:translateX(150%)}}
-@keyframes splash-unblock{to{opacity:0;visibility:hidden;pointer-events:none}}
+.ibn-splash-inner{
+  position:relative;width:min(350px,100%);padding:clamp(22px,6vw,34px) 22px 25px;
+  border:1px solid rgba(8,119,71,.13);border-radius:25px;
+  background:rgba(255,254,250,.92);box-shadow:0 18px 54px rgba(24,72,47,.09);
+  text-align:center
+}
+.ibn-splash-inner::before{
+  content:"";position:absolute;top:0;left:50%;width:42px;height:3px;
+  border-radius:0 0 4px 4px;background:var(--shop-orange);transform:translateX(-50%)
+}
+.ibn-splash-logo{
+  display:block;width:clamp(66px,20vw,84px);height:clamp(66px,20vw,84px);
+  margin:0 auto 17px;object-fit:contain;border:1px solid #e5eae4;border-radius:19px;
+  background:#fffefa;box-shadow:0 5px 16px rgba(24,72,47,.08)
+}
+.ibn-splash-brand{
+  color:var(--shop-green-deep);font-size:clamp(18px,5vw,21px);font-weight:760;
+  line-height:1.25;letter-spacing:-.035em;text-wrap:balance
+}
+.ibn-splash-message{
+  min-height:1.5em;margin:9px 0 0;color:var(--shop-muted);font-size:13px;line-height:1.5
+}
+.ibn-splash-loader{
+  width:min(164px,72%);height:4px;margin:22px auto 0;overflow:hidden;
+  border-radius:99px;background:#e4ece5
+}
+.ibn-splash-loader::after{
+  content:"";display:block;width:36%;height:100%;border-radius:inherit;
+  background:var(--shop-orange);animation:splash-progress 1.25s ease-in-out infinite alternate
+}
+.ibn-splash-progress{
+  display:block;width:min(164px,72%);height:4px;margin:12px auto 0;overflow:hidden;
+  appearance:none;border:0;border-radius:99px;background:#e4ece5;color:var(--shop-green)
+}
+.ibn-splash-progress::-webkit-progress-bar{border-radius:99px;background:#e4ece5}
+.ibn-splash-progress::-webkit-progress-value{border-radius:99px;background:var(--shop-green)}
+.ibn-splash-progress::-moz-progress-bar{border-radius:99px;background:var(--shop-green)}
+@supports selector(#ibn-launch-splash:has(.ibn-splash-progress)){
+  #ibn-launch-splash:has(.ibn-splash-progress) .ibn-splash-loader{display:none}
+}
+.ibn-splash-retry{
+  display:none;min-height:46px;align-items:center;justify-content:center;margin:20px auto 0;
+  padding:10px 19px;border:1px solid var(--shop-green);border-radius:12px;
+  background:var(--shop-green);color:#fffefa;font-size:14px;font-weight:750;
+  cursor:pointer;touch-action:manipulation
+}
+.ibn-splash-retry:hover{background:var(--shop-green-deep)}
+#ibn-launch-splash.is-error .ibn-splash-retry{display:inline-flex}
+#ibn-launch-splash.is-error .ibn-splash-loader,
+#ibn-launch-splash.is-error .ibn-splash-progress{display:none}
+#ibn-launch-splash.is-error .ibn-splash-message{color:#824008}
+#ibn-launch-splash.is-standalone{
+  padding:max(12px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right))
+    max(12px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));
+  background:rgba(243,246,242,.94)
+}
+#ibn-launch-splash.is-standalone .ibn-splash-inner{
+  width:min(310px,100%);padding:18px 17px 19px;border-radius:20px;
+  box-shadow:0 8px 28px rgba(24,72,47,.08)
+}
+#ibn-launch-splash.is-standalone .ibn-splash-logo{
+  width:54px;height:54px;margin-bottom:10px;border-radius:14px
+}
+#ibn-launch-splash.is-standalone .ibn-splash-brand{font-size:18px}
+#ibn-launch-splash.is-standalone .ibn-splash-message{margin-top:6px;font-size:12px}
+#ibn-launch-splash.is-standalone .ibn-splash-loader{margin-top:15px}
+@keyframes splash-progress{from{transform:translateX(0)}to{transform:translateX(178%)}}
 body.is-launching{overflow:hidden}
 @media(max-width:700px){
   body>header{margin:8px 8px 0;padding:17px 16px;border-radius:19px;gap:13px}

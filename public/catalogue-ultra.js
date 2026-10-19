@@ -2,6 +2,23 @@
   "use strict";
   const DATA = window.IBN_CATALOGUE || [];
   if (!DATA.length || document.getElementById("ibn-catalogue-ultra")) return;
+  // A missing derivative (new photo or interrupted release) must not hide the original.
+  document.addEventListener("error", event => {
+    const image = event.target;
+    if (!(image instanceof HTMLImageElement)) return;
+    const source = image.closest("picture")?.querySelector("source[type='image/webp']");
+    if (!source) return;
+    source.remove();
+    image.src = image.getAttribute("src");
+  }, true);
+  // Keep original photographs as fallbacks and in full-size galleries.
+  function thumbnail(image, alt = "") {
+    const match = image.match(/^\/media\/products\/catalogue\/([^/?]+)\.(?:png|jpe?g)(?:\?.*)?$/i);
+    const source = match
+      ? `<source type="image/webp" srcset="/media/products/catalogue/optimized/${esc(match[1])}.webp">`
+      : "";
+    return `<picture>${source}<img src="${esc(image)}" alt="${esc(alt)}" loading="lazy" decoding="async"></picture>`;
+  }
 
   const CONTACTS = {
     whatsapp: "https://wa.me/22796784870",
@@ -348,16 +365,16 @@
       if (!category) return "";
       const image = categoryImage(category);
       return `<button type="button" class="ibn-feature-tile" data-feature-categories="${esc(item.categories.join("|"))}">
-        <span class="ibn-feature-image"><img src="${esc(image)}" alt="" loading="lazy" decoding="async"></span>
+        <span class="ibn-feature-image">${thumbnail(image)}</span>
         <span class="ibn-feature-copy"><span class="ibn-feature-kicker">ÉQUIPEMENTS</span><strong>${esc(item.label)}</strong><small>${esc(item.note)}</small></span>
       </button>`;
     }).join("");
     const services = `<button type="button" class="ibn-feature-tile" data-open-services>
-      <span class="ibn-feature-image"><img src="/icons/logo.png" alt="" loading="lazy" decoding="async"></span>
+      <span class="ibn-feature-image"><img src="/icons/logo-display-v1.webp" alt="" loading="lazy" decoding="async"></span>
       <span class="ibn-feature-copy"><span class="ibn-feature-kicker">INSTALLATION & ASSISTANCE</span><strong>Installations Wi-Fi Zone et prestations techniques</strong><small>Solutions et services déjà présentés par la boutique</small></span>
     </button>`;
     const phone = `<button type="button" class="ibn-feature-tile" data-open-phone>
-      <span class="ibn-feature-image"><img src="/icons/logo.png" alt="Logo officiel Ibn_Djibril Niger Tech" loading="lazy" decoding="async"></span>
+      <span class="ibn-feature-image"><img src="/icons/logo-display-v1.webp" alt="Logo officiel Ibn_Djibril Niger Tech" loading="lazy" decoding="async"></span>
       <span class="ibn-feature-copy"><span class="ibn-feature-kicker">EN DERNIER</span><strong>Téléphones &amp; Accessoires</strong><small>Tecno, Samsung, Itel, Oraimo et plus</small></span>
     </button>`;
     featured.innerHTML = tiles + services + phone;
@@ -390,7 +407,7 @@
       const stock = stockInfo(product);
       const image = productImage(product);
       return `<article class="ibn-cat-card" tabindex="0" aria-label="Voir les détails de ${esc(product.name)}" data-id="${esc(product.id)}">
-        ${image ? `<div class="ibn-cat-img"><img src="${esc(image)}" alt="${esc(product.name)}" loading="lazy" decoding="async"></div>` : ""}
+        ${image ? `<div class="ibn-cat-img">${thumbnail(image, product.name)}</div>` : ""}
         <div class="ibn-cat-body">
           <div class="ibn-cat-kicker">${esc(product.category)}</div>
           <h3>${esc(product.name)}</h3><p>${esc(product.subtitle)}</p>
@@ -478,7 +495,7 @@
     return `<div class="category">TÉLÉPHONES & ACCESSOIRES</div>
       <h2 id="ibn-detail-heading">Équipement Android et accessoires</h2>
       <div class="ibn-phone-editorial">
-        <span class="ibn-phone-mark"><img src="/icons/logo.png" alt="Logo officiel de la boutique, illustration de cette rubrique"></span>
+        <span class="ibn-phone-mark"><img src="/icons/logo-display-v1.webp" alt="Logo officiel de la boutique, illustration de cette rubrique" width="90" height="90" decoding="async"></span>
         <p>Téléphones, chargeurs, câbles et accessoires. Une sélection pour Android et téléphones à boutons. Aucun prix n’est affiché ici : demandez le tarif et la disponibilité à l’équipe.</p>
       </div>
       <ul class="ibn-phone-list">${PHONE_COLLECTION.map((item, index) => `<li><span class="ibn-phone-index">${String(index + 1).padStart(2, "0")}</span><span>${esc(item)}</span></li>`).join("")}</ul>
