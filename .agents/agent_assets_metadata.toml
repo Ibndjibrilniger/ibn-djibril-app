@@ -656,3 +656,31 @@ mtime_ms = 1792273315246
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/5901bb58-f3d4-49e3-99e6-ba15098f0bc0/2d9077b6-2778-41c0-bb06-b8c88179ec46"
 storage_version_token = "1792273443372981"
 content_type = "video/mp4"
+
+[[outputs]]
+id = "d-nmrI_6bmDapof-8b-zT"
+uri = "file://generated-artifacts/startup/logo-proposition-demarrage.png"
+type = "image"
+title = "Proposition de logo pour démarrage — à valider"
+description = "Netteté légèrement renforcée, composition et informations conservées. Non intégrée à l’application."
+logical_id = "f3e87ade-f944-4582-8314-ed9ca70791cc"
+content_hash = "sha256:fa9c9e5714732f7b59ca24441c9a34e581fe2cee2eefeb7300b0a51be18d660c"
+size = 157664
+mtime_ms = 1792453239926
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/f3e87ade-f944-4582-8314-ed9ca70791cc/82026d48-4485-41b9-876b-622151b172c0"
+storage_version_token = "1792453561699698"
+content_type = "image/png"
+
+[[outputs]]
+id = "a_8pIwpGO_xdcXm5cCx4c"
+uri = "file://generated-artifacts/startup/logo-proposition-2400.png"
+type = "image"
+title = "Proposition de logo 2400 px — à valider"
+description = "Agrandissement du fichier existant, sans réécriture des références. Non vectoriel : un original de meilleure qualité reste nécessaire pour une impression parfaitement nette."
+logical_id = "691c80a9-eb77-44ce-9d36-161914579d09"
+content_hash = "sha256:f31bc37f89ec1dddfe5a399735e51e19b9d548367928a2e5c2396bdea8e7b4e2"
+size = 3202024
+mtime_ms = 1792453239554
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/691c80a9-eb77-44ce-9d36-161914579d09/1aa7e2d7-56d3-4eab-8b21-167d5dd731b5"
+storage_version_token = "1792453562534954"
+content_type = "image/png"
