@@ -1,0 +1,1 @@
+- [Existing-app scope](existing-app-scope.md) — preserve the imported app; keep Al Izza excluded and avoid unnecessary Railway changes.
