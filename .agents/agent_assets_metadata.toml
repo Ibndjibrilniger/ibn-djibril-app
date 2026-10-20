@@ -712,3 +712,31 @@ mtime_ms = 1792539144757
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:00eef941-51cd-4dd5-9afb-d722cc81afab/4b0cd28e-c31e-4400-961d-edeb699ee751/f1f7a8d4-f2e6-4b97-bc88-dcf81e726cc4"
 storage_version_token = "1792539520337606"
 content_type = "image/webp"
+
+[[outputs]]
+id = "o7_1RBh9myu3AJrqlduvk"
+uri = "file://generated-artifacts/sync-verification/rapport-correction-verification.html"
+type = "html"
+title = "Rapport de correction, tests et blocage de publication"
+description = "Rapport autonome : modifications, 32 tests réussis, mesures avant/après, captures locales et vérifications sur le domaine officiel. Le nouveau commit reste non publié à cause de l’authentification GitHub."
+logical_id = "97a12bbb-eb1c-4fc2-8c66-375a369456b7"
+content_hash = "sha256:4e40c1fd3388884414ac85edcb905eef80ac264fac5256f7136009abf495bc65"
+size = 717309
+mtime_ms = 1792540078549
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:00eef941-51cd-4dd5-9afb-d722cc81afab/97a12bbb-eb1c-4fc2-8c66-375a369456b7/ae510dcd-b660-44a5-9cd2-ac799b994f06"
+storage_version_token = "1792540118423819"
+content_type = "text/html"
+
+[[outputs]]
+id = "Q15RNmAN_C81GCqfyonQR"
+uri = "file://generated-artifacts/sync-verification/finance-contact-android.png"
+type = "image"
+title = "Parcours transfert corrigé — aperçu local"
+description = "Bénin → service financier → WhatsApp ou Appeler. Capture du test Android simulé ; ces nouveaux boutons ne sont pas encore publiés sur Railway."
+logical_id = "6c1f4fdc-b1cc-445e-bd4e-0ce4454a4e5c"
+content_hash = "sha256:1bf62da01fb8555713f0876c16bf07f815e84e000cfed8990726a763430a6dfe"
+size = 105996
+mtime_ms = 1792539593729
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:00eef941-51cd-4dd5-9afb-d722cc81afab/6c1f4fdc-b1cc-445e-bd4e-0ce4454a4e5c/a1e0b61c-1224-4a2f-b551-a397f0dc25ef"
+storage_version_token = "1792540119004735"
+content_type = "image/png"
