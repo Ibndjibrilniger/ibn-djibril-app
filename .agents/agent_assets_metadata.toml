@@ -1,0 +1,714 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "-ouyrzCTynM-j8G6whMuB"
+uri = "file://generated-artifacts/video-institutionnelle/preproduction.md"
+type = "text"
+title = "Préparation des deux vidéos : textes et découpage"
+description = "Deux narrations d’environ 263 mots, inventaire des visuels réels et découpage prévu. Document préparatoire uniquement : aucun MP4 final ni voix payante générés."
+logical_id = "38976f9a-d9e3-4fb2-987a-75d545dda7b6"
+content_hash = "sha256:d67ca6ef27c928cd72a11221446dbc9f9233c3f82ce006aa3555ceed45645442"
+size = 9684
+mtime_ms = 1792139242267
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/38976f9a-d9e3-4fb2-987a-75d545dda7b6/b2057444-dbf8-47c9-8f40-0e6e97ac30eb"
+storage_version_token = "1792139251284406"
+content_type = "text/markdown"
+
+[[outputs]]
+id = "JSbJbsOeP3_vl2FHWmjIa"
+uri = "file://generated-artifacts/video-institutionnelle/audio/phones.mp3"
+type = "audio"
+title = "Ibn Djibril narration phones"
+description = "Text-to-speech audio: Retrouvez aussi nos téléphones et accessoires : smartphones, téléphones à boutons, chargeurs, écouteurs, câbles, batteries externes, protections et cartes mémoire. Prix à discut…"
+logical_id = "0d9bb401-2a71-4a21-bcbe-9a7d0a0c4bd3"
+
+[[outputs]]
+id = "17u9yPkrFMr7mPebp16NU"
+uri = "file://generated-artifacts/video-institutionnelle/audio/intro.mp3"
+type = "audio"
+title = "Ibn Djibril narration intro"
+description = "Text-to-speech audio: Bienvenue chez Ibn Djibril Niger Tech, votre partenaire technologique au Niger. Nous mettons la compétence et l'engagement au service de vos ambitions."
+logical_id = "b0af40c6-9fea-48bf-8f6d-a4c29ff2cdf7"
+
+[[outputs]]
+id = "e5Q8UvGauCzMJJu1m_6W8"
+uri = "file://generated-artifacts/video-institutionnelle/audio/wifi.mp3"
+type = "audio"
+title = "Ibn Djibril narration wifi"
+description = "Text-to-speech audio: Pour votre Wi-Fi Zone, nous configurons les portails captifs, les tickets Internet, les abonnés et la bande passante. Notre assistance vous accompagne au quotidien."
+logical_id = "660070ec-7a51-48c5-aefe-3a127ab1de35"
+
+[[outputs]]
+id = "K-kpCUiJqoNSaf5n-Mudt"
+uri = "file://generated-artifacts/video-institutionnelle/audio/starlink.mp3"
+type = "audio"
+title = "Ibn Djibril narration starlink"
+description = "Text-to-speech audio: Avec Starlink Mini et Standard, découvrez nos solutions Internet par satellite. De l'installation à la mise en service, nous vous accompagnons pour connecter vos activités."
+logical_id = "08bb2603-f62a-4b24-8751-801ce03ae3d9"
+
+[[outputs]]
+id = "Uuej-pkGn3H28xksCtljG"
+uri = "file://generated-artifacts/video-institutionnelle/audio/finance_a.mp3"
+type = "audio"
+title = "Ibn Djibril narration finance_a"
+description = "Text-to-speech audio: Notre catalogue présente également des services financiers au Niger, au Bénin, au Nigeria et au Ghana, ainsi que des services internationaux et des solutions numériques."
+logical_id = "efbf796c-b7fc-44cf-9675-9322c0c4df4b"
+
+[[outputs]]
+id = "EUnxvvnB04mbmAv3ixbf_"
+uri = "file://generated-artifacts/video-institutionnelle/audio/maintenance.mp3"
+type = "audio"
+title = "Ibn Djibril narration maintenance"
+description = "Text-to-speech audio: Maintenance informatique, dépannage réseau et assistance technique : nous accompagnons les professionnels comme les particuliers, avec sérieux et proximité."
+logical_id = "9c932fcc-7ae4-4e55-a127-6098b3ffbc68"
+
+[[outputs]]
+id = "0DF62mNz4Q4dhaF8OaNKD"
+uri = "file://generated-artifacts/video-institutionnelle/audio/network.mp3"
+type = "audio"
+title = "Ibn Djibril narration network"
+description = "Text-to-speech audio: Antennes Grandstream et Wavlink, équipements Cudy, Ubiquiti LiteBeam, câbles réseau et accessoires P O E : étendez votre couverture, reliez vos sites et construisez un réseau pr…"
+logical_id = "7339f34f-ecdc-4c41-b883-3c4cf7ef0332"
+
+[[outputs]]
+id = "6omG9OKbNY0fJZMDoSfg6"
+uri = "file://generated-artifacts/video-institutionnelle/audio/finance_b.mp3"
+type = "audio"
+title = "Ibn Djibril narration finance_b"
+description = "Text-to-speech audio: MyNITA, Airtel Money, Wave, MoneyGram, Ria, Binance et U S D T : contactez-nous pour vous informer. Aucune transaction n'est exécutée dans l'application."
+logical_id = "c5c2c294-f844-48fd-911f-c7d9f31b0b1b"
+
+[[outputs]]
+id = "BcVdtsWp0aKY4lFh42vxm"
+uri = "file://generated-artifacts/video-institutionnelle/audio/permanent.mp3"
+type = "audio"
+title = "Ibn Djibril narration permanent"
+description = "Text-to-speech audio: Pour votre prochain équipement ou votre installation, échangeons sur vos besoins. Ensemble, construisons une connectivité adaptée à vos activités, avec un accompagnement attenti…"
+logical_id = "766f0e30-b8db-41ae-83cc-526ed8e1a523"
+
+[[outputs]]
+id = "tr1dRAdbRii639aJNQzUh"
+uri = "file://generated-artifacts/video-institutionnelle/audio/mikrotik.mp3"
+type = "audio"
+title = "Ibn Djibril narration mikrotik"
+description = "Text-to-speech audio: Découvrez nos routeurs MikroTik, du R B neuf cent cinquante et un aux H A P ax deux, ax trois et L zéro zéro neuf. Configuration, sécurisation des accès, gestion des utilisateur…"
+logical_id = "61de91e8-6d31-451f-948c-d9150326b598"
+
+[[outputs]]
+id = "adBvxMBrlDHkRHNrRE-Qb"
+uri = "file://generated-artifacts/video-institutionnelle/audio/friday.mp3"
+type = "audio"
+title = "Ibn Djibril narration friday"
+description = "Text-to-speech audio: En ce vendredi béni, meilleurs vœux à la communauté musulmane. Qu'Allah bénisse nos familles, accepte nos prières et accorde la réussite à nos projets. Joumou'a Moubarak !"
+logical_id = "5aed3f10-9705-42db-a8ff-eb0894ba4a2e"
+
+[[outputs]]
+id = "QUlPsgzrztYW3A-6m4Fan"
+uri = "file://generated-artifacts/video-institutionnelle/audio/closing.mp3"
+type = "audio"
+title = "Ibn Djibril narration closing"
+description = "Text-to-speech audio: Découvrez ibn djibril niger tech point com. Ibn Djibril Niger Tech. La technologie au service de vos ambitions. La confiance au cœur de nos engagements."
+logical_id = "5827fa58-8302-4032-8293-438d94597117"
+
+[[outputs]]
+id = "AtvOKnKmonhdKP_3y5IPV"
+uri = "file://generated-artifacts/video-institutionnelle/livraison/Ibn_Djibril_Niger_Tech_A_Vendredi_1080x1920.mp4"
+type = "video"
+title = "Version A — Spéciale vendredi · 2 min 00 s"
+description = "MP4 vertical 1080 × 1920, voix masculine française, sous-titres incrustés et séquence Joumou’a Moubarak. Sans musique. 16,35 Mo. Décodage intégral et lecture navigateur vérifiés."
+logical_id = "f58c3b62-d22b-40f7-a1ce-bbd066a6aa95"
+content_hash = "sha256:aa163e495f0f3ceef5e6656de14516e5bb23c77709045cd44e9e7a3edb1aeee6"
+size = 16353679
+mtime_ms = 1792140540659
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/f58c3b62-d22b-40f7-a1ce-bbd066a6aa95/a821474a-b2dd-4a86-9249-da17a3f36091"
+storage_version_token = "1792140710592573"
+content_type = "video/mp4"
+
+[[outputs]]
+id = "UAP5QP2wqXXhKnBbJoFkQ"
+uri = "file://generated-artifacts/video-institutionnelle/livraison/Ibn_Djibril_Niger_Tech_B_Institutionnelle_1080x1920.mp4"
+type = "video"
+title = "Version B — Institutionnelle permanente · 2 min 02 s"
+description = "MP4 vertical 1080 × 1920, voix masculine française, sous-titres incrustés et conclusion commerciale permanente. Sans musique. 16,53 Mo. Décodage intégral et lecture navigateur vérifiés."
+logical_id = "d709e2c8-bbc2-444d-a75d-0cb0a61a1cc1"
+content_hash = "sha256:77e61a289686e1f84c2a9a2ba60b24e8454f85c75893ea087fd750f7f5f80173"
+size = 16529507
+mtime_ms = 1792140561986
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/d709e2c8-bbc2-444d-a75d-0cb0a61a1cc1/1320c094-108b-438f-b3bd-3ec89419f5f3"
+storage_version_token = "1792140711653752"
+content_type = "video/mp4"
+
+[[outputs]]
+id = "R6kQsGqb6w3kYF3RKqjAP"
+uri = "file://generated-artifacts/video-institutionnelle/livraison/LISEZ-MOI.txt"
+type = "text"
+title = "Guide Android et rapport de vérification"
+description = "Téléchargement, partage WhatsApp, formats, contrôles effectués et limites : photos manquantes, absence d’écoute humaine et d’essai sur un téléphone physique."
+logical_id = "8852c7b2-9093-4111-b1f1-f06cd8a76ccb"
+content_hash = "sha256:b9e30e0ddf12e24602f7c740be800e2b31031934d5a554cf82630df724944ecc"
+size = 3696
+mtime_ms = 1792140634626
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/8852c7b2-9093-4111-b1f1-f06cd8a76ccb/efbe8301-ea27-4097-b274-3c0b159fb34c"
+storage_version_token = "1792140712276956"
+content_type = "text/plain"
+
+[[outputs]]
+id = "Mjh0lU5PATyOZZquUTBKN"
+uri = "file://generated-artifacts/video-institutionnelle-feminine/audio/starlink.mp3"
+type = "audio"
+title = "Ibn Djibril voix feminine starlink"
+description = "Text-to-speech audio: Le Starlink Mini, compact, et le Standard donnent accès à Internet par satellite. Nous assurons l'installation, le positionnement et la configuration pour connecter vos activité…"
+logical_id = "25538238-7b10-4a9f-a13c-535876f0e9f8"
+
+[[outputs]]
+id = "Gxlij3UAdKlWIPdZQOEsy"
+uri = "file://generated-artifacts/video-institutionnelle-feminine/audio/intro.mp3"
+type = "audio"
+title = "Ibn Djibril voix feminine intro"
+description = "Text-to-speech audio: Bienvenue chez Ibn Djibril Niger Tech, votre partenaire technologique au Niger. Nous mettons la compétence et l'engagement au service de vos ambitions."
+logical_id = "99d98256-de30-41af-b415-7851e09c25b9"
+
+[[outputs]]
+id = "wBNRgZ0zELDz_OrmlYeyP"
+uri = "file://generated-artifacts/video-institutionnelle-feminine/audio/mikrotik.mp3"
+type = "audio"
+title = "Ibn Djibril voix feminine mikrotik"
+description = "Text-to-speech audio: Le R B neuf cent cinquante et un gère les accès. Les H A P ax deux et ax trois apportent le Wi-Fi six. Le L zéro zéro neuf relie vos équipements. Nous configurons la sécurité et…"
+logical_id = "7e928345-233f-4a14-9a5d-bbebcbd89a51"
+
+[[outputs]]
+id = "lpciX3hAy_b-wFDIQSYV_"
+uri = "file://generated-artifacts/video-institutionnelle-feminine/audio/network.mp3"
+type = "audio"
+title = "Ibn Djibril voix feminine network"
+description = "Text-to-speech audio: Grandstream et Wavlink étendent le Wi-Fi. Cudy partage la connexion. Ubiquiti LiteBeam relie vos sites à distance. Les câbles réseau transportent les données et le P O E aliment…"
+logical_id = "5c1e08e1-af14-46fd-a74a-26760108861b"
+
+[[outputs]]
+id = "Y-jols4n7UIv6h5oHa3ZN"
+uri = "file://generated-artifacts/video-institutionnelle-feminine/audio/finance_a.mp3"
+type = "audio"
+title = "Ibn Djibril voix feminine finance_a"
+description = "Text-to-speech audio: Notre catalogue présente également des services financiers au Niger, au Bénin, au Nigeria et au Ghana, ainsi que des services internationaux et des solutions numériques."
+logical_id = "34147fd7-c5db-4674-bda6-d93ac6a8d97b"
+
+[[outputs]]
+id = "WLIlQ-1l4t-NZb5fAZ8yz"
+uri = "file://generated-artifacts/video-institutionnelle-feminine/audio/wifi.mp3"
+type = "audio"
+title = "Ibn Djibril voix feminine wifi"
+description = "Text-to-speech audio: Pour votre Wi-Fi Zone, nous configurons les portails captifs, les tickets Internet, les abonnés et la bande passante. Notre assistance vous accompagne au quotidien."
+logical_id = "5b3d41cf-683d-46c0-a371-8aee6424c217"
+
+[[outputs]]
+id = "PlaM3YpsG1DHxNckHBEQ3"
+uri = "file://generated-artifacts/video-institutionnelle-feminine/audio/phones.mp3"
+type = "audio"
+title = "Ibn Djibril voix feminine phones"
+description = "Text-to-speech audio: Retrouvez aussi nos téléphones et accessoires : smartphones, téléphones à boutons, chargeurs, écouteurs, câbles, batteries externes, protections et cartes mémoire. Prix à discut…"
+logical_id = "4f865089-71f4-45f6-9a74-7d30e24759bd"
+
+[[outputs]]
+id = "-EZKhZ5SAZ9p6s-LK8dGg"
+uri = "file://generated-artifacts/video-institutionnelle-feminine/audio/finance_b.mp3"
+type = "audio"
+title = "Ibn Djibril voix feminine finance_b"
+description = "Text-to-speech audio: MyNITA, Airtel Money, Wave, MoneyGram, Ria, Binance et U S D T : contactez-nous pour vous informer. Aucune transaction n'est exécutée dans l'application."
+logical_id = "365293a5-d0ee-4eb7-a195-2f0750532222"
+
+[[outputs]]
+id = "sAvSpfBgfejNOSrUQXjly"
+uri = "file://generated-artifacts/video-institutionnelle-feminine/audio/maintenance.mp3"
+type = "audio"
+title = "Ibn Djibril voix feminine maintenance"
+description = "Text-to-speech audio: Maintenance informatique, dépannage réseau et assistance technique : nous accompagnons les professionnels comme les particuliers, avec sérieux et proximité."
+logical_id = "b0368f4f-c535-498f-a9bf-a957314b4882"
+
+[[outputs]]
+id = "QR3kAnuHX9MN-uypK7qFW"
+uri = "file://generated-artifacts/video-institutionnelle-feminine/audio/closing.mp3"
+type = "audio"
+title = "Ibn Djibril voix feminine closing"
+description = "Text-to-speech audio: Découvrez ibn djibril niger tech point com. Ibn Djibril Niger Tech. La technologie au service de vos ambitions. La confiance au cœur de nos engagements."
+logical_id = "9def02b0-d604-47cb-84af-ca40bfb499a5"
+
+[[outputs]]
+id = "QPkyFFpxdrNls_R2w5sRW"
+uri = "file://generated-artifacts/video-institutionnelle-feminine/audio/friday.mp3"
+type = "audio"
+title = "Ibn Djibril voix feminine friday"
+description = "Text-to-speech audio: En ce vendredi béni, meilleurs vœux à la communauté musulmane. Qu'Allah bénisse nos familles, accepte nos prières et accorde la réussite à nos projets. Joumou'a Moubarak !"
+logical_id = "f36976ef-7747-488c-8a71-54fc7bd88bb6"
+
+[[outputs]]
+id = "2xVHcEfhYGUzZxzmxMDbs"
+uri = "file://generated-artifacts/video-institutionnelle-feminine/audio/permanent.mp3"
+type = "audio"
+title = "Ibn Djibril voix feminine permanent"
+description = "Text-to-speech audio: Pour votre prochain équipement ou votre installation, échangeons sur vos besoins. Ensemble, construisons une connectivité adaptée à vos activités, avec un accompagnement attenti…"
+logical_id = "c05a33e5-ca44-4299-9883-eb1388c34b5f"
+
+[[outputs]]
+id = "oMuKl90iUvEeJs7QlGpOC"
+uri = "file://generated-artifacts/video-institutionnelle-feminine/livraison/Ibn_Djibril_Niger_Tech_A_Vendredi_Voix_Feminine_1080x1920.mp4"
+type = "video"
+title = "Voix féminine — Spéciale vendredi · 2 min 04 s"
+description = "Voix française de synthèse Lucie, explications des équipements et sous-titres français. MP4 vertical 1080 × 1920, H.264/AAC, sans musique. 16,91 Mo. Décodage intégral et lecture navigateur vérifiés."
+logical_id = "e31b79cf-ecec-4c74-b3f5-63f3faf8a366"
+content_hash = "sha256:652d32eb5b295d8312ce9f5b69b8df7e23bfbd46313e1256be52edf6d560ae38"
+size = 16914163
+mtime_ms = 1792141659454
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/e31b79cf-ecec-4c74-b3f5-63f3faf8a366/9f041ff5-baec-4414-ad6f-5708a01e3613"
+storage_version_token = "1792141799186025"
+content_type = "video/mp4"
+
+[[outputs]]
+id = "XO49aojkiPOTthLBaeYbv"
+uri = "file://generated-artifacts/video-institutionnelle-feminine/livraison/Ibn_Djibril_Niger_Tech_B_Institutionnelle_Voix_Feminine_1080x1920.mp4"
+type = "video"
+title = "Voix féminine — Institutionnelle permanente · 2 min 06 s"
+description = "Présentation des équipements et services avec voix féminine française de synthèse, sous-titres et conclusion permanente. MP4 vertical 1080 × 1920, sans musique. 17,07 Mo. Décodage et lecture navigateur vérifiés."
+logical_id = "e0f3a7b4-a0ff-47d7-859d-bd5c76c3c55f"
+content_hash = "sha256:1b0e752711dd1ff8aebebfdc2ce339e5f2261ec331ca277a168eadd2a817e3b0"
+size = 17073195
+mtime_ms = 1792141668006
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/e0f3a7b4-a0ff-47d7-859d-bd5c76c3c55f/a98c2103-1841-41ad-b9be-f317be954241"
+storage_version_token = "1792141800299419"
+content_type = "video/mp4"
+
+[[outputs]]
+id = "_GIk7hn8BRq8oR6c2t7ex"
+uri = "file://generated-artifacts/affiches-vendredi/livraison/Ibn_Djibril_Niger_Tech_Happy_Djuma_Karim_1080x1350.png"
+type = "image"
+title = "Affiche — Happy Djuma Karim"
+description = "Affiche vert profond et doré, logo officiel Ibn_Djibril Niger Tech, vœux du vendredi et site officiel. PNG 1080 × 1350 prêt à télécharger et partager."
+logical_id = "1ffa8d59-8b3b-4007-bb30-4d7ebbf01da0"
+content_hash = "sha256:7380d5b89b3cbc283dd1ffa76859f5b4ac71b3023ef2e954a2806dfe5877befb"
+size = 830550
+mtime_ms = 1792141365015
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/1ffa8d59-8b3b-4007-bb30-4d7ebbf01da0/758e20b4-84f0-4b7b-98db-48299cdcdcbf"
+storage_version_token = "1792141801021579"
+content_type = "image/png"
+
+[[outputs]]
+id = "A9r6tM75sUcycYniXLUsW"
+uri = "file://generated-artifacts/affiches-vendredi/livraison/Ibn_Djibril_Niger_Tech_Djuma_Moubarak_1080x1350.png"
+type = "image"
+title = "Affiche — Djuma Moubarak"
+description = "Affiche crème et vert, logo officiel et message de paix et de bénédictions. PNG 1080 × 1350 prêt à télécharger et partager."
+logical_id = "6fcb1563-ff38-4bec-8af3-d93638c25ccc"
+content_hash = "sha256:583050a81d3437326542b49ef3e71955c2ba32a018ba1eaeb0d328b6c91c14df"
+size = 658742
+mtime_ms = 1792141365743
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/6fcb1563-ff38-4bec-8af3-d93638c25ccc/382fdf0c-67c0-4be8-9b70-ff43d7407c7f"
+storage_version_token = "1792141801663283"
+content_type = "image/png"
+
+[[outputs]]
+id = "HyTKquYBJvHsN97ywXT2C"
+uri = "file://generated-artifacts/ameliorations-application/Etude_API_financieres_Niger.pdf"
+type = "pdf"
+title = "Étude des API financières accessibles au Niger"
+description = "Rapport de 8 pages : iFUTUR/iMoney, FedaPay, Airtel Money Niger, NITA/MyNITA et piste transfrontalière Thunes. Conditions connues, documents marchands, frais publiés, documentation, sandbox, limites et exigences réglementaires. 17 références officielles. Aucun paiement ni accès Live activé."
+logical_id = "ba0511bd-c695-454b-9b73-a5f9a5a70027"
+content_hash = "sha256:7e2fec398bf0a424921805aa3baefb5a9ddf82456275721587a51bf7517b0142"
+size = 2068524
+mtime_ms = 1792198789276
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/ba0511bd-c695-454b-9b73-a5f9a5a70027/bfb5ead1-ccd7-4bbc-942c-533414a6cabd"
+storage_version_token = "1792199072452149"
+content_type = "application/pdf"
+
+[[outputs]]
+id = "kmmUGs_rIDyfvgslD87D1"
+uri = "file://generated-artifacts/demandes-partenariats/Dossier_demandes_partenariats.pdf"
+type = "pdf"
+title = "Dossier de demandes — MyNITA, AmanaTa, iMoney et Airtel"
+description = "9 pages : parcours possibles, justificatifs à préparer, contacts officiels, frais connus, quatre courriels à compléter et questionnaire pour obtenir un devis complet. Aucune demande envoyée ni dépense engagée."
+logical_id = "c1e5805f-7e24-43e1-a93a-ed0c2e08d4b8"
+content_hash = "sha256:bf3291b7a02ea2af790b17dfe662ca7d17c03ab41d610060f1542b02076be062"
+size = 57223
+mtime_ms = 1792218194733
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/c1e5805f-7e24-43e1-a93a-ed0c2e08d4b8/e778c533-1ba4-4043-acff-bee68e51b0e8"
+storage_version_token = "1792218253215252"
+content_type = "application/pdf"
+
+[[outputs]]
+id = "l81Cbyw5BfM93F21ki3A3"
+uri = "file://generated-artifacts/demandes-partenariats/Demandes_MyNITA_AmanaTa_iMoney_Airtel.docx"
+type = "word_document"
+title = "Version Word modifiable — demandes de partenariat"
+description = "Remplacez les champs entre crochets puis copiez uniquement le courrier du prestataire choisi et le questionnaire. Ne transmettez vos justificatifs qu’au prestataire, par son canal sécurisé."
+logical_id = "e48fccbe-51fb-4ac7-afac-1882798c75af"
+content_hash = "sha256:d465021cef75f5b62b189757853c4191df947f130659ecb365df0ba88311aa82"
+size = 31853
+mtime_ms = 1792218191553
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/e48fccbe-51fb-4ac7-afac-1882798c75af/805e3f8a-82a3-4298-a15a-9e98e1b20db1"
+storage_version_token = "1792218253836615"
+content_type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+
+[[outputs]]
+id = "LJwQaPObFhmjMJnJSjYMd"
+uri = "file://generated-artifacts/demandes-partenariats/Dossier_demandes_partenariats_Niger.pdf"
+type = "pdf"
+title = "Dossier actualisé — entreprise immatriculée au Niger"
+description = "PDF de 9 pages : quatre courriers personnalisés pour le Niger, contacts officiels, justificatifs à préparer et questionnaire tarifaire. Remplace la version où le pays restait à confirmer."
+logical_id = "6ccd3a71-73bd-47f0-bfcc-53a67f6227a7"
+content_hash = "sha256:0fc4d9c2e8515f7450279756bfa1caa0f9ad01a10fbb51d003b2520c74756366"
+size = 57004
+mtime_ms = 1792218408480
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/6ccd3a71-73bd-47f0-bfcc-53a67f6227a7/43ef9708-3b2d-4a47-ba1e-5aedf3e5c0ea"
+storage_version_token = "1792218420396261"
+content_type = "application/pdf"
+
+[[outputs]]
+id = "1uk7D9mHrV658L7TOOV0G"
+uri = "file://generated-artifacts/demandes-partenariats/Demandes_partenariats_Niger.docx"
+type = "word_document"
+title = "Courriers modifiables — Niger confirmé"
+description = "Version Word actualisée pour NITA/MyNITA, AmanaTa, iFUTUR/iMoney et Airtel Money Niger. Complétez les champs restants hors conversation avant envoi."
+logical_id = "724a7449-57a0-45ff-bb1d-e248879ae641"
+content_hash = "sha256:cc6984d7f86086398740f0d407c0a9a40333f8c550ce6c61dc499a9e5f2fdce0"
+size = 32074
+mtime_ms = 1792218405604
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/724a7449-57a0-45ff-bb1d-e248879ae641/678cc347-f4e0-495a-9a07-cf73d19ac872"
+storage_version_token = "1792218421090883"
+content_type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+
+[[outputs]]
+id = "uPtgvO2aO8YpRn1ud7HCE"
+uri = "file://generated-artifacts/promotion-niger/Plan_promotion_Niger_7_jours.pdf"
+type = "pdf"
+title = "Plan de promotion au Niger — 7 jours"
+description = "PDF de 4 pages : calendrier, textes prêts à adapter, option sans achat publicitaire, scénario indicatif de 15 000 FCFA maximum à valider, mesure des demandes WhatsApp et conditions avant lancement. Aucune campagne créée ou publiée ; aucune dépense engagée."
+logical_id = "76e401a5-7f14-43d5-a6fb-527ee3a50826"
+content_hash = "sha256:494f4dfd9e104af167bb7c2c8ac96bcd4eaf05e4b5204c279919a115393a6c57"
+size = 49280
+mtime_ms = 1792220212848
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/76e401a5-7f14-43d5-a6fb-527ee3a50826/b7b51263-9f90-4de5-ab5f-04ea5f0d1114"
+storage_version_token = "1792220278495607"
+content_type = "application/pdf"
+
+[[outputs]]
+id = "B3_xJ_j2u2nveNAHxqxTZ"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-01.mp3"
+type = "audio"
+title = "transferts_feminine_01"
+description = "Text-to-speech audio: Bienvenue chez Ibn Djibril Niger Tech, votre espace de services numériques au Niger !"
+logical_id = "50432b98-e3d8-40ba-ab57-16957515fd19"
+
+[[outputs]]
+id = "2wwmlFTVKa_ay2YOK3ci1"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-02.mp3"
+type = "audio"
+title = "transferts_feminine_02"
+description = "Text-to-speech audio: Vous cherchez des informations sur un transfert d’argent ou un service Mobile Money ? Découvrez notre application mobile web."
+logical_id = "ce934e59-bc71-4df3-8738-cb70a17a7b3c"
+
+[[outputs]]
+id = "U3fnrlXLw2QoyNzFBYyfc"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-03.mp3"
+type = "audio"
+title = "transferts_feminine_03"
+description = "Text-to-speech audio: Ouvrez ibn djibril niger tech point com, puis touchez Services de transfert d’argent. Choisissez une rubrique pour découvrir les services répertoriés."
+logical_id = "fffe3ed0-5c1c-49fc-95d3-bd4d5072e8c7"
+
+[[outputs]]
+id = "1HAMLRP4m-SGROWmLFSAA"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-04.mp3"
+type = "audio"
+title = "transferts_feminine_04"
+description = "Text-to-speech audio: Au Niger : MyNITA, AMANATA, Airtel Money, Moov Flooz, Orange Money, Wave, Zamani Cash et Coris Money."
+logical_id = "8135966d-1bce-4ab1-a615-91d7834d1e3c"
+
+[[outputs]]
+id = "j9yCZL-gWJMtO8peWJgK_"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-05.mp3"
+type = "audio"
+title = "transferts_feminine_05"
+description = "Text-to-speech audio: Pour le Bénin : MTN MoMo, Moov Money, Celtiis Cash, B-MO et MyNITA."
+logical_id = "39cf4b12-67f0-4f3b-8422-fb908adbe7a5"
+
+[[outputs]]
+id = "RsJ6Q5b6gVQS9eO9HTxyV"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-06.mp3"
+type = "audio"
+title = "transferts_feminine_06"
+description = "Text-to-speech audio: Pour le Nigeria : U B A, FirstBank, Zenith Bank, Access Bank, G T C O, Union Bank et Monnify."
+logical_id = "2992375a-4c78-4d78-b96e-c5738c999d06"
+
+[[outputs]]
+id = "pmiq8ORMfmxMzLG_ASkEZ"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-07.mp3"
+type = "audio"
+title = "transferts_feminine_07"
+description = "Text-to-speech audio: Au Ghana : MTN MoMo et Telecel Cash."
+logical_id = "201d63b9-1932-4d64-bb45-ac5bfca5044b"
+
+[[outputs]]
+id = "ryY6ztDGutnS6GzNVPWOJ"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-08.mp3"
+type = "audio"
+title = "transferts_feminine_08"
+description = "Text-to-speech audio: La rubrique International présente MoneyGram, Ria, MoneyFusion et NITA."
+logical_id = "f40c5850-f8ce-4905-b882-b6f4c8ffb720"
+
+[[outputs]]
+id = "wttDiMAnsQr61-Vat07Zy"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-09.mp3"
+type = "audio"
+title = "transferts_feminine_09"
+description = "Text-to-speech audio: Côté solutions numériques, retrouvez la rubrique Binance et U S D T. Cette présentation n’est pas un conseil d’investissement."
+logical_id = "e05d2f5a-51a3-45f0-8c72-374e7c785968"
+
+[[outputs]]
+id = "_w-tpPIMHGGidyMAFWsl7"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-10.mp3"
+type = "audio"
+title = "transferts_feminine_10"
+description = "Text-to-speech audio: Comment découvrir un service ? Sélectionnez votre pays, puis touchez la carte qui vous intéresse. Le bouton Accéder ouvre le site de l’opérateur dans un nouvel onglet."
+logical_id = "a736599b-ec3f-44ce-a380-f96bbf1e4c37"
+
+[[outputs]]
+id = "LOtcSl1zgN559eQY_iZIg"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-11.mp3"
+type = "audio"
+title = "transferts_feminine_11"
+description = "Text-to-speech audio: Pour joindre notre équipe, revenez à l’accueil. Les boutons WhatsApp et téléphone vous permettent de nous contacter pour demander des renseignements."
+logical_id = "d5c4f3fd-15be-4ed7-bd22-e4d15048d3f5"
+
+[[outputs]]
+id = "baWBR_KlrOaiQxM98yrj3"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-12.mp3"
+type = "audio"
+title = "transferts_feminine_12"
+description = "Text-to-speech audio: Attention : aucune opération financière n’est exécutée automatiquement dans notre application. Les services répertoriés ne constituent pas une garantie de partenariat ni de disp…"
+logical_id = "42245eb9-4f27-4a65-866a-6eb5d4553ebc"
+
+[[outputs]]
+id = "X_uY1qXwToOPfmyKhV5hN"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-13.mp3"
+type = "audio"
+title = "transferts_feminine_13"
+description = "Text-to-speech audio: Ne communiquez jamais votre mot de passe, votre code PIN ou votre code de validation."
+logical_id = "5d516ca1-1561-4055-b174-5ed18529bc87"
+
+[[outputs]]
+id = "q7cleDeq7iy7CUMqFbj7w"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-14.mp3"
+type = "audio"
+title = "transferts_feminine_14"
+description = "Text-to-speech audio: Découvrez dès maintenant ibn djibril niger tech point com."
+logical_id = "d0f09ef7-93fa-422d-b03c-cfef21ed4aa9"
+
+[[outputs]]
+id = "RHe1qIEXF17aFKA3SK2I5"
+uri = "file://generated-artifacts/publicites-transferts/audio/feminine-15.mp3"
+type = "audio"
+title = "transferts_feminine_15"
+description = "Text-to-speech audio: Ibn Djibril Niger Tech : votre partenaire technologique, votre contact de confiance !"
+logical_id = "93235131-e194-4dbf-b7b9-310bfa5fbe37"
+
+[[outputs]]
+id = "2cGGIQ5wFERGx_tNMvSl7"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-01.mp3"
+type = "audio"
+title = "transferts_masculine_01"
+description = "Text-to-speech audio: Bienvenue chez Ibn Djibril Niger Tech, votre espace de services numériques au Niger !"
+logical_id = "3e4684a4-ff67-43dd-9af9-18f7edd24593"
+
+[[outputs]]
+id = "KogA7V0dBRx78NAJoR_x8"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-02.mp3"
+type = "audio"
+title = "transferts_masculine_02"
+description = "Text-to-speech audio: Vous cherchez des informations sur un transfert d’argent ou un service Mobile Money ? Découvrez notre application mobile web."
+logical_id = "1cbb9153-5ebf-40e8-ad4a-f4acfc835da2"
+
+[[outputs]]
+id = "iOLEIdKXIVzpcg0k0AKs7"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-03.mp3"
+type = "audio"
+title = "transferts_masculine_03"
+description = "Text-to-speech audio: Ouvrez ibn djibril niger tech point com, puis touchez Services de transfert d’argent. Choisissez une rubrique pour découvrir les services répertoriés."
+logical_id = "66f1598b-b919-4426-a756-e06330d4aaee"
+
+[[outputs]]
+id = "erbQpJYFNZYPjCZFgGU96"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-04.mp3"
+type = "audio"
+title = "transferts_masculine_04"
+description = "Text-to-speech audio: Au Niger : MyNITA, AMANATA, Airtel Money, Moov Flooz, Orange Money, Wave, Zamani Cash et Coris Money."
+logical_id = "a852baab-a281-4b5c-afc6-3799a9738e2b"
+
+[[outputs]]
+id = "4vqdLItpRt6ZAJ9Bwp7GR"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-05.mp3"
+type = "audio"
+title = "transferts_masculine_05"
+description = "Text-to-speech audio: Pour le Bénin : MTN MoMo, Moov Money, Celtiis Cash, B-MO et MyNITA."
+logical_id = "f729bc59-e8b7-4df6-bf97-284a9a31467c"
+
+[[outputs]]
+id = "jq3rozMBm6O8J3PN1f1e0"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-06.mp3"
+type = "audio"
+title = "transferts_masculine_06"
+description = "Text-to-speech audio: Pour le Nigeria : U B A, FirstBank, Zenith Bank, Access Bank, G T C O, Union Bank et Monnify."
+logical_id = "e72efc52-3e08-41d2-86cc-6a1b37b9b113"
+
+[[outputs]]
+id = "ysTs0nob8h4fjQ2UsclKO"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-07.mp3"
+type = "audio"
+title = "transferts_masculine_07"
+description = "Text-to-speech audio: Au Ghana : MTN MoMo et Telecel Cash."
+logical_id = "48f65e62-c50c-4609-81ff-73229401bf24"
+
+[[outputs]]
+id = "ma593m_aXN0R7KoNLo0oG"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-08.mp3"
+type = "audio"
+title = "transferts_masculine_08"
+description = "Text-to-speech audio: La rubrique International présente MoneyGram, Ria, MoneyFusion et NITA."
+logical_id = "8e9e091a-2b36-49d9-965d-eef2adce09bb"
+
+[[outputs]]
+id = "-FFNfkfp-cBfFaS3Oz70B"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-09.mp3"
+type = "audio"
+title = "transferts_masculine_09"
+description = "Text-to-speech audio: Côté solutions numériques, retrouvez la rubrique Binance et U S D T. Cette présentation n’est pas un conseil d’investissement."
+logical_id = "eb104e35-00a3-427c-86ec-6b77c66fc9bf"
+
+[[outputs]]
+id = "iIfE9siBvF7EnMasmP49u"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-10.mp3"
+type = "audio"
+title = "transferts_masculine_10"
+description = "Text-to-speech audio: Comment découvrir un service ? Sélectionnez votre pays, puis touchez la carte qui vous intéresse. Le bouton Accéder ouvre le site de l’opérateur dans un nouvel onglet."
+logical_id = "2dda99f9-812d-43d8-ae65-4cb07384b5d0"
+
+[[outputs]]
+id = "JNe3l_y7XWyyxzopjFnMI"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-11.mp3"
+type = "audio"
+title = "transferts_masculine_11"
+description = "Text-to-speech audio: Pour joindre notre équipe, revenez à l’accueil. Les boutons WhatsApp et téléphone vous permettent de nous contacter pour demander des renseignements."
+logical_id = "b6e64e66-959d-4cb2-ad3b-fa0102d4f4d0"
+
+[[outputs]]
+id = "R_2ymD5VUaAdSO7r9Wj3R"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-12.mp3"
+type = "audio"
+title = "transferts_masculine_12"
+description = "Text-to-speech audio: Attention : aucune opération financière n’est exécutée automatiquement dans notre application. Les services répertoriés ne constituent pas une garantie de partenariat ni de disp…"
+logical_id = "25b0d27a-25c9-4f73-9568-b48fd243026a"
+
+[[outputs]]
+id = "xDeGt_vPKlk_MzctRM01f"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-13.mp3"
+type = "audio"
+title = "transferts_masculine_13"
+description = "Text-to-speech audio: Ne communiquez jamais votre mot de passe, votre code PIN ou votre code de validation."
+logical_id = "2f3e3b7f-1219-467e-b852-c753b21f6b58"
+
+[[outputs]]
+id = "rVgFOQSXj_l5Fi0Fu7U55"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-14.mp3"
+type = "audio"
+title = "transferts_masculine_14"
+description = "Text-to-speech audio: Découvrez dès maintenant ibn djibril niger tech point com."
+logical_id = "1e569a50-ffe0-4070-9cd7-c9c8b38a502d"
+
+[[outputs]]
+id = "CrWaBd-ISFbEgbvZdYt94"
+uri = "file://generated-artifacts/publicites-transferts/audio/masculine-15.mp3"
+type = "audio"
+title = "transferts_masculine_15"
+description = "Text-to-speech audio: Ibn Djibril Niger Tech : votre partenaire technologique, votre contact de confiance !"
+logical_id = "7d542c47-ccc0-40a2-9805-d0db2ceb4ac2"
+
+[[outputs]]
+id = "I-zgh49VLT5zJkYB9eh_0"
+uri = "file://generated-artifacts/publicites-transferts/livraison/Ibn_Djibril_Transferts_Voix_Feminine.mp4"
+type = "video"
+title = "Publicité transferts — Voix féminine"
+description = "90 secondes • MP4 vertical 1080 × 1920 • Voix de synthèse féminine francophone • Sous-titres français • Sans musique."
+logical_id = "676336ad-103a-4796-8328-aed7b1cb9ef5"
+content_hash = "sha256:1cdbfbb2806d47a5e4a7a4d8ce66bbee434d6b86c1c6cb700580946acffb7a34"
+size = 7689038
+mtime_ms = 1792273312878
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/676336ad-103a-4796-8328-aed7b1cb9ef5/7d828418-ef2c-421c-acc8-6e80c53c6b08"
+storage_version_token = "1792273442596454"
+content_type = "video/mp4"
+
+[[outputs]]
+id = "0-GtNjtXxycpUoebi3ctm"
+uri = "file://generated-artifacts/publicites-transferts/livraison/Ibn_Djibril_Transferts_Voix_Masculine.mp4"
+type = "video"
+title = "Publicité transferts — Voix masculine"
+description = "90 secondes • MP4 vertical 1080 × 1920 • Voix de synthèse masculine francophone • Même montage et mêmes sous-titres • Sans musique."
+logical_id = "5901bb58-f3d4-49e3-99e6-ba15098f0bc0"
+content_hash = "sha256:42300dd078b9a1b2dadba0d91c35661f2fb63afc0e49d5d3682a6411fe4793f0"
+size = 7720991
+mtime_ms = 1792273315246
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/5901bb58-f3d4-49e3-99e6-ba15098f0bc0/2d9077b6-2778-41c0-bb06-b8c88179ec46"
+storage_version_token = "1792273443372981"
+content_type = "video/mp4"
+
+[[outputs]]
+id = "d-nmrI_6bmDapof-8b-zT"
+uri = "file://generated-artifacts/startup/logo-proposition-demarrage.png"
+type = "image"
+title = "Proposition de logo pour démarrage — à valider"
+description = "Netteté légèrement renforcée, composition et informations conservées. Non intégrée à l’application."
+logical_id = "f3e87ade-f944-4582-8314-ed9ca70791cc"
+content_hash = "sha256:fa9c9e5714732f7b59ca24441c9a34e581fe2cee2eefeb7300b0a51be18d660c"
+size = 157664
+mtime_ms = 1792453239926
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/f3e87ade-f944-4582-8314-ed9ca70791cc/82026d48-4485-41b9-876b-622151b172c0"
+storage_version_token = "1792453561699698"
+content_type = "image/png"
+
+[[outputs]]
+id = "a_8pIwpGO_xdcXm5cCx4c"
+uri = "file://generated-artifacts/startup/logo-proposition-2400.png"
+type = "image"
+title = "Proposition de logo 2400 px — à valider"
+description = "Agrandissement du fichier existant, sans réécriture des références. Non vectoriel : un original de meilleure qualité reste nécessaire pour une impression parfaitement nette."
+logical_id = "691c80a9-eb77-44ce-9d36-161914579d09"
+content_hash = "sha256:f31bc37f89ec1dddfe5a399735e51e19b9d548367928a2e5c2396bdea8e7b4e2"
+size = 3202024
+mtime_ms = 1792453239554
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:7fe1b6fb-e1f3-4a76-9797-77cdf9bee5d0/691c80a9-eb77-44ce-9d36-161914579d09/1aa7e2d7-56d3-4eab-8b21-167d5dd731b5"
+storage_version_token = "1792453562534954"
+content_type = "image/png"
+
+[[outputs]]
+id = "gGJfTSq8Z1dxVEoY9TapW"
+uri = "file://generated-artifacts/logo-proposal/logo-proposition-2400.png"
+type = "image"
+title = "Logo proposé — 2400 × 2220, à valider"
+description = "Agrandissement de la photographie officielle avec légère accentuation. Aucun texte retapé, aucun remplacement du logo publié. Les limites de netteté de la source restent présentes."
+logical_id = "a40e3457-277b-4d86-85d3-a6f22a16aa6c"
+content_hash = "sha256:c41476d6adb2e7ee3438297fe33cc6ed50fa6342c90eb6f04d23155dd58e6e06"
+size = 3084440
+mtime_ms = 1792539144229
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:00eef941-51cd-4dd5-9afb-d722cc81afab/a40e3457-277b-4d86-85d3-a6f22a16aa6c/ddfd7c57-4d33-408c-b870-1c740fe84090"
+storage_version_token = "1792539519705341"
+content_type = "image/png"
+
+[[outputs]]
+id = "vMxi3QUyLjk8Yds8IFdlY"
+uri = "file://generated-artifacts/logo-proposal/logo-proposition-app.webp"
+type = "image"
+title = "Logo proposé — version mobile optimisée"
+description = "WebP 768 × 710, environ 72 Ko. Proposition non publiée, soumise à votre validation."
+logical_id = "4b0cd28e-c31e-4400-961d-edeb699ee751"
+content_hash = "sha256:a50893586ad4f8cb922bc9c26fce66eeee75c55b247ccdb8025750864d58e42b"
+size = 72772
+mtime_ms = 1792539144757
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:00eef941-51cd-4dd5-9afb-d722cc81afab/4b0cd28e-c31e-4400-961d-edeb699ee751/f1f7a8d4-f2e6-4b97-bc88-dcf81e726cc4"
+storage_version_token = "1792539520337606"
+content_type = "image/webp"

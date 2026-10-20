@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Paramètres privés — Ibn_Djibril Niger Tech</title>
+  <link rel="stylesheet" href="/preferences.css?v=20261017-settings1">
+  <link rel="stylesheet" href="/admin/settings.css?v=20261017-settings1">
+  <script src="/preferences.js?v=20261017-settings1"></script>
+  <script src="/admin/settings.js?v=20261017-settings1" defer></script>
+</head>
+<body class="ibn-admin-page">
+  <header>
+    <a class="back" href="/admin">← Retour à l’Admin</a>
+    <div class="identity"><img src="/icons/logo.png" alt="Logo officiel" width="64" height="64">
+      <div><p class="eyebrow">ESPACE ADMINISTRATEUR AUTHENTIFIÉ</p>
+        <h1>Paramètres privés</h1><p>Ibn_Djibril Niger Tech</p></div>
+    </div>
+    <p>Vos réglages d’affichage et l’état réel de votre catalogue, sans modification sensible.</p>
+  </header>
+  <main>
+    <p id="settings-status" role="status">Chargement des informations privées…</p>
+    <section class="panel" aria-labelledby="display-heading">
+      <h2 id="display-heading">Votre confort d’affichage</h2>
+      <p>Préférences de ce navigateur uniquement, partagées avec le catalogue public.</p>
+      <div class="ibn-pref-controls">
+        <div class="ibn-pref-control"><label for="admin-pref-theme">Thème</label>
+          <select id="admin-pref-theme" name="theme">
+            <option value="system">Selon le système</option><option value="light">Clair</option><option value="dark">Sombre</option>
+          </select></div>
+        <div class="ibn-pref-control"><label for="admin-pref-density">Densité</label>
+          <select id="admin-pref-density" name="density">
+            <option value="comfortable">Confortable</option><option value="compact">Compacte</option>
+          </select></div>
+        <div class="ibn-pref-control"><label for="admin-pref-text">Taille du texte</label>
+          <select id="admin-pref-text" name="textSize">
+            <option value="standard">Standard</option><option value="large">Grande</option>
+          </select></div>
+        <div class="ibn-pref-control"><label for="admin-pref-motion">
+          <input type="checkbox" id="admin-pref-motion" name="reducedMotion"> Réduire les animations
+        </label></div>
+      </div>
+      <p id="admin-pref-storage" role="status" hidden></p>
+      <p>La préférence de réduction des animations du système reste toujours respectée.</p>
+    </section>
+    <section class="panel" aria-labelledby="company-heading">
+      <h2 id="company-heading">Informations de l’entreprise</h2>
+      <dl id="company-information"></dl>
+      <a href="/parametres.html">Informations publiques, contact et assistance</a>
+    </section>
+    <section class="panel" aria-labelledby="sync-heading">
+      <h2 id="sync-heading">Catalogue et synchronisation des prix</h2>
+      <div id="sync-information" aria-live="polite"></div>
+      <p>Il s’agit d’une vérification de lecture, pas d’un historique des synchronisations.
+        Les prix publics sont lus automatiquement depuis la source existante, sans action manuelle.</p>
+      <p id="catalogue-policy"></p>
+      <a class="action" href="/admin">Consulter et gérer les produits et les prix</a>
+      <button type="button" id="refresh-settings">Vérifier à nouveau</button>
+    </section>
+    <section class="panel" aria-labelledby="security-heading">
+      <h2 id="security-heading">Sécurité existante</h2>
+      <dl id="security-information"></dl>
+      <p class="notice" id="secure-cookie-notice" hidden>Le drapeau Secure du cookie n’est pas activé
+        dans la configuration actuelle. Toute évolution doit être validée avec la configuration HTTPS
+        et le proxy Railway ; aucun réglage de production n’est changé ici.</p>
+      <a class="action" href="/admin#current-password">Changer le mot de passe dans l’Admin existant</a>
+      <p>Cette page ne permet ni de modifier les secrets, ni de configurer PostgreSQL,
+        ni d’activer des transactions financières.</p>
+    </section>
+    <section class="panel" aria-labelledby="notification-heading">
+      <h2 id="notification-heading">Notifications</h2>
+      <p id="notifications-status">Vérification des fonctions disponibles…</p>
+    </section>
+    <section class="panel">
+      <h2>Votre application</h2>
+      <p>Version servie : <code id="application-version">Chargement…</code></p>
+      <a href="/admin/activities">Données &amp; Activités</a>
+      <span aria-hidden="true"> · </span><a href="/">Voir le catalogue</a>
+    </section>
+  </main>
+</body>
+</html>

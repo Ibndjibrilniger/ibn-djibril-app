@@ -8,6 +8,19 @@
     "ibn-pwa-update-modal";
 
   let checking = false;
+  let reloadingForController = false;
+
+  if ("serviceWorker" in navigator) {
+    // Do not reload on first install; reload once when an existing worker changes.
+    let hadController = !!navigator.serviceWorker.controller;
+    navigator.serviceWorker.addEventListener("controllerchange", () => {
+      if (hadController && !reloadingForController) {
+        reloadingForController = true;
+        window.location.reload();
+      }
+      hadController = true;
+    });
+  }
 
   function safeGet(key) {
     try {

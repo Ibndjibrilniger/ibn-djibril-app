@@ -368,6 +368,9 @@
     overlay.classList.add("open");
     document.body.style.overflow = "hidden";
   });
+  window.addEventListener("ibn:prices-updated", function () {
+    if (overlay.classList.contains("open")) rendu();
+  });
 
   overlay.querySelector(".ibn-cart-close").addEventListener("click", fermer);
 

@@ -1,4 +1,6 @@
 node_modules/
+/generated-artifacts/
+/attached_assets/
 backups/
 public-security-backup-*/
 .env

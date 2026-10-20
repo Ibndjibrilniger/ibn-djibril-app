@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#08794a">
+  <title>Données & Activités — Administration privée</title>
+  <link rel="stylesheet" href="/admin/activities.css">
+  <script src="/admin/activities.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">ID</span>
+        <div>
+          <h1>Données & Activités</h1>
+          <p>Ibn_Djibril Niger Tech · Administration privée</p>
+        </div>
+      </div>
+      <a class="back-link" href="/admin/dashboard">← Tableau de bord</a>
+    </div>
+  </header>
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">Vue d’ensemble · Activité du site</p>
+        <h2 id="page-title">Les visites, sans détour.</h2>
+        <p>Suivez les parcours et interactions enregistrés sur le site.</p>
+        <p>Seules les visites avec consentement sont comptées. Actualisation automatique toutes les 30 secondes lorsque cet écran est visible.</p>
+        <p id="collection-diagnostic" role="status">Vérification de la collecte PostgreSQL…</p>
+        <button id="refresh-activities" class="reset-btn" type="button">Actualiser les statistiques</button>
+      </div>
+      <span class="timezone">Heure affichée : Niger · Africa/Porto-Novo (UTC+1)</span>
+    </section>
+
+    <section class="panel filters" aria-labelledby="filters-title">
+      <div class="filter-heading">
+        <h3 id="filters-title">Période & filtres</h3>
+        <span class="hint">Dates interprétées à l’heure du Niger (UTC+1).</span>
+      </div>
+      <div class="period-row" role="group" aria-label="Période d’affichage">
+        <button class="period-btn" type="button" data-period="today" aria-pressed="true">Aujourd’hui</button>
+        <button class="period-btn" type="button" data-period="yesterday" aria-pressed="false">Hier</button>
+        <button class="period-btn" type="button" data-period="7" aria-pressed="false">7 jours</button>
+        <button class="period-btn" type="button" data-period="30" aria-pressed="false">30 jours</button>
+        <button class="period-btn" type="button" data-period="custom" aria-pressed="false">Personnalisée</button>
+        <div class="date-range" id="date-range" hidden>
+          <div class="field"><label for="from">Du</label><input id="from" type="date"></div>
+          <div class="field"><label for="to">Au</label><input id="to" type="date"></div>
+        </div>
+      </div>
+      <div class="field-grid">
+        <div class="field"><label for="country">Pays</label><select id="country"><option value="">Tous les pays</option></select></div>
+        <div class="field"><label for="device">Appareil</label><select id="device">
+          <option value="">Tous les appareils</option><option value="mobile">Mobile</option><option value="tablet">Tablette</option><option value="desktop">Ordinateur</option><option value="unknown">Non disponible</option>
+        </select></div>
+        <div class="field"><label for="type">Type d’activité</label><select id="type">
+          <option value="">Tous les types</option>
+          <option value="page_view">Page consultée</option><option value="service_view">Service consulté</option>
+          <option value="finance_open">Ouverture finances</option><option value="finance_category">Catégorie finances</option>
+          <option value="external_click">Clic externe</option><option value="action">Action</option><option value="click">Clic</option>
+        </select></div>
+        <div class="field"><label for="service">Service / produit</label><select id="service"><option value="">Tous les services</option></select></div>
+        <div class="field"><label for="visitor">Visiteur</label><input id="visitor" type="search" placeholder="Identifiant visiteur"></div>
+        <div class="field"><label for="session">Session</label><input id="session" type="search" placeholder="Identifiant session"></div>
+        <div class="field search-field"><label for="q">Recherche dans les activités</label><input id="q" type="search" placeholder="Page, navigateur, OS, activité…"></div>
+      </div>
+      <div class="filter-actions">
+        <p class="filter-status" id="filter-status" aria-live="polite">Chargement des activités…</p>
+        <button class="reset-btn" id="reset-filters" type="button">Effacer les filtres</button>
+      </div>
+    </section>
+
+    <section class="stats-grid" aria-label="Indicateurs d’activité">
+      <article class="stat"><span class="stat-label">Visiteurs aujourd’hui</span><strong class="stat-value" data-stat="todayVisitors">—</strong></article>
+      <article class="stat"><span class="stat-label">Visiteurs actifs · 5 min</span><strong class="stat-value" data-stat="activeVisitors">—</strong></article>
+      <article class="stat"><span class="stat-label">Visites aujourd’hui</span><strong class="stat-value" data-stat="todayVisits">—</strong></article>
+      <article class="stat"><span class="stat-label">Visites · 7 jours</span><strong class="stat-value" data-stat="weekVisits">—</strong></article>
+      <article class="stat"><span class="stat-label">Visites · 30 jours</span><strong class="stat-value" data-stat="monthVisits">—</strong></article>
+      <article class="stat"><span class="stat-label">Visiteurs uniques · période</span><strong class="stat-value" data-stat="visitors">—</strong></article>
+      <article class="stat"><span class="stat-label">Sessions · période</span><strong class="stat-value" data-stat="sessions">—</strong></article>
+      <article class="stat"><span class="stat-label">Pages consultées</span><strong class="stat-value" data-stat="pages">—</strong></article>
+      <article class="stat"><span class="stat-label">Services / produits consultés</span><strong class="stat-value" data-stat="services">—</strong></article>
+      <article class="stat"><span class="stat-label">Clics</span><strong class="stat-value" data-stat="clicks">—</strong></article>
+      <article class="stat"><span class="stat-label">Clics vers des services externes</span><strong class="stat-value" data-stat="external">—</strong></article>
+      <article class="stat"><span class="stat-label">Activités enregistrées</span><strong class="stat-value" data-stat="total">—</strong></article>
+    </section>
+
+    <section class="insight-grid" aria-label="Répartition des visiteurs et interactions">
+      <article class="panel ranking-panel">
+        <h3>Origine déclarée par le réseau</h3>
+        <p>Pays approximatif issu d’un proxy configuré ou calculé localement avec GeoLite2 (MaxMind). Une IP de VPN/opérateur peut situer le réseau ailleurs que la personne. Un navigateur peut apparaître dans plusieurs pays.</p>
+        <div id="countries-state" class="rank-empty" aria-live="polite">Chargement des répartitions…</div>
+        <ol id="countries-ranking" class="rank-list" aria-label="Visiteurs par pays" hidden></ol>
+      </article>
+      <article class="panel ranking-panel">
+        <h3>Appareils utilisés</h3>
+        <p>Visiteurs uniques par catégorie d’appareil ; une personne peut utiliser plusieurs catégories.</p>
+        <div id="devices-state" class="rank-empty" aria-live="polite">Chargement des répartitions…</div>
+        <ol id="devices-ranking" class="rank-list" aria-label="Visiteurs par type d’appareil" hidden></ol>
+      </article>
+      <article class="panel ranking-panel">
+        <h3>Services et produits consultés</h3>
+        <p>Nombre d’interactions enregistrées, pas le nombre de clients ni de ventes.</p>
+        <div id="services-state" class="rank-empty" aria-live="polite">Chargement des répartitions…</div>
+        <ol id="services-ranking" class="rank-list" aria-label="Interactions par service ou produit" hidden></ol>
+      </article>
+    </section>
+
+    <section class="panel events-panel" aria-labelledby="events-title">
+      <div class="table-head">
+        <div class="table-title">
+          <h3 id="events-title">Activités récentes</h3>
+          <p id="table-caption">Horodatages affichés en heure du Niger (UTC+1)</p>
+        </div>
+        <a class="export-btn" id="export-link" href="/api/admin/activities/export.csv">Exporter CSV</a>
+      </div>
+      <div id="table-state" class="state" aria-live="polite">
+        <span class="state-icon" aria-hidden="true">◌</span>
+        <h4>Chargement des activités</h4>
+        <p>Nous récupérons les données correspondant à vos filtres.</p>
+      </div>
+      <div class="table-wrap" id="table-wrap" hidden>
+        <table>
+          <thead><tr>
+            <th scope="col">Date · Niger</th><th scope="col">Pays</th><th scope="col">Appareil</th>
+            <th scope="col">Navigateur</th><th scope="col">Système</th><th scope="col">Activité</th><th scope="col">Fiche du navigateur</th><th scope="col">Session</th>
+          </tr></thead>
+          <tbody id="events-body"></tbody>
+        </table>
+      </div>
+      <div class="pagination" id="pagination" hidden>
+        <p id="page-summary"></p>
+        <div class="pager-buttons">
+          <button class="page-btn" id="prev-page" type="button">← Précédent</button>
+          <button class="page-btn" id="next-page" type="button">Suivant →</button>
+        </div>
+      </div>
+    </section>
+
+    <aside class="privacy-note">
+      <div><strong>Respect de la vie privée</strong>
+        Le suivi est activé uniquement avec le consentement explicite requis (opt-in) et respecte « Ne pas me pister » ainsi que Global Privacy Control.
+        L’identifiant aléatoire désigne un navigateur pseudonymisé, pas une personne ; il peut être réinitialisé dans le stockage du navigateur et expire après 30 jours.
+        Une session expire après 30 minutes d’inactivité. Aucune empreinte numérique ni adresse IP brute n’est utilisée ou conservée, et aucune donnée de formulaire n’est enregistrée.
+        Les événements sont conservés 90 jours. « Actif » signifie une activité durant les 5 dernières minutes. Le pays est estimé localement avec GeoLite2 (MaxMind) lorsque l’IP publique du réseau est disponible, ou fourni par un proxy configuré. L’IP n’est pas enregistrée. Les anciennes informations manquantes ne sont pas reconstituées.
+      </div>
+    </aside>
+  </main>
+
+  <dialog id="session-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-header">
+      <div><h2 id="dialog-title">Parcours d’une session</h2><p id="dialog-session-id"></p></div>
+      <div class="dialog-header-actions">
+        <button class="refresh-btn" id="refresh-dialog" type="button">Actualiser</button>
+        <button class="icon-close" id="close-dialog" type="button" aria-label="Fermer le détail">×</button>
+      </div>
+    </div>
+    <div class="dialog-body" id="dialog-content" aria-live="polite"></div>
+  </dialog>
+</body>
+</html>

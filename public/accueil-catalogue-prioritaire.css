@@ -128,3 +128,154 @@
   .ibn-transfer-logo{height:250px!important}
   .ibn-transfer-sheet{max-height:94vh}
 }
+
+/* Finance directory: compact, logo-led service links inside the existing sheet */
+#ibn-finance-services{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:10px!important;
+  min-width:0;
+}
+.ibn-finance-service-item{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.ibn-finance-contacts{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+.ibn-finance-contacts a{
+  display:flex;
+  flex:1 1 72px;
+  min-height:44px;
+  align-items:center;
+  justify-content:center;
+  padding:6px;
+  border:1px solid #cce2d6;
+  border-radius:10px;
+  background:#eef8f2;
+  color:#075e3c;
+  font-size:13px;
+  font-weight:700;
+  text-decoration:none;
+}
+.ibn-finance-contacts a:focus-visible{
+  outline:3px solid #087c50;
+  outline-offset:2px;
+}
+#ibn-finance-services .ibn-finance-service-card{
+  box-sizing:border-box;
+  display:flex;
+  min-width:0;
+  min-height:158px;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  gap:7px;
+  padding:11px 9px 10px;
+  border:1px solid #dce9e3;
+  border-radius:17px;
+  color:#173c2d;
+  background:linear-gradient(180deg,#fff 0%,#f8fcf9 100%);
+  box-shadow:0 4px 12px rgba(23,75,52,.08);
+  text-align:center;
+  text-decoration:none;
+  overflow-wrap:anywhere;
+  -webkit-tap-highlight-color:transparent;
+  transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease;
+}
+#ibn-finance-services .ibn-finance-service-card:hover{
+  transform:translateY(-2px);
+  border-color:#81b79c;
+  box-shadow:0 8px 18px rgba(23,75,52,.12);
+}
+#ibn-finance-services .ibn-finance-service-card:focus-visible{
+  outline:3px solid #087c50;
+  outline-offset:3px;
+  border-color:#087c50;
+}
+#ibn-finance-services .ibn-finance-service-logo-wrap{
+  box-sizing:border-box;
+  display:flex;
+  width:100%;
+  height:68px;
+  min-height:68px;
+  align-items:center;
+  justify-content:center;
+  padding:6px;
+  border-radius:12px;
+  background:#f1f7f3;
+}
+#ibn-finance-services .ibn-finance-service-logo{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+#ibn-finance-services .ibn-finance-service-logo-wrap.is-dark{
+  background:#102e4c;
+}
+#ibn-finance-services .ibn-finance-service-logo-wrap.is-fallback{
+  background:#eaf6ef;
+}
+#ibn-finance-services .ibn-finance-logo-fallback{
+  display:none;
+  max-width:100%;
+  color:#176343;
+  font-size:13px;
+  font-weight:850;
+  line-height:1.15;
+}
+#ibn-finance-services .ibn-finance-service-logo-wrap.is-fallback .ibn-finance-service-logo{
+  display:none;
+}
+#ibn-finance-services .ibn-finance-service-logo-wrap.is-fallback .ibn-finance-logo-fallback{
+  display:block;
+}
+#ibn-finance-services .ibn-finance-service-name{
+  display:block;
+  width:100%;
+  min-width:0;
+  color:#163c2b;
+  font-size:14px;
+  font-weight:850;
+  line-height:1.2;
+}
+#ibn-finance-services .ibn-finance-service-action{
+  display:flex;
+  min-height:44px;
+  align-items:center;
+  justify-content:center;
+  margin-top:auto;
+  padding:0 9px;
+  border-radius:999px;
+  color:#087347;
+  background:#eaf6ef;
+  font-size:13px;
+  font-weight:800;
+  line-height:1.2;
+}
+@media(max-width:300px){
+  #ibn-finance-services{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+  #ibn-finance-services .ibn-finance-service-card{
+    min-height:146px;
+  }
+}
+@media(min-width:600px){
+  #ibn-finance-services{
+    grid-template-columns:repeat(auto-fit,minmax(165px,1fr))!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  #ibn-finance-services .ibn-finance-service-card{
+    transition:none;
+  }
+  #ibn-finance-services .ibn-finance-service-card:hover{
+    transform:none;
+  }
+}

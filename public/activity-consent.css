@@ -1,0 +1,5 @@
+.activity-consent{position:fixed;left:12px;right:12px;bottom:12px;z-index:100001;max-width:730px;margin:auto;padding:18px;background:#fff;color:#193f30;border:2px solid #008751;border-radius:16px;box-shadow:0 8px 35px #17382833;font:14px/1.5 Arial,sans-serif;max-height:65dvh;overflow:auto}
+.activity-consent strong{font-size:17px}.activity-consent p{margin:8px 0 14px}.activity-consent button{display:inline-block;margin:0 8px 8px 0;border:1px solid #008751;border-radius:9px;background:#fff;color:#075536;padding:11px 14px;font:600 14px Arial,sans-serif;cursor:pointer;min-height:44px}
+.activity-consent button:focus-visible,.activity-consent a:focus-visible{outline:3px solid #ef8700;outline-offset:3px}.activity-consent button:disabled{opacity:.5;cursor:not-allowed}.activity-consent a{display:block;color:#075536;text-decoration:underline}
+.activity-consent-notice{position:fixed;bottom:8px;left:12px;right:12px;padding:12px;background:#fff3d8;color:#533800;z-index:100002;font:14px Arial,sans-serif}
+@media(max-width:480px){.activity-consent button{display:block;width:100%;margin-right:0}}

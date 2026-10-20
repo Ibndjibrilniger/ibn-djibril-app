@@ -57,6 +57,14 @@ if (
 }
 
 app.disable('x-powered-by');
+// Compress public text assets only; never compress authenticated/session responses.
+app.use(require('compression')({
+  threshold: 1024,
+  filter(req, res) {
+    if (!/\.(?:js|css)$/.test(req.path) || req.path.startsWith('/admin/')) return false;
+    return require('compression').filter(req, res);
+  }
+}));
 
 app.use(express.urlencoded({
   extended: false,
@@ -67,17 +75,18 @@ app.use(express.json({
   limit: '100kb'
 }));
 
+const SESSION_COOKIE_OPTIONS = {
+  httpOnly: true,
+  sameSite: 'lax',
+  secure: false,
+  maxAge: 2 * 60 * 60 * 1000
+};
 app.use(session({
   name: 'ibn_admin_session',
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: {
-    httpOnly: true,
-    sameSite: 'lax',
-    secure: false,
-    maxAge: 2 * 60 * 60 * 1000
-  }
+  cookie: SESSION_COOKIE_OPTIONS
 }));
 
 function requireAdmin(req, res, next) {
@@ -85,7 +94,7 @@ function requireAdmin(req, res, next) {
     return next();
   }
 
-  if (req.path.startsWith('/api/')) {
+  if (req.originalUrl.startsWith('/api/')) {
     return res.status(401).json({
       ok: false,
       error: 'Session administrateur expirée.'
@@ -100,6 +109,11 @@ function loadPrices() {
     fs.readFileSync(PRICES_FILE, 'utf8')
   );
 }
+
+app.use('/api/admin',(req,res,next)=>{
+  res.set('Cache-Control','no-store, private');
+  next();
+});
 
 function formatPrice(value) {
   return String(value)
@@ -372,6 +386,14 @@ async function readPricesStore() {
   return prices;
 }
 
+async function readPublicPricesStore() {
+  // Preserve file-based prices for products outside the current Admin scope.
+  // A PostgreSQL failure still propagates; it must never fall back to an old
+  // managed price. Database records always override their legacy counterparts.
+  const managed = await readPricesStore();
+  return { ...loadPrices(), ...managed };
+}
+
 async function writePriceStore(id, price) {
   if (!process.env.DATABASE_URL) {
     const prices = loadPrices();
@@ -384,7 +406,7 @@ async function writePriceStore(id, price) {
   }
 
   const result = await pool.query(
-    'INSERT INTO prices (id, value, label) VALUES ($1, $2, $3) ON CONFLICT (id) DO UPDATE SET value = EXCLUDED.value, label = EXCLUDED.label, updated_at = NOW() RETURNING id, value, label',
+    'UPDATE prices SET value=$2, label=$3, updated_at=NOW() WHERE id=$1 RETURNING id, value, label',
     [
       id,
       price.value,
@@ -393,6 +415,7 @@ async function writePriceStore(id, price) {
   );
 
   const row = result.rows[0];
+  if (!row) throw new Error('Prix existant introuvable.');
 
   return {
     value: row.value === null ? null : Number(row.value),
@@ -514,14 +537,8 @@ app.post(
       const savedPrice =
         await writePriceStore(id, price);
 
-      /*
-       * Sur Railway, on garde également les fichiers publics
-       * synchronisés afin que le catalogue affiche immédiatement
-       * le nouveau prix.
-       */
-      if (process.env.DATABASE_URL) {
-        await syncPriceFilesFromDb();
-      }
+      // The existing public script URL reads PostgreSQL directly; no generated
+      // file write can turn a committed database update into a false failure.
 
       res.json({
         ok: true,
@@ -541,6 +558,27 @@ app.post(
 
 
 require('./product-admin-routes')(app, requireAdmin);
+require('./admin-settings-routes')(app, requireAdmin, {
+  hasDatabase: () => Boolean(process.env.DATABASE_URL),
+  readManagedPrices: readPricesStore,
+  readLocalPrices: loadPrices,
+  sessionCookie: SESSION_COOKIE_OPTIONS,
+  getVersion: () => process.env.RAILWAY_GIT_COMMIT_SHA || process.env.APP_VERSION || '1.0.2'
+});
+
+app.get('/api/prices',async(req,res)=>{
+  res.set('Cache-Control','no-store, no-cache, must-revalidate');
+  try {res.json({ok:true,prices:await readPublicPricesStore()});}
+  catch (_) {res.status(503).json({ok:false,error:'Prix temporairement indisponibles.'});}
+});
+app.get('/prix-produits.js',async(req,res)=>{
+  res.set('Cache-Control','no-store, no-cache, must-revalidate');
+  res.type('application/javascript');
+  try {res.send(require('./prices-public')(await readPublicPricesStore()));}
+  catch (_) {res.status(503).send("console.error('Synchronisation des prix indisponible.');");}
+});
+const activities = require('./activities-routes')(app,requireAdmin,pool);
+app.get('/favicon.ico',(req,res)=>res.redirect('/icons/icon-192.png'));
 
 app.get('/api/app-version', (req, res) => {
   res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
@@ -556,22 +594,38 @@ app.get('/api/app-version', (req, res) => {
 
 app.use(
   express.static(
-    path.join(__dirname, 'public')
+    path.join(__dirname, 'public'),
+    {
+      setHeaders(res, filePath) {
+        // Revalidate pages, worker and executable assets after each release.
+        if (/\.(?:html|js|css)$/.test(filePath)) {
+          res.setHeader('Cache-Control', 'no-store');
+        } else if (filePath.includes('/catalogue/optimized/') || filePath.endsWith('/logo-display-v1.webp')) {
+          res.setHeader('Cache-Control', 'public, max-age=3600, must-revalidate');
+        }
+      }
+    }
   )
 );
 
 
 /* ===== INITIALISATION POSTGRESQL ===== */
-if (process.env.DATABASE_URL) {
-  initDb().then(syncPriceFilesFromDb).catch(err => {
-    console.error('❌ Initialisation PostgreSQL :', err);
-  });
-}
-
-app.listen(PORT, HOST, () => {
+async function start() {
+  if (process.env.DATABASE_URL) {
+    await initDb();
+    await activities.start();
+  }
+  return app.listen(PORT, HOST, () => {
   console.log('');
   console.log('✅ Ibn_Djibril Niger Tech démarré');
   console.log(`🌍 Application : http://127.0.0.1:${PORT}`);
   console.log(`🔐 Admin       : http://127.0.0.1:${PORT}/admin`);
   console.log('');
 });
+}
+if (require.main === module) start().catch(()=>{
+  console.error('APP_INITIALIZATION_ERROR');
+  process.exitCode=1;
+  pool.end();
+});
+module.exports = {app,start,activities};
