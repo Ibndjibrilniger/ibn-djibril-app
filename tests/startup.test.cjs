@@ -70,6 +70,10 @@ test('mobile startup: immediate readiness, honest slow timeout/retry, reduced mo
         });
         await page.goto(base,{waitUntil:'load'});
         await page.waitForFunction(() => window.IbnLaunch?.status === 'ready');
+        // Native lazy image selection may occur after load/ready; do not mistake
+        // that scheduling for a missing WebP or make the launch wait for photos.
+        await page.waitForFunction(() =>
+          [...document.images].some(image => image.currentSrc.endsWith('/optimized/transfert-money-logo.webp')));
         const stats = await page.evaluate(profile => ({
           profile,
           domReadyMs:performance.getEntriesByType('navigation')[0].domContentLoadedEventEnd,
