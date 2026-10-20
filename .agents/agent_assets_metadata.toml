@@ -740,3 +740,31 @@ mtime_ms = 1792539593729
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:00eef941-51cd-4dd5-9afb-d722cc81afab/6c1f4fdc-b1cc-445e-bd4e-0ce4454a4e5c/a1e0b61c-1224-4a2f-b551-a397f0dc25ef"
 storage_version_token = "1792540119004735"
 content_type = "image/png"
+
+[[outputs]]
+id = "qqD35zBCRqUy1KkX6NK2t"
+uri = "file://generated-artifacts/sync-verification/rapport-verification-publication.html"
+type = "html"
+title = "Rapport mis à jour — publication Railway vérifiée"
+description = "Commit 8cc13c5 confirmé sur GitHub et le domaine officiel. 32 tests locaux réussis, parcours public vérifié sur mobile simulé et ordinateur, enregistrement PostgreSQL confirmé. Limites restantes clairement indiquées."
+logical_id = "8e86430e-de9d-4d8d-b5e8-7fc5f5f508b7"
+content_hash = "sha256:c33684fe030a3c2e85961a736232af2974aa48ca501502e000c8ea8957f7a9b6"
+size = 724676
+mtime_ms = 1792540439365
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:00eef941-51cd-4dd5-9afb-d722cc81afab/8e86430e-de9d-4d8d-b5e8-7fc5f5f508b7/5360d314-df84-4193-af91-4de81a257c04"
+storage_version_token = "1792540513604672"
+content_type = "text/html"
+
+[[outputs]]
+id = "20p4R1pEEjyIBTwkosJdq"
+uri = "file://generated-artifacts/sync-verification/live-published-finance-390.png"
+type = "image"
+title = "Transferts — capture du site publié"
+description = "Capture réelle de ibndjibrilnigertech.com après déploiement : pays, services financiers et boutons WhatsApp/Appeler."
+logical_id = "46374ace-0903-4158-bdd5-ff4e4cf6eae1"
+content_hash = "sha256:89eddd3dc95157462d6373a5f4ea667440fa16b6de9fe417120dd96eda55958d"
+size = 110698
+mtime_ms = 1792540342653
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:00eef941-51cd-4dd5-9afb-d722cc81afab/46374ace-0903-4158-bdd5-ff4e4cf6eae1/1e7a2d35-5db4-4fd8-af7f-474ccc247400"
+storage_version_token = "1792540514560220"
+content_type = "image/png"
