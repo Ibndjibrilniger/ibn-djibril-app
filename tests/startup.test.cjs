@@ -4,6 +4,47 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const {publicFixture} = require('./support/public-fixture.cjs');
 
+test('launch has a genuinely visible moving indicator, without forced delay or reduced-motion override',
+  {timeout:45000}, async () => {
+    await publicFixture(async ({browser,base}) => {
+      for (const reducedMotion of ['no-preference','reduce']) {
+        const context=await browser.newContext({viewport:{width:360,height:640},reducedMotion});
+        await context.addInitScript(()=>localStorage.setItem('ibn_pwa_installed','1'));
+        let release;
+        const gate=new Promise(resolve=>{release=resolve});
+        await context.route('**/catalogue-ultra.js*',async route=>{
+          await gate;
+          await route.continue();
+        });
+        const page=await context.newPage();
+        try {
+          await page.goto(base,{waitUntil:'commit'});
+          const splash=page.locator('#ibn-launch-splash');
+          await splash.waitFor({state:'visible'});
+          const loader=splash.locator('.ibn-splash-loader');
+          assert.equal(await loader.isVisible(),true,'a hidden animation is not a loading indicator');
+          assert.equal(await loader.evaluate(el=>getComputedStyle(el,'::after').animationName),'splash-progress');
+          const before=await loader.evaluate(el=>getComputedStyle(el,'::after').transform);
+          await page.waitForTimeout(180);
+          const after=await loader.evaluate(el=>getComputedStyle(el,'::after').transform);
+          if(reducedMotion==='no-preference') {
+            assert.notEqual(before,after,'the visible bar must actually move');
+            assert.ok(await splash.evaluate(el=>el.getAnimations({subtree:true}).some(a=>a.playState==='running')));
+          } else {
+            assert.equal(before,after,'reduced motion must stop continuous movement');
+          }
+          assert.equal(await splash.locator('progress').count(),1,'keep indeterminate progress semantics');
+          release();
+          await page.waitForFunction(()=>window.IbnLaunch?.status==='ready');
+          await splash.waitFor({state:'detached'});
+        } finally {
+          release();
+          await context.close();
+        }
+      }
+    });
+  });
+
 test('mobile startup: immediate readiness, honest slow timeout/retry, reduced motion and installed PWA',
   {timeout:90000}, async () => {
     await publicFixture(async ({browser, base}) => {

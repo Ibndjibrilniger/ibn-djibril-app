@@ -1,5 +1,5 @@
 // Changing this release also triggers an update for existing PWA clients.
-const RELEASE = "20261020-startup1";
+const RELEASE = "20261020-startup2";
 const IMAGE_CACHE = "ibn-djibril-images-" + RELEASE;
 const OFFLINE_PAGE = `<!doctype html><html lang="fr"><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
