@@ -1,0 +1,56 @@
+OBJET : RÉCLAMATION URGENTE — MODIFICATIONS NON APPLIQUÉES À MON APPLICATION
+
+Bonjour Replit Agent,
+
+Je vous contacte concernant mon application professionnelle Ibn_Djibril Niger Tech 🇳🇪.
+
+🌐 https://ibndjibrilnigertech.com
+
+Je suis très préoccupé par les difficultés rencontrées. Malgré mes nombreuses demandes, vos confirmations de mise à jour et les déploiements annoncés comme réussis, mon application reste pratiquement inchangée.
+
+J'ai souscrit un abonnement payant à Replit afin de bénéficier de votre assistance pour développer et améliorer mon application. Je souhaite donc obtenir un service réellement fonctionnel et des explications précises.
+
+Voici les problèmes à résoudre :
+
+1. Écran de démarrage : l'animation professionnelle de 3 à 5 secondes demandée n'apparaît pas correctement dans mon application mobile web.
+
+2. Logo officiel : je vous ai fourni une photo de mon logo avec mes références professionnelles. Je souhaite que vous produisiez une version nette, haute résolution, sans flou, en conservant exactement mon nom, mes couleurs et toutes mes références. Présentez-moi le résultat avant de remplacer le logo actuel.
+
+3. Performances : l'application doit être réellement optimisée pour les téléphones Android et les connexions mobiles.
+
+4. Statistiques administrateur : les informations techniques disponibles sur les visiteurs, notamment le pays estimé, le navigateur et le système d'exploitation, doivent être correctement enregistrées et affichées dans « Données & Activités », dans le respect de la confidentialité.
+
+5. Synchronisation et publication : vérifiez pourquoi les changements annoncés ne sont pas visibles sur le site officiel malgré les déploiements Railway réussis.
+
+Je vous demande maintenant de :
+
+- Examiner le code source réel de mon projet.
+- Vérifier les modifications précédemment effectuées.
+- Identifier précisément les causes des blocages.
+- Corriger les fonctionnalités qui ne fonctionnent pas.
+- Tester les résultats sur une véritable interface mobile.
+- Vérifier le cache PWA et le Service Worker.
+- Synchroniser correctement GitHub avec Railway.
+- Vérifier le site de production après déploiement.
+
+Je ne souhaite plus recevoir uniquement des messages indiquant « Mise à jour terminée » sans résultat visible.
+
+Si une fonctionnalité ne peut pas être réalisée, expliquez-moi clairement pourquoi.
+
+Si une autorisation, un outil supplémentaire ou une intervention de ma part est nécessaire, indiquez-le précisément.
+
+IMPORTANT : ne supprimez aucune donnée, aucun produit, aucun prix, aucun service financier ni aucune fonctionnalité existante.
+
+Ne remplacez pas mon logo sans mon accord.
+
+Mon hébergement de production doit rester sur Railway.
+
+À la fin, fournissez-moi un rapport indiquant les corrections réellement effectuées, les tests réalisés, le commit GitHub et le statut du déploiement Railway.
+
+Je demande une prise en charge sérieuse et une résolution durable de ces problèmes.
+
+Je compte sur votre équipe pour respecter mes demandes et me fournir un résultat professionnel, visible et fonctionnel.
+
+Cordialement,
+
+Ibn_Djibril Niger Tech 🇳🇪
