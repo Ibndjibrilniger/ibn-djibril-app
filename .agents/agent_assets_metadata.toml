@@ -787,14 +787,14 @@ content_type = "image/svg+xml"
 id = "oWf2cn_EPdAwfgT_aR-H3"
 uri = "file://generated-artifacts/final-corrections/logo/logo-HD-2400.png"
 type = "image"
-title = "Logo proposé — haute définition 2400 × 2220"
-description = "Export du dessin vectoriel, et non agrandissement de la photo. Proposition non publiée."
+title = "À valider ici — nouveau logo proposé, non publié"
+description = "Ouvrez l’image en grand pour contrôler le nom, les couleurs et les références. Répondez dans cette conversation « Je valide ce logo » ou précisez les modifications souhaitées. Le logo actuel reste conservé."
 logical_id = "94d54b61-4ef2-44fb-8dd9-304fdd5072c3"
 content_hash = "sha256:48dff14c09d29d04ce224d5dbbc726a839e0e638795970c4b1a2c3563c0b4921"
 size = 937673
 mtime_ms = 1792541619900
-storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:00eef941-51cd-4dd5-9afb-d722cc81afab/94d54b61-4ef2-44fb-8dd9-304fdd5072c3/552880ee-140c-450d-9afd-3c0bbec28814"
-storage_version_token = "1792542424029685"
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:00eef941-51cd-4dd5-9afb-d722cc81afab/94d54b61-4ef2-44fb-8dd9-304fdd5072c3/e18d49df-3e74-42ad-86a3-10fce58116ca"
+storage_version_token = "1792545972572253"
 content_type = "image/png"
 
 [[outputs]]
@@ -866,3 +866,31 @@ mtime_ms = 1792543507037
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:00eef941-51cd-4dd5-9afb-d722cc81afab/65e69d21-6ab1-4d86-93fb-eac6d7104a06/d9c6d701-76ca-4e78-872e-608437785284"
 storage_version_token = "1792543540064777"
 content_type = "text/html"
+
+[[outputs]]
+id = "HQS--54is5yq_TFgwvdyl"
+uri = "file://generated-artifacts/mobile-startup-validation/rapport-demarrage-mobile.html"
+type = "html"
+title = "Rapport — démarrage mobile, installation et mesures"
+description = "Commit 4b0be7d, 36 tests de la suite et 2 contrôles ciblés réussis, mesures avant/après et captures. Limites physiques, publication à vérifier et logo non approuvé clairement distingués."
+logical_id = "baa49762-c12c-4e8d-8071-0af7aa67c773"
+content_hash = "sha256:124e5c705c83c08eb4454be78f9ddf3ceeb31f8126aad7bb53bb13f430cea811"
+size = 583494
+mtime_ms = 1792546406852
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:00eef941-51cd-4dd5-9afb-d722cc81afab/baa49762-c12c-4e8d-8071-0af7aa67c773/4a53c9ed-765c-41e8-86e0-e6240980b7f6"
+storage_version_token = "1792546445193393"
+content_type = "text/html"
+
+[[outputs]]
+id = "NNZXMH2P7rpYOjIZHMgTH"
+uri = "file://generated-artifacts/mobile-startup-validation/demarrage-chrome-android.gif"
+type = "image"
+title = "Démarrage animé — capture du navigateur mobile de test"
+description = "Images réellement capturées avec réseau ralenti. Le catalogue est montré dès qu’il est prêt, sans attente imposée. Photo officielle conservée ; nouveau dessin non appliqué."
+logical_id = "40cd970b-e33a-458b-bad1-1e5353a0290c"
+content_hash = "sha256:095b4432274943f959247ea99643541ad96b75dbf68c6781825961700d2ac97b"
+size = 262794
+mtime_ms = 1792546146040
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:00eef941-51cd-4dd5-9afb-d722cc81afab/40cd970b-e33a-458b-bad1-1e5353a0290c/a1ee36cb-406c-468f-9601-2c45d184e47b"
+storage_version_token = "1792546445769942"
+content_type = "image/gif"
