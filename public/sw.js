@@ -1,7 +1,7 @@
 // Finance release: retire every legacy application cache on activation.
 const CACHE_PREFIX = "ibn-djibril-";
 // Changing this release also triggers an update for existing PWA clients.
-const RELEASE = "20261021-session-back1";
+const RELEASE = "20261021-mobile2";
 const IMAGE_CACHE = "ibn-djibril-images-" + RELEASE;
 const OFFLINE_PAGE = `<!doctype html><html lang="fr"><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">

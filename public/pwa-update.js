@@ -6,9 +6,11 @@
 
   const MODAL_ID =
     "ibn-pwa-update-modal";
+  const REFRESHED_KEY = "ibn_pwa_controller_refreshed";
 
   let checking = false;
   let reloadingForController = false;
+  let registrationPending;
 
   if ("serviceWorker" in navigator) {
     // Do not reload on first install; reload once when an existing worker changes.
@@ -16,6 +18,7 @@
     navigator.serviceWorker.addEventListener("controllerchange", () => {
       if (hadController && !reloadingForController) {
         reloadingForController = true;
+        try { sessionStorage.setItem(REFRESHED_KEY, "1"); } catch (_) {}
         window.location.reload();
       }
       hadController = true;
@@ -121,7 +124,16 @@
           "⏳ Mise à jour...";
 
         safeSet(VERSION_KEY, version);
-      setTimeout(() => window.location.reload(), 5000);
+        // Recovery deadline, not a mandatory delay or a second navigation.
+        let navigating = false;
+        const navigate = () => {
+          if (navigating) return;
+          navigating = true;
+          const url = new URL(window.location.href);
+          url.searchParams.set("update", Date.now());
+          window.location.replace(url.toString());
+        };
+        const deadline = setTimeout(navigate, 5000);
 
         try {
           if (
@@ -136,7 +148,9 @@
               const registration
               of registrations
             ) {
-              await registration.unregister();
+              if (registration.scope === new URL("/", window.location.href).href) {
+                await registration.unregister();
+              }
             }
           }
 
@@ -163,17 +177,8 @@
           );
         }
 
-        const url =
-          new URL(window.location.href);
-
-        url.searchParams.set(
-          "update",
-          Date.now()
-        );
-
-        window.location.replace(
-          url.toString()
-        );
+        clearTimeout(deadline);
+        navigate();
       };
   }
 
@@ -205,8 +210,15 @@
 
       const savedVersion =
         safeGet(VERSION_KEY);
+      let refreshed = false;
+      try {
+        refreshed = sessionStorage.getItem(REFRESHED_KEY) === "1";
+        if (refreshed) sessionStorage.removeItem(REFRESHED_KEY);
+      } catch (_) {}
 
-      if (!savedVersion) {
+      // A worker replacement already fetched fresh HTML. Do not cover it with
+      // a redundant "update" dialog just because the old version key survived.
+      if (!savedVersion || refreshed) {
         safeSet(
           VERSION_KEY,
           currentVersion
@@ -230,14 +242,15 @@
     }
   }
 
-  async function registerSW() {
+  function registerSW() {
     if (
       !("serviceWorker" in navigator)
     ) {
-      return;
+      return Promise.resolve();
     }
+    if (registrationPending) return registrationPending;
 
-    try {
+    registrationPending = (async () => {
       const registration = await navigator
         .serviceWorker
         .register(
@@ -247,33 +260,37 @@
           }
         );
       await registration.update();
-    } catch (err) {
+    })().catch(err => {
       console.warn(
         "Service Worker:",
         err
       );
-    }
+    }).finally(() => { registrationPending = null; });
+    return registrationPending;
+  }
+
+  function refresh() {
+    // An unavailable worker update must not prevent the version check.
+    return Promise.all([registerSW(), checkVersion()]);
   }
 
   window.addEventListener(
     "load",
-    async () => {
-      await registerSW();
-      await checkVersion();
-    }
+    refresh
   );
+  window.addEventListener("online", refresh);
 
   document.addEventListener(
     "visibilitychange",
     () => {
       if (!document.hidden) {
-        checkVersion();
+        return refresh();
       }
     }
   );
 
   setInterval(
-    checkVersion,
+    refresh,
     5 * 60 * 1000
   );
 })();

@@ -68,3 +68,12 @@ from approval of any improved logo.
 **How to apply:** Keep graphical proposals outside the published app until
 approval. A lightweight display encoding of the unchanged official image is not
 a new identity; do not describe raster enlargement as recovered vector detail.
+
+Logo approval takes place explicitly in the conversation, not in Railway or
+GitHub. Present the proposed image clearly and distinguish it from the current
+photograph; presenting a download card alone does not establish approval.
+
+**Why:** The user asked where they were expected to validate the proposed logo.
+
+**How to apply:** Keep the proposal out of the published app until the owner
+explicitly approves it or requests revisions in chat.

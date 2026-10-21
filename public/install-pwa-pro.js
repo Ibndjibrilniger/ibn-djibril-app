@@ -56,7 +56,7 @@
   }
 
   function showPrompt() {
-    if (installed()) return;
+    if (!canRemind()) return;
 
     if (!isiOS() && !deferredPrompt) return;
 
@@ -91,7 +91,8 @@
                 aria-label="Fermer">×</button>
 
         <img class="ibn-pwa-logo"
-             src="/icons/logo.png"
+              src="/icons/logo-display-v2.webp"
+              width="90" height="90" decoding="async"
              alt="Ibn_Djibril Niger Tech">
 
         <div class="ibn-pwa-badge">
