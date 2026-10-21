@@ -260,6 +260,32 @@ test('country and service selection leads to contextual WhatsApp and telephone c
   });
 });
 
+test('Android Back closes transfers without leaving the catalogue and Forward restores the sheet', { timeout: 45000 }, async () => {
+  await fixture(async ({ browser, base }) => {
+    const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
+    try {
+      const page=await context.newPage();
+      await page.goto(base,{waitUntil:'networkidle'});
+      await page.locator('#ibn-transfer-catalogue-card').click();
+      await page.locator('[data-country="Benin"]').click();
+      assert.equal(new URL(page.url()).hash,'#transferts');
+      await page.goBack();
+      await page.waitForFunction(()=>!document.querySelector('#ibn-transfer-sheet-overlay')?.classList.contains('is-open'));
+      assert.equal(new URL(page.url()).pathname,'/');
+      assert.equal(new URL(page.url()).hash,'');
+      await page.goForward();
+      await page.waitForFunction(()=>document.querySelector('#ibn-transfer-sheet-overlay')?.classList.contains('is-open'));
+      await page.locator('.ibn-transfer-sheet-close').click();
+      await page.waitForFunction(()=>location.hash==='');
+      await page.locator('#ibn-transfer-catalogue-card').click();
+      await assertSheet(page);
+      await page.keyboard.press('Escape');
+      await page.waitForFunction(()=>location.hash==='');
+      assert.equal(await page.locator('#ibn-transfer-sheet-overlay.is-open').count(),0);
+    } finally {await context.close();}
+  });
+});
+
 test('installed PWA upgrades an old worker, clears stale transfer files, and reloads', { timeout: 60000 }, async () => {
   await fixture(async ({ browser, base, useOldWorker }) => {
     useOldWorker(true);

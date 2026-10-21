@@ -1,6 +1,7 @@
 - [Sync and startup constraints](existing-app-scope.md) — preserve both histories without hard resets/force pushes; show the ready app without artificial launch delays.
 - [Product scope](product-scope.md) — Al Izza must remain excluded; preserve the imported app and Railway production setup.
 - [Private activity policy](private-activity-policy.md) — analytics belong in the existing private Admin; minimize collection and preserve unmanaged prices.
+- [Admin session security](admin-session-policy.md) — persist sessions in existing PostgreSQL; secure cookies and expiry; no volatile fallback or replacement of accounts.
 - [Build portability](build-portability.md) — Replit can write internal registry URLs into npm lockfiles; keep committed public dependencies reachable by Railway.
 - [Guarded Git writes](git-operations.md) — authorized commits and pushes may require a per-command guard prefix; never force or alter Replit’s Git setup.
 - [Browser test resources](browser-test-resources.md) — run browser-heavy suites sequentially; concurrent screenshots can produce false timeouts.

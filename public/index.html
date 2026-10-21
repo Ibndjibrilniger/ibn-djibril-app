@@ -15,6 +15,13 @@
     #ibn-launch-splash{position:fixed;inset:0;z-index:1000000;display:grid;place-items:center;background:#f7faf6;text-align:center}
     #ibn-launch-splash.is-leaving{visibility:hidden;pointer-events:none}
     .ibn-splash-retry{display:none}#ibn-launch-splash.is-error .ibn-splash-retry{display:inline-flex}
+    /* Critical first-paint loading UI, even before the larger stylesheet arrives. */
+    .ibn-splash-inner{padding:24px;max-width:350px;margin:auto}
+    .ibn-splash-logo{display:block;width:84px;height:84px;object-fit:contain;margin:0 auto 16px}
+    .ibn-splash-loader{width:108px;height:4px;margin:16px auto;overflow:hidden;background:#dcece2;border-radius:8px}
+    .ibn-splash-loader::after{content:"";display:block;width:42px;height:100%;background:#ef8536;animation:splash-progress 1.25s ease-in-out infinite alternate}
+    @keyframes splash-progress{from{transform:translateX(0)}to{transform:translateX(66px)}}
+    @media(prefers-reduced-motion:reduce){.ibn-splash-loader::after{animation:none}}
   </style>
   <script src="/preferences.js?v=20261103-pref1"></script>
   <link rel="stylesheet" href="/preferences.css?v=20261103-pref1">
@@ -110,11 +117,11 @@
 #service-detail table{font-size:16px;min-width:680px!important}
 }
 </style>
-  <link rel="stylesheet" href="/accueil-catalogue-prioritaire.css?v=20261021-sync1">
+  <link rel="stylesheet" href="/accueil-catalogue-prioritaire.css?v=20261021-session-back1">
   <link rel="stylesheet" href="/commerce-home.css?v=20261020-startup2">
   <link rel="stylesheet" href="/install-pwa-pro.css?v=20260923">
   <script src="/install-pwa-pro.js?v=20260925-install2" defer></script>
-  <link rel="preload" href="/icons/logo-display-v1.webp" as="image" fetchpriority="high">
+  <link rel="preload" href="/icons/logo-display-v2.webp" as="image" fetchpriority="high">
   <noscript><style>#ibn-launch-splash{display:none}</style></noscript>
 </head>
 
@@ -122,7 +129,8 @@
 
   <div id="ibn-launch-splash" role="status" aria-live="polite" aria-label="Chargement de votre espace technologique">
     <div class="ibn-splash-inner">
-      <img class="ibn-splash-logo" src="/icons/logo-display-v1.webp" alt="Logo officiel" width="120" height="111" fetchpriority="high">
+      <img class="ibn-splash-logo" src="/icons/logo-display-v2.webp" alt="Logo officiel" width="120" height="111" fetchpriority="high"
+        style="background-image:url('data:image/webp;base64,UklGRn4DAABXRUJQVlA4IHIDAABQEACdASpAADsAPsFQo02npCMiJhqtiPAYCWwAqo/VzUyRMK4tFtn0S7bbnntOI3pt+YmENuAZYqib1X44XHeoi3fDyxRzzwB1JulfxgQkY8qpVI538qCxW56Amy9mQNFX7WHmIl1KZXFUbpEboKNQr2tlqdvWp3u1iRrc9AmupAzW5ptCjwpndVngAP736ZPweSLHU3Hrjmdql/8r09xcsdLDsDR6cIOpDjgPlLrt4Amr0/h4zkf4YNIBzJZ02a5ra1c370uoqdwMJo0liJI0c+GAiB9JMvKXpT5YAvU2jzDU8bcY1wcesb6NhZJ79Uj4QrCc0n4Ed92PuWNPFHbPF/RmbNT4yGwkVCCkmYdq6W6dHcTGo4+k0sx8DFpjt+AE1F5+bgamQRiUebR4MjcmfJZ1BgEQXdDnrXbpbr473MNUbho0B4+5veyLvvw/3QSREBX7VCM8KxgnLGMYucopR0tvN9EUtVheehSBQr9Crj9qZFaeG60t3jlDDXQJSKKVv7lfhDKEwZSiGrvs3XuGQeYpl+gI2yOXsKZwfDV1gpn5dxjmzb+lAxDsYWXup+X3HtbxG8lpz/ddDmqxJkoAVmGdEA8BQy7d2kwgUZOoRsxvRj56Yj+yLB5es18ScoUaRQ6+h2LSrq8uZF/Bz7N+nAxVKIcPo++nibyNw5UZZ8JiF2moqxdg7chLH034wV9TbrFj3UZLBjKhMoDponhHBQF5t0QgyXZ3dWuTy61XhbnDCiFQyS1iTBIV7tIeLVSMoeE9xtAzBX9BmWRsepjtt1T9x6ZBD5WCFHWZ46mWeF2UwP5WDQyFGhhLfKqdI8JqeG0QqUeewF2e43mVgBvhb/e39/xdFaLrpkgIOcsAQXI61eCI6D0+vhYcsU3UYOckRlBH0aM768j7MBcVI73+98OYxOPENOyoMKe6I6wTFpKjWSzS7xyQ2WrSBdxVuSEh4NSoZCvvf1OHjRoqaAIUlS5dNAsfEFjbVLRPQ0+tmeI80hxA2vFXvYbGnSslYfH/i4I9+a0+4b8DXHfm7xXK6ApkWskUeyR9zEiehSBVfRC7rADGn9gn6928IrMkV/qvm/R66Uy1BvrIRr6L/9YFjvvKqXjpeKdbYkGtHj0o/oc4fCjt7tySBgJFax8ROK9ASBn/ya6VePsKAMH5YyAAAAA=');background-position:center;background-size:contain;background-repeat:no-repeat">
       <h1 class="ibn-splash-brand">Ibn_Djibril Niger Tech 🇳🇪</h1>
       <p class="ibn-splash-message">Chargement de votre espace technologique…</p>
       <div class="ibn-splash-loader" aria-hidden="true"></div>
@@ -150,7 +158,7 @@
   <script src="/commerce-launch.js?v=20261020-startup1"></script>
 
   <header>
-    <img class="shop-brand-mark" src="/icons/logo-display-v1.webp" alt="Logo Ibn_Djibril Niger Tech" width="86" height="86" decoding="async">
+    <img class="shop-brand-mark" src="/icons/logo-display-v2.webp" alt="Logo Ibn_Djibril Niger Tech" width="86" height="86" decoding="async">
     <div class="shop-brand-copy">
       <h1>Ibn_Djibril Niger Tech 🇳🇪</h1>
       <p>Équipements réseau • Téléphones • Accessoires</p>
@@ -224,7 +232,7 @@
 <script src="/countries.js?v=20260925b"></script>
 <script src="/panier.js?v=20260925b" defer></script>
 <script src="/boutique-location.js?v=20260925b" defer></script>
-<script src="/accueil-catalogue-prioritaire.js?v=20261021-sync1" defer></script>
+<script src="/accueil-catalogue-prioritaire.js?v=20261021-session-back1" defer></script>
   <script src="/admin-access.js?v=20260925" defer></script>
 <script src="/pwa-update.js?v=20261103-nav1" defer></script>
 </body>

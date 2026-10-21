@@ -1,7 +1,7 @@
 // Finance release: retire every legacy application cache on activation.
 const CACHE_PREFIX = "ibn-djibril-";
 // Changing this release also triggers an update for existing PWA clients.
-const RELEASE = "20261021-sync1";
+const RELEASE = "20261021-session-back1";
 const IMAGE_CACHE = "ibn-djibril-images-" + RELEASE;
 const OFFLINE_PAGE = `<!doctype html><html lang="fr"><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -48,7 +48,7 @@ self.addEventListener("fetch", event => {
   // Only public display derivatives, never APIs, prices, uploads or Admin data.
   if (url.origin === self.location.origin &&
       (url.pathname.startsWith("/media/products/catalogue/optimized/") ||
-       url.pathname === "/icons/logo-display-v1.webp")) {
+       /^\/icons\/logo-display-v[12]\.webp$/.test(url.pathname))) {
     event.respondWith((async () => {
       let cache;
       try {

@@ -9,6 +9,7 @@ const session = require('express-session');
 const bcrypt = require('bcryptjs');
 const path = require('path');
 const fs = require('fs');
+const { PostgresSessionStore } = require('./admin-session-store');
 
 const app = express();
 const PORT = Number(process.env.PORT || 3000);
@@ -75,18 +76,30 @@ app.use(express.json({
   limit: '100kb'
 }));
 
+const IS_PRODUCTION = process.env.NODE_ENV === 'production' || Boolean(process.env.RAILWAY_GIT_COMMIT_SHA);
+if (IS_PRODUCTION) app.set('trust proxy', 1);
+const adminSessionStore = process.env.DATABASE_URL ? new PostgresSessionStore(pool) : null;
+if (IS_PRODUCTION && !adminSessionStore) {
+  throw new Error('Production requires PostgreSQL for persistent Admin sessions.');
+}
 const SESSION_COOKIE_OPTIONS = {
   httpOnly: true,
   sameSite: 'lax',
-  secure: false,
+  secure: IS_PRODUCTION,
   maxAge: 2 * 60 * 60 * 1000
 };
-app.use(session({
+const adminSessions = session({
   name: 'ibn_admin_session',
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
+  ...(adminSessionStore ? { store: adminSessionStore } : {}),
   cookie: SESSION_COOKIE_OPTIONS
+});
+app.use((req, res, next) => adminSessions(req, res, error => {
+  if (!error) return next();
+  console.error('ADMIN_SESSION_STORE_ERROR');
+  res.status(503).send('Session temporairement indisponible. Veuillez réessayer.');
 }));
 
 function requireAdmin(req, res, next) {
@@ -258,8 +271,11 @@ app.get('/admin', requireAdmin, (req, res) => {
 });
 
 app.post('/admin/logout', requireAdmin, (req, res) => {
-  req.session.destroy(() => {
-    res.clearCookie('ibn_admin_session');
+  req.session.destroy(error => {
+    if (error) return res.status(503).send('Déconnexion temporairement indisponible. Veuillez réessayer.');
+    res.clearCookie('ibn_admin_session', {
+      httpOnly: true, sameSite: 'lax', secure: IS_PRODUCTION, path: '/'
+    });
     res.redirect('/');
   });
 });
@@ -613,6 +629,8 @@ app.use(
 async function start() {
   if (process.env.DATABASE_URL) {
     await initDb();
+    await adminSessionStore.ready();
+    console.log('Admin sessions: PostgreSQL persistent store initialized.');
     await activities.start();
   }
   return app.listen(PORT, HOST, () => {
@@ -628,4 +646,4 @@ if (require.main === module) start().catch(()=>{
   process.exitCode=1;
   pool.end();
 });
-module.exports = {app,start,activities};
+module.exports = {app,start,activities,adminSessionStore,SESSION_COOKIE_OPTIONS};

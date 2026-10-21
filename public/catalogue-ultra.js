@@ -370,11 +370,11 @@
       </button>`;
     }).join("");
     const services = `<button type="button" class="ibn-feature-tile" data-open-services>
-      <span class="ibn-feature-image"><img src="/icons/logo-display-v1.webp" alt="" loading="lazy" decoding="async"></span>
+      <span class="ibn-feature-image"><img src="/icons/logo-display-v2.webp" alt="" loading="lazy" decoding="async"></span>
       <span class="ibn-feature-copy"><span class="ibn-feature-kicker">INSTALLATION & ASSISTANCE</span><strong>Installations Wi-Fi Zone et prestations techniques</strong><small>Solutions et services déjà présentés par la boutique</small></span>
     </button>`;
     const phone = `<button type="button" class="ibn-feature-tile" data-open-phone>
-      <span class="ibn-feature-image"><img src="/icons/logo-display-v1.webp" alt="Logo officiel Ibn_Djibril Niger Tech" loading="lazy" decoding="async"></span>
+      <span class="ibn-feature-image"><img src="/icons/logo-display-v2.webp" alt="Logo officiel Ibn_Djibril Niger Tech" loading="lazy" decoding="async"></span>
       <span class="ibn-feature-copy"><span class="ibn-feature-kicker">EN DERNIER</span><strong>Téléphones &amp; Accessoires</strong><small>Tecno, Samsung, Itel, Oraimo et plus</small></span>
     </button>`;
     featured.innerHTML = tiles + services + phone;
@@ -495,7 +495,7 @@
     return `<div class="category">TÉLÉPHONES & ACCESSOIRES</div>
       <h2 id="ibn-detail-heading">Équipement Android et accessoires</h2>
       <div class="ibn-phone-editorial">
-        <span class="ibn-phone-mark"><img src="/icons/logo-display-v1.webp" alt="Logo officiel de la boutique, illustration de cette rubrique" width="90" height="90" decoding="async"></span>
+        <span class="ibn-phone-mark"><img src="/icons/logo-display-v2.webp" alt="Logo officiel de la boutique, illustration de cette rubrique" width="90" height="90" decoding="async"></span>
         <p>Téléphones, chargeurs, câbles et accessoires. Une sélection pour Android et téléphones à boutons. Aucun prix n’est affiché ici : demandez le tarif et la disponibilité à l’équipe.</p>
       </div>
       <ul class="ibn-phone-list">${PHONE_COLLECTION.map((item, index) => `<li><span class="ibn-phone-index">${String(index + 1).padStart(2, "0")}</span><span>${esc(item)}</span></li>`).join("")}</ul>

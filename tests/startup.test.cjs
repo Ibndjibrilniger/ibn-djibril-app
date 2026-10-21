@@ -139,15 +139,15 @@ test('installed worker caches only public derivatives and gives a clear offline 
       });
       await page.waitForFunction(() => !!navigator.serviceWorker.controller);
       await page.evaluate(async () => {
-        await fetch('/icons/logo-display-v1.webp');
+        await fetch('/icons/logo-display-v2.webp');
         await fetch('/api/prices');
       });
       const urls = await page.evaluate(async () => {
         const keys = await caches.keys();
         return (await Promise.all(keys.map(async key => (await (await caches.open(key)).keys()).map(r=>r.url)))).flat();
       });
-      assert.ok(urls.some(url=>url.endsWith('/icons/logo-display-v1.webp')));
-      assert.ok(urls.every(url=>url.includes('/optimized/') || url.endsWith('/icons/logo-display-v1.webp')));
+      assert.ok(urls.some(url=>url.endsWith('/icons/logo-display-v2.webp')));
+      assert.ok(urls.every(url=>url.includes('/optimized/') || /\/icons\/logo-display-v[12]\.webp$/.test(url)));
       await context.setOffline(true);
       const response = await page.goto(base,{waitUntil:'domcontentloaded'});
       assert.equal(response.status(),503);

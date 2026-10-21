@@ -11,7 +11,7 @@ const transfer = read('public/accueil-catalogue-prioritaire.js');
 
 function sourceFiles(dir) {
   return fs.readdirSync(path.join(root, dir), { withFileTypes: true })
-    .filter(entry => !['.git', '.local', '.cache', '.agents', 'node_modules'].includes(entry.name))
+    .filter(entry => !['.git', '.local', '.cache', '.agents', 'node_modules', 'generated-artifacts'].includes(entry.name))
     .flatMap(entry => {
       const file = path.join(dir, entry.name);
       return entry.isDirectory() ? sourceFiles(file) : [file];

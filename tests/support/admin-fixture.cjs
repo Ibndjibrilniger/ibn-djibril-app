@@ -43,6 +43,7 @@ async function fixture({port=0}={}) {
       },
       async close() {
         activities.stop();
+        runtime.adminSessionStore?.stop();
         await new Promise(resolve=>server.close(resolve));
         pool.query=originalQuery;
         await client.query('ROLLBACK');

@@ -77,8 +77,17 @@
   }
 
   let transferTrigger = null;
+  let transferHistoryEntry = false;
+  let transferClosingHistory = false;
+  let transferPendingOpen = false;
 
-  function openTransferSheet() {
+  function openTransferSheet(fromHistory = false) {
+  if (transferClosingHistory) {
+    transferPendingOpen = true;
+    return;
+  }
+  const alreadyOpen = $("#ibn-transfer-sheet-overlay")?.classList.contains("is-open");
+  if (alreadyOpen) return;
   transferTrigger = document.activeElement;
   let overlay = $("#ibn-transfer-sheet-overlay");
 
@@ -324,18 +333,37 @@
   const detail = $("#service-detail");
   if (detail) detail.style.display = "none";
   overlay.classList.add("is-open");
+  if (fromHistory !== true) {
+    history.pushState({ ...(history.state || {}), ibnTransferSheet: true }, "", "#transferts");
+  }
+  transferHistoryEntry = true;
   document.body.classList.add("ibn-no-scroll");
   $(".ibn-transfer-sheet-close", overlay).focus();
 }
 window.openTransferSheet = openTransferSheet;
-  function closeTransferSheet() {
+  function closeTransferSheet(fromHistory = false) {
     const overlay = $("#ibn-transfer-sheet-overlay");
     if (!overlay || !overlay.classList.contains("is-open")) return;
     overlay.classList.remove("is-open");
     document.body.classList.remove("ibn-no-scroll");
     if (transferTrigger && transferTrigger.isConnected) transferTrigger.focus();
+    if (transferHistoryEntry && fromHistory !== true && history.state?.ibnTransferSheet) {
+      transferHistoryEntry = false;
+      transferClosingHistory = true;
+      history.back();
+    } else {
+      transferHistoryEntry = false;
+    }
   }
 
+  window.addEventListener("popstate", event => {
+    transferClosingHistory = false;
+    closeTransferSheet(true);
+    if (event.state?.ibnTransferSheet || transferPendingOpen) {
+      transferPendingOpen = false;
+      openTransferSheet(event.state?.ibnTransferSheet === true);
+    }
+  });
   document.addEventListener("keydown", event => {
     if (event.key === "Escape") closeTransferSheet();
   });
