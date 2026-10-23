@@ -894,3 +894,31 @@ mtime_ms = 1792546146040
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:00eef941-51cd-4dd5-9afb-d722cc81afab/40cd970b-e33a-458b-bad1-1e5353a0290c/a1ee36cb-406c-468f-9601-2c45d184e47b"
 storage_version_token = "1792546445769942"
 content_type = "image/gif"
+
+[[outputs]]
+id = "fVjfyQNMLBPPaY7Q8i7oe"
+uri = "file://generated-artifacts/affiche-vendredi/affiche-joumoua-verticale-1080x1920.png"
+type = "image"
+title = "Affiche du vendredi — verticale 1080 × 1920"
+description = "Joumou’a Moubarak pour statut WhatsApp et format mobile. Aperçu à valider avant toute publication."
+logical_id = "f124659e-faaa-486f-8249-4c6933ade7c6"
+content_hash = "sha256:c2881651db68da47601ae63ae5ba5f4839272d69ecd01a89a9a30df2a19d2b9f"
+size = 724111
+mtime_ms = 1792739560716
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:00eef941-51cd-4dd5-9afb-d722cc81afab/f124659e-faaa-486f-8249-4c6933ade7c6/3084efa1-f381-401e-a64d-40f79d474071"
+storage_version_token = "1792739587304915"
+content_type = "image/png"
+
+[[outputs]]
+id = "X_eQyrYfn1ka5biLgAJCT"
+uri = "file://generated-artifacts/affiche-vendredi/affiche-joumoua-carree-1080x1080.png"
+type = "image"
+title = "Affiche du vendredi — carrée 1080 × 1080"
+description = "Format carré pour Facebook et Instagram. Aperçu à valider avant toute publication."
+logical_id = "6cd616a1-4aac-41a6-b1a1-659dd0eeea7a"
+content_hash = "sha256:090a7e3687793d09b186a571a94cebc33e8c22d4d21d28aa37f663e91a38459b"
+size = 361206
+mtime_ms = 1792739561708
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:00eef941-51cd-4dd5-9afb-d722cc81afab/6cd616a1-4aac-41a6-b1a1-659dd0eeea7a/099d5b67-da93-4ef9-8e6b-a12fa6387225"
+storage_version_token = "1792739587903063"
+content_type = "image/png"
