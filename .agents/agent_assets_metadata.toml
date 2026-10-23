@@ -922,3 +922,31 @@ mtime_ms = 1792739561708
 storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:00eef941-51cd-4dd5-9afb-d722cc81afab/6cd616a1-4aac-41a6-b1a1-659dd0eeea7a/099d5b67-da93-4ef9-8e6b-a12fa6387225"
 storage_version_token = "1792739587903063"
 content_type = "image/png"
+
+[[outputs]]
+id = "ETEf6fxIcHQ4YJt0HDNcs"
+uri = "file://generated-artifacts/affiche-vendredi/affiche-joumoua-verticale-equipements-1080x1920.png"
+type = "image"
+title = "Joumou’a Moubarak — verticale avec appareils"
+description = "1080 × 1920 — Starlink Mini, Starlink Standard X et MikroTik hAP ax³. Aperçu à valider, non publié."
+logical_id = "c20adc90-573f-4f0d-b5af-ad4c8d927479"
+content_hash = "sha256:c136978b8267e2c5c6baa94f2246dc7319eb8ac2e7ac3a18e4e64602d3d70e7d"
+size = 736312
+mtime_ms = 1792741424535
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:00eef941-51cd-4dd5-9afb-d722cc81afab/c20adc90-573f-4f0d-b5af-ad4c8d927479/6db7adfb-c6ba-4d2e-9567-1c4e54198afa"
+storage_version_token = "1792741469702595"
+content_type = "image/png"
+
+[[outputs]]
+id = "lepQXbqY4ZE_75Aj7fvry"
+uri = "file://generated-artifacts/affiche-vendredi/affiche-joumoua-carree-equipements-1080x1080.png"
+type = "image"
+title = "Joumou’a Moubarak — carrée avec appareils"
+description = "1080 × 1080 — Starlink Mini, Starlink Standard X et MikroTik hAP ax³. Aperçu à valider, non publié."
+logical_id = "1ef2bb51-11b3-4cbf-95b4-f922eb64e2a4"
+content_hash = "sha256:08b3a8305e7879863d47e1298a57f48d68c3ac313be38b65d28dd41980e45f53"
+size = 365806
+mtime_ms = 1792741425519
+storage_uri = "gcs://replit-rams-assets-kirk/rams/assets/repl:00eef941-51cd-4dd5-9afb-d722cc81afab/1ef2bb51-11b3-4cbf-95b4-f922eb64e2a4/34ad72e6-0257-4be0-81ef-b853665e4c16"
+storage_version_token = "1792741470294730"
+content_type = "image/png"
