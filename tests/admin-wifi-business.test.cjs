@@ -28,7 +28,6 @@ const EXPECTED_ZONES = [
 
 test('private Wi-Fi Business dashboard persists zones, plans, goals, sales and audited corrections', { timeout: 180000 }, async () => {
   const app = await fixture();
-  console.log('wifi-test: fixture');
   let browser;
   const json = async (path, { method = 'GET', body, cookie, origin } = {}) => {
     const headers = { Accept: 'application/json' };
@@ -59,7 +58,10 @@ test('private Wi-Fi Business dashboard persists zones, plans, goals, sales and a
       assert.equal(response.status, route.startsWith('/api/') ? 401 : 302, `unauthenticated ${route}`);
       assert.match(response.headers.get('cache-control') || '', /no-store/);
     }
-    console.log('wifi-test: protected routes');
+    const deniedWrite = await json('/api/admin/wifi-business/zones', {
+      method: 'POST', body: { name: 'Zone sans session' }
+    });
+    assert.equal(deniedWrite.response.status, 401);
 
     const cookie = await app.login();
     const pageResponse = await fetch(app.base + '/admin/wifi-business', { headers: { Cookie: cookie } });
@@ -84,7 +86,6 @@ test('private Wi-Fi Business dashboard persists zones, plans, goals, sales and a
     assert.deepEqual(initialPlans.data.plans.map(plan => plan.code), ['2h', '5h', '24h', '7d', '30d']);
     assert.ok(initialPlans.data.plans.every(plan => plan.priceFcfa === null));
     assert.ok(initialPlans.data.plans.every(plan => plan.enabled));
-    console.log('wifi-test: seeded data');
 
     const today = new Intl.DateTimeFormat('en-CA', {
       timeZone: 'Africa/Porto-Novo',
@@ -110,12 +111,20 @@ test('private Wi-Fi Business dashboard persists zones, plans, goals, sales and a
       method: 'POST', cookie, origin: 'https://attacker.example', body: { name: 'Zone interdite' }
     });
     assert.equal(forgedOrigin.response.status, 403);
-    console.log('wifi-test: zone status and origin checks');
 
     const duplicate = await json('/api/admin/wifi-business/zones', {
       method: 'POST', cookie, origin: app.base, body: { name: 'link zone 2.1' }
     });
     assert.equal(duplicate.response.status, 409);
+    const addedZone = await json('/api/admin/wifi-business/zones', {
+      method: 'POST', cookie, origin: app.base, body: { name: 'LINK ZONE ESSAI' }
+    });
+    assert.equal(addedZone.response.status, 201);
+    assert.equal(addedZone.data.zone.status, 'unconfirmed');
+    const duplicateRename = await json(`/api/admin/wifi-business/zones/${addedZone.data.zone.id}`, {
+      method: 'PATCH', cookie, origin: app.base, body: { name: 'link zone 2.1' }
+    });
+    assert.equal(duplicateRename.response.status, 409);
 
     const activated = await json(`/api/admin/wifi-business/zones/${originalZone.id}`, {
       method: 'PATCH', cookie, origin: app.base, body: { status: 'active' }
@@ -141,6 +150,18 @@ test('private Wi-Fi Business dashboard persists zones, plans, goals, sales and a
     });
     assert.equal(planUpdate.response.status, 200);
     assert.equal(planUpdate.data.plan.priceFcfa, 500);
+    const disabledPlan = await json('/api/admin/wifi-business/plans/2h', {
+      method: 'PATCH', cookie, origin: app.base, body: { enabled: false }
+    });
+    assert.equal(disabledPlan.data.plan.enabled, false);
+    const unavailableSale = await json('/api/admin/wifi-business/sales', {
+      method: 'POST', cookie, origin: app.base,
+      body: { zoneId: originalZone.id, planCode: '2h', amountFcfa: 1000 }
+    });
+    assert.equal(unavailableSale.response.status, 409);
+    await json('/api/admin/wifi-business/plans/2h', {
+      method: 'PATCH', cookie, origin: app.base, body: { enabled: true }
+    });
 
     const badAmount = await json('/api/admin/wifi-business/sales', {
       method: 'POST', cookie, origin: app.base,
@@ -168,7 +189,6 @@ test('private Wi-Fi Business dashboard persists zones, plans, goals, sales and a
     assert.equal(trackedZone.trendDirection, 'up');
     assert.equal(trackedZone.trendPercent, null);
     assert.ok(trackedZone.lastSaleAt);
-    console.log('wifi-test: real sale');
 
     const correction = await json(`/api/admin/wifi-business/sales/${saleId}/correct`, {
       method: 'POST', cookie, origin: app.base,
@@ -213,7 +233,6 @@ test('private Wi-Fi Business dashboard persists zones, plans, goals, sales and a
     const exceededZone = exceeded.data.zones.find(zone => zone.id === originalZone.id);
     assert.equal(exceededZone.performancePercent, 240);
     assert.equal(exceededZone.gaugePercent, 100);
-    console.log('wifi-test: correction and targets');
 
     const csv = await fetch(app.base + `/api/admin/wifi-business/export.csv?from=${today}&to=${today}`, {
       headers: { Cookie: cookie }
@@ -224,12 +243,13 @@ test('private Wi-Fi Business dashboard persists zones, plans, goals, sales and a
     const csvText = await csv.text();
     assert.match(csvText, /Montant FCFA/);
     assert.match(csvText, /Correction ajoutée/);
+    assert.equal(csvText.trim().split(/\r?\n/).length, 2, 'CSV excludes superseded sales');
+    assert.match(csvText, /"1200"/);
 
     const audit = await json(`/api/admin/wifi-business/audit?from=${today}&to=${today}`, { cookie });
     assert.ok(audit.data.rows.some(row => row.action === 'sale_corrected' && row.reason === 'Montant et quantité corrigés'));
     assert.ok(audit.data.rows.some(row => row.action === 'targets_updated'));
     assert.ok(audit.data.rows.some(row => row.action === 'plan_updated'));
-    console.log('wifi-test: export and audit');
 
     const beforeRenameCount = Number((await app.client.query('SELECT COUNT(*) FROM wifi_business_zones')).rows[0].count);
     const renamed = await json(`/api/admin/wifi-business/zones/${originalZone.id}`, {
@@ -243,13 +263,16 @@ test('private Wi-Fi Business dashboard persists zones, plans, goals, sales and a
     assert.equal(afterRestart.data.zones.length, beforeRenameCount);
     assert.equal(afterRestart.data.zones.some(zone => zone.name === 'LINK ZONE 2.1'), false);
     assert.equal(afterRestart.data.zones.some(zone => zone.name === 'LINK ZONE 2.1 RENOMMÉE'), true);
-    console.log('wifi-test: startup idempotency');
+    const persistedPlans = await json('/api/admin/wifi-business/plans', { cookie });
+    assert.equal(persistedPlans.data.plans.find(plan => plan.code === '2h').priceFcfa, 500);
 
     const archive = await json(`/api/admin/wifi-business/zones/${originalZone.id}`, {
       method: 'PATCH', cookie, origin: app.base,
       body: { status: 'archived' }
     });
     assert.equal(archive.data.zone.status, 'archived');
+    const archivedTotals = await json('/api/admin/wifi-business/dashboard?range=today', { cookie });
+    assert.equal(archivedTotals.data.summary.revenueFcfa, 1200, 'archiving never removes historical revenue');
     const restore = await json(`/api/admin/wifi-business/zones/${originalZone.id}`, {
       method: 'PATCH', cookie, origin: app.base,
       body: { status: 'active' }
@@ -259,7 +282,6 @@ test('private Wi-Fi Business dashboard persists zones, plans, goals, sales and a
 
     assert.equal(Number((await app.client.query('SELECT COUNT(*) FROM wifi_business_sales')).rows[0].count), 2);
     assert.equal(Number((await app.client.query('SELECT COUNT(*) FROM prices')).rows[0].count), Object.keys(app.prices).length);
-    console.log('wifi-test: archive and data preservation');
 
     browser = await chromium.launch({
       executablePath: '/repl/tools/bin/chromium',
@@ -280,10 +302,12 @@ test('private Wi-Fi Business dashboard persists zones, plans, goals, sales and a
     const pageErrors = [];
     page.on('pageerror', error => pageErrors.push(error.message));
     await page.goto(app.base + '/admin/wifi-business', { waitUntil: 'domcontentloaded' });
-    console.log('wifi-test: browser page loaded');
     await page.waitForSelector('#sales-chart svg');
     assert.match(await page.locator('#period-status').textContent(), /Période/);
-    await page.locator('#tab-zones').click();
+    assert.match(await page.locator('#metric-period').textContent(), /\d{4}-\d{2}-\d{2}/);
+    await page.locator('#tab-overview').focus();
+    await page.keyboard.press('ArrowRight');
+    assert.equal(await page.locator('#tab-zones').getAttribute('aria-selected'), 'true');
     await page.waitForSelector('#zones-body tr');
     await page.locator('[data-range="today"]').click();
     await page.waitForFunction(() => document.querySelector('#panel-zones .performance-overage')?.textContent.includes('240'));
@@ -294,10 +318,31 @@ test('private Wi-Fi Business dashboard persists zones, plans, goals, sales and a
     assert.ok((await activeRow.locator('.gauge-value').textContent()).includes('100'));
     assert.match(await activeRow.locator('.performance-overage').textContent(), /240/);
     assert.match(await activeRow.locator('.performance-overage').textContent(), /700/);
+    await page.locator('#panel-zones').scrollIntoViewIfNeeded();
+    await page.screenshot({ path: '/tmp/wifi-business-desktop.jpg', type: 'jpeg', quality: 80 });
     await page.locator('#tab-sales').click();
     await page.waitForSelector('#sales-body tr');
     assert.equal(await page.locator('#sales-body tr').count(), 2);
     assert.equal(await page.locator('#sales-body button:disabled').count(), 1);
+
+    await page.locator('#add-sale').click();
+    await page.locator('#field-zoneId').selectOption(originalZone.id);
+    await page.locator('#field-planCode').selectOption('2h');
+    await page.locator('#field-amountFcfa').fill('500');
+    await page.locator('#field-ticketCount').fill('1');
+    await page.locator('#work-dialog button[type="submit"]').click();
+    await page.waitForFunction(() => document.querySelectorAll('#sales-body tr').length === 3 &&
+      !document.querySelector('#work-dialog').open);
+    await page.locator('#sales-body tr').filter({ hasText: '500 FCFA' })
+      .getByRole('button', { name: 'Corriger', exact: true }).click();
+    await page.locator('#field-amountFcfa').fill('600');
+    await page.locator('#field-reason').fill('Correction depuis le formulaire Admin');
+    await page.locator('#work-dialog button[type="submit"]').click();
+    await page.waitForFunction(() => document.querySelectorAll('#sales-body tr').length === 4 &&
+      !document.querySelector('#work-dialog').open);
+    assert.equal((await page.locator('#metric-revenue').textContent()).replace(/\D/g, ''), '1800');
+    assert.equal(await page.locator('#sales-body button:disabled').count(), 2);
+
     await page.locator('#theme-toggle').click();
     assert.equal(await page.locator('html').getAttribute('data-theme'), 'dark');
     await page.setViewportSize({ width: 390, height: 844 });
@@ -306,6 +351,36 @@ test('private Wi-Fi Business dashboard persists zones, plans, goals, sales and a
       viewport: document.documentElement.clientWidth
     }));
     assert.ok(mobileWidth.scroll <= mobileWidth.viewport + 1, `mobile horizontal overflow: ${JSON.stringify(mobileWidth)}`);
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.screenshot({ path: '/tmp/wifi-business-mobile.jpg', type: 'jpeg', quality: 80 });
+    assert.deepEqual(pageErrors, []);
+
+    const clearGoals = await json(`/api/admin/wifi-business/zones/${originalZone.id}/targets`, {
+      method: 'PUT', cookie, origin: app.base,
+      body: { dailyTargetFcfa: null, weeklyTargetFcfa: null, monthlyTargetFcfa: null }
+    });
+    assert.equal(clearGoals.response.status, 200);
+    const noGoal = await json('/api/admin/wifi-business/dashboard?range=today', { cookie });
+    const noGoalZone = noGoal.data.zones.find(zone => zone.id === originalZone.id);
+    assert.equal(noGoalZone.performancePercent, null);
+    assert.equal(noGoalZone.performanceSource, 'no_goal');
+    assert.equal(noGoal.data.summary.revenueFcfa, 1800);
+    assert.equal(noGoal.data.summary.ticketsSold, 4);
+    assert.equal(noGoal.data.summary.performancePercent, null);
+
+    const inactive = await json(`/api/admin/wifi-business/zones/${addedZone.data.zone.id}`, {
+      method: 'PATCH', cookie, origin: app.base, body: { status: 'inactive' }
+    });
+    assert.equal(inactive.data.zone.status, 'inactive');
+
+    const logout = await fetch(app.base + '/admin/logout', {
+      method: 'POST', headers: { Cookie: cookie }, redirect: 'manual'
+    });
+    assert.equal(logout.status, 302);
+    await page.locator('#refresh-all').click();
+    await page.waitForSelector('#panel-sales a[href="/admin/login"]', { state: 'visible' });
+    assert.equal(await page.locator('#metric-revenue').textContent(), '—');
+    assert.equal(await page.locator('#refresh-all').isDisabled(), true);
     assert.deepEqual(pageErrors, []);
     await context.close();
   } finally {

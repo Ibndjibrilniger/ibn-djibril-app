@@ -8,6 +8,7 @@ const {
   targetForPeriod,
   performance
 } = require('../wifi-business-periods');
+const { _test: routeHelpers } = require('../wifi-business-routes');
 
 test('Wi-Fi periods use Niger local-day boundaries and equivalent comparison windows', () => {
   const now = new Date('2026-11-04T12:00:00.000Z');
@@ -54,4 +55,9 @@ test('goal percentage remains uncapped while a gauge can clamp at 100', () => {
   assert.equal(performance(2500, 2000), 125);
   assert.equal(performance(0, 2000), 0);
   assert.equal(performance(2500, null), null);
+});
+
+test('CSV values are quoted and spreadsheet formulas are neutralized', () => {
+  assert.equal(routeHelpers.csvCell('=1+2'), '"\'=1+2"');
+  assert.equal(routeHelpers.csvCell('une "zone"'), '"une ""zone"""');
 });

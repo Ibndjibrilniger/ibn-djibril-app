@@ -1,10 +1,11 @@
 - [Sync and startup constraints](existing-app-scope.md) — preserve both histories without hard resets/force pushes; show the ready app without artificial launch delays.
-- [Product scope](product-scope.md) — Al Izza must remain excluded; preserve the imported app and Railway production setup.
+- [Product scope](product-scope.md) — preserve app/Railway; exclude Al Izza; keep Wi-Fi commercial declarations and demo gauges separate from live network facts.
 - [Private activity policy](private-activity-policy.md) — analytics belong in the existing private Admin; minimize collection and preserve unmanaged prices.
 - [Admin session security](admin-session-policy.md) — persist sessions in existing PostgreSQL; secure cookies and expiry; no volatile fallback or replacement of accounts.
 - [Build portability](build-portability.md) — Replit can write internal registry URLs into npm lockfiles; keep committed public dependencies reachable by Railway.
 - [Guarded Git writes](git-operations.md) — authorized commits and pushes may require a per-command guard prefix; never force or alter Replit’s Git setup.
 - [Browser test resources](browser-test-resources.md) — run browser-heavy suites sequentially; concurrent screenshots can produce false timeouts.
+- [PostgreSQL test isolation](postgres-test-isolation.md) — expected constraint failures can abort shared fixture transactions and masquerade as Admin session failures.
 - [Audio generation limits](audio-generation-limits.md) — avoid request bursts; inspect individual jobs and never regenerate paid successes after a mixed batch failure.
 - [Approved video style](brand-video-style.md) — user approved the two-minute institutional montage; keep equipment-linked explanations and preserve male versions when adding female narration.
 - [Production verification](production-verification.md) — Railway status is publicly exposed via GitHub; delivery, public behavior and private Admin proof remain separate.

@@ -235,6 +235,7 @@ function createStore(pool) {
       WITH inserted AS (
         INSERT INTO wifi_business_zones (name)
         VALUES ($1)
+        ON CONFLICT DO NOTHING
         RETURNING *
       ), audit AS (
         INSERT INTO wifi_business_audit (action, entity_type, entity_id, summary, details)
@@ -266,6 +267,11 @@ function createStore(pool) {
             updated_at = statement_timestamp()
         FROM previous
         WHERE zone.id = previous.id
+          AND NOT EXISTS (
+            SELECT 1 FROM wifi_business_zones AS duplicate
+            WHERE duplicate.id <> previous.id
+              AND lower(btrim(duplicate.name)) = lower(btrim($2))
+          )
         RETURNING zone.*
       ), audit AS (
         INSERT INTO wifi_business_audit (action, entity_type, entity_id, summary, details)
@@ -657,6 +663,9 @@ function createStore(pool) {
       JOIN wifi_business_zones AS zone ON zone.id = sale.zone_id
       JOIN wifi_business_plans AS plan ON plan.code = sale.plan_code
       WHERE sale.sold_at >= $1 AND sale.sold_at < $2
+        AND NOT EXISTS (
+          SELECT 1 FROM wifi_business_sales replacement WHERE replacement.replaces_sale_id = sale.id
+        )
       ORDER BY sale.sold_at DESC, sale.id DESC
       LIMIT 50001
     `, [period.startAt, period.endAt]);

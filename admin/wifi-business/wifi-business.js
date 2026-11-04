@@ -109,10 +109,18 @@
     return result;
   }
   function showLogin() {
+    closeDialog();
     document.querySelectorAll('.tab-panel').forEach(panel => {
-      panel.hidden = true;
+      panel.hidden = panel.id !== `panel-${state.activeTab}`;
       panel.replaceChildren(loginRequired());
     });
+    document.querySelectorAll('.period-btn, .tab, #refresh-all').forEach(button => { button.disabled = true; });
+    document.querySelectorAll('.metric-value').forEach(node => { node.textContent = '—'; });
+    document.querySelectorAll('.metric-detail').forEach(node => { node.textContent = 'Session expirée'; });
+    $('#sales-chart').replaceChildren($el('div', 'chart-empty', 'Connexion administrateur requise.'));
+    $('#zone-ranking').replaceChildren();
+    $('#ranking-state').replaceChildren(loginRequired());
+    $('#ranking-state').hidden = false;
     ui.periodStatus.textContent = 'Authentification requise.';
   }
   function stateView(target, heading, message, kind = 'empty', retry) {
@@ -308,12 +316,14 @@
     const summary = result.summary || {};
     setText('#metric-revenue', money(summary.revenueFcfa));
     setText('#metric-tickets', number(summary.ticketsSold));
-    setText('#metric-zones', `${number(summary.zoneCount)} zone(s) déclarée(s)`);
+    setText('#metric-zones', `${number(summary.zoneCount)} zone(s) non archivée(s)`);
     setText('#metric-today', money(summary.todayRevenueFcfa));
     setText('#metric-performance', pct(summary.performancePercent));
-    setText('#metric-watch', `${number(summary.watchZones)} zone(s) à surveiller`);
+    setText('#metric-watch', `${number(summary.watchZones)} zone(s) avec objectif à surveiller`);
     const period = result.period || {};
+    setText('#metric-period', `${safe(period.from)} → ${safe(period.to)}`);
     ui.periodStatus.textContent = `Période ${safe(period.from)} → ${safe(period.to)} · les chiffres reflètent les ventes enregistrées.`;
+    setText('#comparison-period-label', `${safe(period.from)} → ${safe(period.to)} comparé à ${safe(period.previousFrom)} → ${safe(period.previousTo)}.`);
     state.from = period.from || state.from; state.to = period.to || state.to;
     if (period.from) ui.from.value = period.from;
     if (period.to) ui.to.value = period.to;
@@ -478,7 +488,7 @@
   function closeDialog() { if (ui.dialog.open) ui.dialog.close(); }
   async function openAddZone() {
     dialogForm('Ajouter une zone', 'La création conserve les zones existantes et leurs historiques.', [
-      { label: 'Nom de la zone', name: 'name', value: '', options: { required: true, maxLength: 120, placeholder: 'Nom commercial de la zone' } }
+      { label: 'Nom de la zone', name: 'name', value: '', options: { required: true, maxLength: 100, placeholder: 'Nom commercial de la zone' } }
     ], 'Créer la zone', async data => {
       await request(`${API}/zones`, { method: 'POST', body: JSON.stringify({ name: data.name.trim() }) });
       await Promise.all([loadZones(), loadDashboard()]);
@@ -486,7 +496,7 @@
   }
   function openZoneEdit(zone) {
     dialogForm('Modifier une zone', 'Les changements de statut sont des déclarations commerciales, pas des mesures réseau.', [
-      { label: 'Nom de la zone', name: 'name', value: zone.name || '', options: { required: true, maxLength: 120 } },
+      { label: 'Nom de la zone', name: 'name', value: zone.name || '', options: { required: true, maxLength: 100 } },
       { label: 'Statut déclaré', name: 'status', type: 'select', value: zone.status || 'unconfirmed', options: { items: [
         { value: 'unconfirmed', label: 'À confirmer' }, { value: 'active', label: 'Actif · déclaré' },
         { value: 'inactive', label: 'Inactif · déclaré' }, { value: 'archived', label: 'Archivé · historique préservé' }
@@ -784,7 +794,20 @@
     ui.from.addEventListener('change', updateCustomDate);
     ui.to.addEventListener('change', updateCustomDate);
     $('#refresh-all').addEventListener('click', loadActiveTab);
-    document.querySelectorAll('[role="tab"]').forEach(tab => tab.addEventListener('click', () => activateTab(tab.id.replace('tab-', ''))));
+    const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+    tabs.forEach((tab, index) => {
+      tab.tabIndex = tab.getAttribute('aria-selected') === 'true' ? 0 : -1;
+      tab.addEventListener('click', () => activateTab(tab.id.replace('tab-', '')));
+      tab.addEventListener('keydown', event => {
+        if (tab.disabled || !['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+        event.preventDefault();
+        const nextIndex = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1
+          : (index + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+        const next = tabs[nextIndex];
+        activateTab(next.id.replace('tab-', ''));
+        next.focus();
+      });
+    });
     $('#zone-search').addEventListener('input', renderZones);
     $('#add-zone').addEventListener('click', openAddZone);
     $('#print-zones').addEventListener('click', () => window.print());

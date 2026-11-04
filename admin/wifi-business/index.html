@@ -52,7 +52,7 @@
       <article class="metric"><span class="metric-label">Chiffre d’affaires · période</span><strong class="metric-value" id="metric-revenue">—</strong><span class="metric-detail" id="metric-period">En attente des données</span></article>
       <article class="metric"><span class="metric-label">Tickets vendus · période</span><strong class="metric-value" id="metric-tickets">—</strong><span class="metric-detail" id="metric-zones">— zones déclarées</span></article>
       <article class="metric"><span class="metric-label">Recette du jour</span><strong class="metric-value" id="metric-today">—</strong><span class="metric-detail">Ventes réelles enregistrées</span></article>
-      <article class="metric"><span class="metric-label">Performance globale</span><strong class="metric-value" id="metric-performance">—</strong><span class="metric-detail" id="metric-watch">— zones à surveiller</span></article>
+      <article class="metric" title="Recettes des zones avec objectif, divisées par leurs objectifs. Les démonstrations sont exclues."><span class="metric-label">Performance globale</span><strong class="metric-value" id="metric-performance">—</strong><span class="metric-detail" id="metric-watch">— zones à surveiller</span></article>
     </section>
 
     <section class="main-grid" aria-label="Analyse des ventes">
@@ -77,7 +77,7 @@
 
     <section class="tab-panel" id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
       <article class="panel chart-panel">
-        <div class="section-head"><div><h3 class="panel-title">Comparaison des recettes</h3><p class="panel-subtitle">Les deux montants sont ceux renvoyés par le service pour cette période.</p></div></div>
+        <div class="section-head"><div><h3 class="panel-title">Comparaison des recettes</h3><p class="panel-subtitle" id="comparison-period-label">Période sélectionnée et période précédente comparable.</p></div></div>
         <div id="comparison-chart" class="chart-wrap"><div class="chart-empty">Chargement des comparaisons…</div></div>
         <div class="chart-legend" aria-label="Légende du graphique">
           <span><i class="legend-current" aria-hidden="true"></i>Période sélectionnée</span>
@@ -106,6 +106,7 @@
         <div class="toolbar-actions"><a class="btn btn-secondary" id="export-csv" href="/api/admin/wifi-business/export.csv">Exporter CSV</a><button class="btn btn-secondary" id="print-sales" type="button">Imprimer</button><button class="btn btn-primary" id="add-sale" type="button">Saisir une vente</button></div>
       </div>
       <p class="panel-subtitle">Les corrections sont ajoutées à l’historique avec leur motif ; aucune vente antérieure n’est supprimée.</p>
+      <p class="panel-subtitle">L’export CSV retient uniquement les ventes effectives après correction, pour éviter tout double comptage.</p>
       <div id="sales-state" class="state"><div class="skeleton" style="width:76%"></div><div class="skeleton" style="width:61%"></div><p>Chargement des ventes…</p></div>
       <div class="table-wrap" id="sales-wrap" hidden>
         <table><thead><tr><th scope="col">Date · Niger</th><th scope="col">Zone</th><th scope="col">Offre</th><th scope="col">Montant</th><th scope="col">Tickets</th><th scope="col">Historique</th><th scope="col">Action</th></tr></thead><tbody id="sales-body"></tbody></table>

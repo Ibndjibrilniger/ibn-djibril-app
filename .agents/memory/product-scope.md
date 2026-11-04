@@ -77,3 +77,16 @@ photograph; presenting a download card alone does not establish approval.
 
 **How to apply:** Keep the proposal out of the published app until the owner
 explicitly approves it or requests revisions in chat.
+
+Wi-Fi Business is manual commercial management, not live network monitoring.
+Do not claim that a zone or MikroTik is connected without a real verified
+integration. LINK ZONE TARA 1.5's initial 30% is a demonstration, not a real
+sales result. Do not invent ticket prices or commercial objectives.
+
+**Why:** The user explicitly required honest initial data and separated this
+dashboard from a future MikroTik connection.
+
+**How to apply:** Keep declared commercial status distinct from technical
+availability, label demonstrations explicitly, and exclude demonstrations from
+real performance summaries and sales rankings. Use owner-supplied prices and
+objectives when they become available.

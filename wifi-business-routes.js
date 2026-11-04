@@ -181,6 +181,7 @@ module.exports = function registerWifiBusinessRoutes(app, requireAdmin, pool) {
       throw Object.assign(new Error('Le nom doit contenir entre 2 et 100 caractères.'), { status: 400 });
     }
     const row = await store.createZone(name);
+    if (!row) return res.status(409).json({ ok: false, error: 'Une zone porte déjà ce nom.' });
     res.status(201).json({ ok: true, zone: {
       id: String(row.id), name: row.name, status: row.commercial_status,
       archived: Boolean(row.archived_at)
@@ -203,7 +204,7 @@ module.exports = function registerWifiBusinessRoutes(app, requireAdmin, pool) {
       throw Object.assign(new Error('Statut commercial invalide.'), { status: 400 });
     }
     const row = await store.updateZone(id, { name: name.trim(), status });
-    if (!row) return res.status(404).json({ ok: false, error: 'Zone introuvable.' });
+    if (!row) return res.status(409).json({ ok: false, error: 'Une zone porte déjà ce nom.' });
     res.json({ ok: true, zone: {
       id: String(row.id), name: row.name,
       status: row.archived_at ? 'archived' : row.commercial_status,
