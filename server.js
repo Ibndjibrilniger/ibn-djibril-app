@@ -594,6 +594,7 @@ app.get('/prix-produits.js',async(req,res)=>{
   catch (_) {res.status(503).send("console.error('Synchronisation des prix indisponible.');");}
 });
 const activities = require('./activities-routes')(app,requireAdmin,pool);
+const wifiBusiness = require('./wifi-business-routes')(app,requireAdmin,pool);
 app.get('/favicon.ico',(req,res)=>res.redirect('/icons/icon-192.png'));
 
 app.get('/api/app-version', (req, res) => {
@@ -632,6 +633,7 @@ async function start() {
     await adminSessionStore.ready();
     console.log('Admin sessions: PostgreSQL persistent store initialized.');
     await activities.start();
+    await wifiBusiness.start();
   }
   return app.listen(PORT, HOST, () => {
   console.log('');
@@ -646,4 +648,4 @@ if (require.main === module) start().catch(()=>{
   process.exitCode=1;
   pool.end();
 });
-module.exports = {app,start,activities,adminSessionStore,SESSION_COOKIE_OPTIONS};
+module.exports = {app,start,activities,wifiBusiness,adminSessionStore,SESSION_COOKIE_OPTIONS};

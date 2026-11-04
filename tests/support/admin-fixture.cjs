@@ -8,7 +8,7 @@ async function fixture({port=0}={}) {
   const client=await pool.connect();
   const schema='activity_test_'+crypto.randomUUID().replace(/-/g,'');
   const originalQuery=pool.query.bind(pool);
-  let server,activities;
+  let server,activities,wifiBusiness;
   try {
     await client.query('BEGIN');
     await client.query(`CREATE SCHEMA "${schema}"`);
@@ -29,11 +29,14 @@ async function fixture({port=0}={}) {
     pool.query=(...args)=>client.query(...args);
     const runtime=require('../../server');
     activities=runtime.activities;
+    wifiBusiness=runtime.wifiBusiness;
+    await runtime.adminSessionStore?.ready();
     await activities.start();
+    await wifiBusiness.start();
     server=runtime.app.listen(port,'0.0.0.0');
     await new Promise(resolve=>server.once('listening',resolve));
     const base='http://127.0.0.1:'+server.address().port;
-    return {base,username,password,client,prices,unmanagedId,legacy,
+    return {base,username,password,client,prices,unmanagedId,legacy,wifiBusiness,
       async login() {
         const response=await fetch(base+'/admin/login',{method:'POST',redirect:'manual',
           headers:{'Content-Type':'application/x-www-form-urlencoded'},
@@ -43,6 +46,7 @@ async function fixture({port=0}={}) {
       },
       async close() {
         activities.stop();
+        wifiBusiness.stop();
         runtime.adminSessionStore?.stop();
         await new Promise(resolve=>server.close(resolve));
         pool.query=originalQuery;
@@ -52,6 +56,7 @@ async function fixture({port=0}={}) {
       }};
   } catch (error) {
     activities?.stop();
+    wifiBusiness?.stop();
     server?.close();
     pool.query=originalQuery;
     await client.query('ROLLBACK');
