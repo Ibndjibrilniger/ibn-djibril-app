@@ -51,6 +51,18 @@ test('custom periods validate dates and scale only defined daily objectives', ()
   }), { status: 400 });
 });
 
+test('previous month uses complete calendar months and the monthly objective', () => {
+  const october = periodRange({ range: 'previous-month', now: new Date('2026-11-05T12:00:00Z') });
+  assert.deepEqual([october.from, october.to, october.previousFrom, october.previousTo],
+    ['2026-10-01', '2026-10-31', '2026-09-01', '2026-09-30']);
+  assert.equal(targetForPeriod({ dailyTargetFcfa: 10, monthlyTargetFcfa: 9000 }, october), 9000);
+  const december = periodRange({ range: 'previous-month', now: new Date('2027-01-01T00:00:00Z') });
+  assert.equal(december.from, '2026-12-01');
+  assert.equal(december.to, '2026-12-31');
+  const leap = periodRange({ range: 'previous-month', now: new Date('2028-03-01T00:00:00Z') });
+  assert.equal(leap.to, '2028-02-29');
+});
+
 test('goal percentage remains uncapped while a gauge can clamp at 100', () => {
   assert.equal(performance(2500, 2000), 125);
   assert.equal(performance(0, 2000), 0);

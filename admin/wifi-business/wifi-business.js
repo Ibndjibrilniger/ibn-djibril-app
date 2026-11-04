@@ -44,6 +44,10 @@
     else if (range === '7d') { state.from = shiftDate(today, -6); state.to = today; }
     else if (range === '30d') { state.from = shiftDate(today, -29); state.to = today; }
     else if (range === 'month') { state.from = `${today.slice(0, 7)}-01`; state.to = today; }
+    else if (range === 'previous-month') {
+      state.to = shiftDate(`${today.slice(0, 7)}-01`, -1);
+      state.from = `${state.to.slice(0, 7)}-01`;
+    }
     ui.dateRange.hidden = range !== 'custom';
     if (range === 'custom') {
       ui.from.value = state.from || today;
@@ -114,7 +118,7 @@
       panel.hidden = panel.id !== `panel-${state.activeTab}`;
       panel.replaceChildren(loginRequired());
     });
-    document.querySelectorAll('.period-btn, .tab, #refresh-all').forEach(button => { button.disabled = true; });
+    document.querySelectorAll('.period-btn, .tab, #refresh-all, #open-plan-prices').forEach(button => { button.disabled = true; });
     document.querySelectorAll('.metric-value').forEach(node => { node.textContent = '—'; });
     document.querySelectorAll('.metric-detail').forEach(node => { node.textContent = 'Session expirée'; });
     $('#sales-chart').replaceChildren($el('div', 'chart-empty', 'Connexion administrateur requise.'));
@@ -575,20 +579,24 @@
       const edit = $el('button', 'btn btn-secondary', 'Modifier le prix'); edit.type = 'button'; edit.addEventListener('click', () => openPlanPrice(plan));
       actions.append(toggleWrap, edit);
       card.append(head, price, actions);
+      if (plan.priceFcfa != null && plan.updatedAt) {
+        card.append($el('p', 'cell-sub', `Dernière mise à jour : ${formatDate(plan.updatedAt)}`));
+      }
       grid.append(card);
     });
     status.hidden = true; grid.hidden = false;
   }
   function openPlanPrice(plan) {
-    dialogForm(`Prix · ${plan.label || plan.code}`, 'Le prix courant est présenté tel que configuré par l’Administrateur.', [
+    dialogForm(`Prix · ${plan.label || plan.code}`, 'Saisissez le tarif de référence de ce ticket. Cela ne crée pas de vente et ne modifie pas les recettes passées.', [
       { label: 'Prix en FCFA · vide = non défini', name: 'priceFcfa', type: 'number', value: plan.priceFcfa, options: { min: 1, step: 1 } }
     ], 'Enregistrer le prix', async data => {
       const value = data.priceFcfa.trim() === '' ? null : Number(data.priceFcfa);
       if (value !== null && (!Number.isInteger(value) || value <= 0)) throw new Error('Le prix doit être un entier positif ou laissé vide.');
-      await request(`${API}/plans/${encodeURIComponent(plan.code)}`, {
+      const saved = await request(`${API}/plans/${encodeURIComponent(plan.code)}`, {
         method: 'PATCH', body: JSON.stringify({ priceFcfa: value, enabled: Boolean(plan.enabled) })
       });
       await loadPlans();
+      setText('#plans-feedback', `Tarif ${saved.plan.label} enregistré : ${money(saved.plan.priceFcfa)} · ${formatDate(saved.plan.updatedAt)}. Les ventes et recettes historiques restent inchangées.`);
     }, 'Un prix non défini ne sera pas affiché comme zéro. Les ventes historiques ne sont pas recalculées.');
   }
 
@@ -744,6 +752,9 @@
       const details = document.createElement('div');
       details.append($el('strong', '', item.summary || item.action || 'Action administrative'));
       details.append($el('p', '', `${safe(item.action)} · ${safe(item.entityType)} ${item.entityId == null ? '' : `#${item.entityId}`}`));
+      if (item.action === 'plan_updated' && item.details?.before && item.details?.after) {
+        details.append($el('p', '', `Tarif : ${money(item.details.before.priceFcfa)} → ${money(item.details.after.priceFcfa)}`));
+      }
       if (item.reason) details.append($el('p', '', `Motif : ${item.reason}`));
       article.append(details); list.append(article);
     });
@@ -765,7 +776,10 @@
     document.querySelectorAll('[role="tabpanel"]').forEach(panel => { panel.hidden = panel.id !== `panel-${name}`; });
     if (name === 'zones' && !state.zones.length) loadZones();
     if (name === 'sales') loadSales();
-    if (name === 'plans' && !state.plans.length) loadPlans();
+    if (name === 'plans') {
+      if (state.plans.length) renderPlans(state.plans);
+      else loadPlans();
+    }
     if (name === 'audit') loadAudit();
   }
   function updateCustomDate() {
@@ -794,6 +808,19 @@
     ui.from.addEventListener('change', updateCustomDate);
     ui.to.addEventListener('change', updateCustomDate);
     $('#refresh-all').addEventListener('click', loadActiveTab);
+    const showPlans = () => {
+      activateTab('plans');
+      $('#tab-plans').focus();
+      $('#panel-plans').scrollIntoView({ block: 'start' });
+    };
+    $('#open-plan-prices').addEventListener('click', showPlans);
+    $('#open-plan-audit').addEventListener('click', () => {
+      setRange('today');
+      loadDashboard();
+      activateTab('audit');
+      $('#tab-audit').focus();
+      $('#panel-audit').scrollIntoView({ block: 'start' });
+    });
     const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
     tabs.forEach((tab, index) => {
       tab.tabIndex = tab.getAttribute('aria-selected') === 'true' ? 0 : -1;
@@ -837,5 +864,6 @@
 
   setRange('30d');
   bind();
+  if (window.location.hash === '#tarifs') activateTab('plans');
   loadDashboard();
 })();

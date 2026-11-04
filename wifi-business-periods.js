@@ -69,6 +69,12 @@ function periodRange({ range = 'today', from, to, now = new Date() } = {}) {
     start = `${today.slice(0, 7)}-01`;
     previousStart = shiftMonth(start, -1);
     previousEnd = shiftMonth(today, -1);
+  } else if (range === 'previous-month') {
+    const firstThisMonth = `${today.slice(0, 7)}-01`;
+    start = shiftMonth(firstThisMonth, -1);
+    end = shiftDate(firstThisMonth, -1);
+    previousStart = shiftMonth(start, -1);
+    previousEnd = shiftDate(start, -1);
   } else if (range === 'custom') {
     normalizedRange = 'custom';
     if (!isDateKey(from) || !isDateKey(to) || from > to || to > today) {
@@ -103,7 +109,7 @@ function periodRange({ range = 'today', from, to, now = new Date() } = {}) {
 function targetForPeriod(zone, period) {
   if (period.range === 'today') return zone.dailyTargetFcfa;
   if (period.range === '7d') return zone.weeklyTargetFcfa;
-  if (period.range === '30d' || period.range === 'month') return zone.monthlyTargetFcfa;
+  if (['30d', 'month', 'previous-month'].includes(period.range)) return zone.monthlyTargetFcfa;
   return zone.dailyTargetFcfa === null ? null : zone.dailyTargetFcfa * period.days;
 }
 

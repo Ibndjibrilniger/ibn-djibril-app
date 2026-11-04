@@ -17,6 +17,7 @@
         <div><h1>Wi-Fi Business</h1><p>Ibn_Djibril Niger Tech · Administration privée</p></div>
       </div>
       <div class="top-actions">
+        <button class="top-link" id="open-plan-prices" type="button">Tarifs des tickets</button>
         <a class="top-link" href="/admin">← Administration</a>
         <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Changer de thème">Thème sombre</button>
       </div>
@@ -39,6 +40,7 @@
         <button class="period-btn" data-range="7d" aria-pressed="false" type="button">7 jours</button>
         <button class="period-btn" data-range="30d" aria-pressed="true" type="button">30 jours</button>
         <button class="period-btn" data-range="month" aria-pressed="false" type="button">Ce mois</button>
+        <button class="period-btn" data-range="previous-month" aria-pressed="false" type="button">Mois précédent</button>
         <button class="period-btn" data-range="custom" aria-pressed="false" type="button">Personnalisée</button>
         <div class="date-range" id="date-range" hidden>
           <div class="field"><label for="filter-from">Du</label><input id="filter-from" type="date"></div>
@@ -117,6 +119,9 @@
     <section class="tab-panel" id="panel-plans" role="tabpanel" aria-labelledby="tab-plans" hidden>
       <div class="toolbar"><div class="toolbar-left"><h3>Offres et tarifs</h3></div><button class="btn btn-secondary" id="reload-plans" type="button">Actualiser les offres</button></div>
       <p class="panel-subtitle">Un prix non configuré reste « Non défini ». Modifier un tarif ne réécrit pas les ventes déjà enregistrées.</p>
+      <p class="notice">Saisissez vos anciens tarifs de référence avec « Modifier le prix ». Leur enregistrement est confirmé ici et daté dans l’Historique. Un tarif seul ne crée aucune recette : les graphiques et le rapport du mois précédent utilisent uniquement les ventes encaissées enregistrées à leur date.</p>
+      <p id="plans-feedback" class="form-message success" role="status" aria-live="polite"></p>
+      <button class="btn btn-secondary" id="open-plan-audit" type="button">Voir le journal des modifications du jour</button>
       <div id="plans-state" class="state"><p>Chargement des offres…</p></div>
       <div class="plans-grid" id="plans-grid" hidden></div>
     </section>

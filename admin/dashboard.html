@@ -158,6 +158,10 @@ input[type=password]{
  font-weight:800;
  color:#536159
 }
+.admin-shortcuts{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:16px 18px;background:#e6f3eb}
+.admin-shortcuts a{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:12px 16px;border:1px solid #087144;border-radius:12px;background:white;color:#086a42;font-weight:800;text-decoration:none}
+.admin-shortcuts .wifi-business-button{background:#087144;color:white;font-size:17px}
+.admin-shortcuts a:focus-visible{outline:3px solid #ef8536;outline-offset:3px}
 
 @media(min-width:700px){
  .fields{
@@ -170,10 +174,11 @@ input[type=password]{
 </head>
 
 <body class="ibn-admin-page">
-<nav style="padding:12px 18px;background:#e6f3eb" aria-label="Navigation administration">
-  <a href="/admin/settings" style="font-weight:800;color:#086a42">Paramètres privés</a>
-  <span aria-hidden="true"> · </span><a href="/admin/wifi-business" style="font-weight:800;color:#086a42">Wi-Fi Business — Link Zones</a>
-  <span aria-hidden="true"> · </span><a href="/" style="color:#086a42">Catalogue public</a>
+<nav class="admin-shortcuts" aria-label="Navigation administration">
+  <a class="wifi-business-button" href="/admin/wifi-business">Wi-Fi Business — Link Zones</a>
+  <a href="/admin/wifi-business#tarifs">Tarifs des tickets</a>
+  <a href="/admin/settings">Paramètres privés</a>
+  <a href="/">Catalogue public</a>
 </nav>
 
 <header>

@@ -28,6 +28,10 @@ globales réelles, du classement et des recettes.
 1. Dans **Zones**, confirmer manuellement le statut commercial de la zone.
    « Actif » n’indique jamais une disponibilité réseau.
 2. Configurer les tarifs dans **Offres & prix** si les valeurs sont connues.
+   Le bouton **Tarifs des tickets**, en haut de l’Admin et du tableau Wi-Fi,
+   ouvre directement cette rubrique. La confirmation affiche le montant
+   retourné par le serveur et sa date ; le tarif reste visible après rechargement.
+   Le journal montre chaque changement avec son ancien et son nouveau montant.
 3. Saisir les montants réellement encaissés, le forfait et le nombre de tickets
    dans **Ventes**. La quantité vaut 1 par défaut.
 4. Définir, si connus, les objectifs journaliers, hebdomadaires et mensuels par zone.
@@ -38,6 +42,11 @@ s’appliquent à « Aujourd’hui », les hebdomadaires à 7 jours et les mensu
 30 jours ou au mois en cours. Une période personnalisée utilise l’objectif
 journalier multiplié par son nombre de jours, seulement s’il est défini.
 Le mois en cours montre la progression vers l’objectif mensuel complet.
+Le bouton **Mois précédent** sélectionne le mois civil complet précédent,
+avec l’objectif mensuel et une comparaison au mois civil qui le précède.
+Cette période s’applique aussi au registre et à son export CSV.
+Saisir un ancien tarif de référence ne crée pas de recettes historiques :
+les graphiques ne comptent que les ventes réellement enregistrées à leur date.
 
 La performance réelle est `recettes / objectif × 100` :
 rouge sous 40 %, jaune de 40 % à moins de 70 %, vert à partir de 70 %.

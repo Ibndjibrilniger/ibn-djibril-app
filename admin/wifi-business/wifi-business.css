@@ -37,7 +37,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .brand-mark { width:43px;height:43px;flex:0 0 43px;display:grid;place-items:center;border:1px solid #ffffff66;border-radius:14px;background:#ffffff1c;font-weight:800;letter-spacing:-.06em; }
 .brand h1 { margin:0;font:800 clamp(17px,2.4vw,23px)/1.15 var(--display);letter-spacing:-.04em; }
 .brand p { margin:4px 0 0;color:#ffffffce;font-size:11px; }
-.top-actions { display:flex;align-items:center;gap:8px; }
+.top-actions { display:flex;flex-wrap:wrap;align-items:center;gap:8px; }
 .top-link,.theme-toggle { display:inline-flex;align-items:center;justify-content:center;min-height:39px;padding:8px 12px;border:1px solid #ffffff66;border-radius:11px;background:#ffffff14;color:#fff;text-decoration:none;font-size:12px;font-weight:700;cursor:pointer; }
 .top-link:hover,.theme-toggle:hover { background:#ffffff2a; }
 main { width:min(1440px,100%);margin:auto;padding:22px 22px 50px; }
