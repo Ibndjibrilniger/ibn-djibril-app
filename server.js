@@ -169,9 +169,14 @@ function savePrices(prices) {
 
 /* ---------- CONNEXION ADMIN ---------- */
 
+// A fixed destination only: never redirect to an arbitrary caller-supplied URL.
+function adminLoginDestination(req) {
+  return req.query.section === 'wifi-zones' ? '/admin/wifi-business#recettes' : '/admin';
+}
+
 app.get('/admin/login', (req, res) => {
   if (req.session && req.session.isAdmin === true) {
-    return res.redirect('/admin');
+    return res.redirect(adminLoginDestination(req));
   }
 
   res.sendFile(
@@ -221,7 +226,7 @@ app.post('/admin/login', async (req, res) => {
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <div style="font-family:Arial;padding:30px">
           <h2>Identifiants incorrects</h2>
-          <a href="/admin/login">Réessayer</a>
+          <a href="/admin/login${req.query.section === 'wifi-zones' ? '?section=wifi-zones' : ''}">Réessayer</a>
         </div>
       `);
     }
@@ -238,7 +243,7 @@ app.post('/admin/login', async (req, res) => {
           return res.status(500).send('Erreur de session');
         }
 
-        res.redirect('/admin');
+        res.redirect(adminLoginDestination(req));
       });
     });
 

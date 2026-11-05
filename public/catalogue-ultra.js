@@ -235,6 +235,16 @@
   .ibn-price{display:inline-block;align-self:flex-start;margin-top:9px;background:#fff1e4;color:#824008;border:1px solid #f3d3b1;border-radius:999px;padding:6px 10px;font-weight:900;font-size:14px}
   .ibn-price-detail{display:inline-block;margin:2px 0 14px;background:#fff1e4;color:#824008;border:1px solid #f3d3b1;border-radius:999px;padding:8px 12px;font-weight:900;font-size:16px}
   .ibn-cat-cta{margin-top:auto;padding-top:12px;color:#087747;font-weight:850;font-size:13px}
+  .ibn-feature-tile.ibn-wifi-zone-entry{display:flex;flex-direction:column;align-items:stretch;gap:0;padding:0;cursor:default}
+  .ibn-wifi-zone-offers{display:grid;grid-template-columns:74px 1fr;align-items:center;gap:13px;min-height:106px;width:100%;padding:12px;border:0;border-radius:18px;background:transparent;color:inherit;font:inherit;text-align:left;cursor:pointer}
+  .ibn-wifi-admin-link{display:block;margin:0 12px 12px;padding:11px 12px;min-height:44px;border:1px solid #bad9c6;border-radius:11px;background:#e7f4eb;color:#075f3b;font-size:12px;font-weight:850;text-align:center;text-decoration:none}
+  .ibn-wifi-zone-offers:focus-visible,.ibn-wifi-admin-link:focus-visible{outline:3px solid #ef8536;outline-offset:3px}
+  .ibn-wifi-private-access{margin:16px 0;padding:16px;border:1px solid #bad9c6;border-radius:14px;background:#f0f7f2;color:#18352a}
+  .ibn-wifi-private-access .ibn-wifi-admin-link{margin:12px 0 0}
+  @media(max-width:600px){
+    .ibn-wifi-zone-offers{grid-template-columns:44px minmax(0,1fr);gap:8px}
+    .ibn-wifi-zone-offers .ibn-feature-image{width:44px;height:44px}
+  }
   .ibn-stock{margin-top:10px;padding:8px 11px;border-radius:10px;font-size:13px;font-weight:850}
   .ibn-stock-ok{background:#e7f8ee;color:#087144}.ibn-stock-low{background:#fff4dc;color:#9a6200}.ibn-stock-out{background:#ffe9e7;color:#b3261e}
   .ibn-add-cart{width:100%;margin:10px 0 4px;padding:12px 14px;border:0;border-radius:12px;background:#087747;color:#fff;font-size:14px;font-weight:850;cursor:pointer}
@@ -369,10 +379,13 @@
         <span class="ibn-feature-copy"><span class="ibn-feature-kicker">ÉQUIPEMENTS</span><strong>${esc(item.label)}</strong><small>${esc(item.note)}</small></span>
       </button>`;
     }).join("");
-    const services = `<button type="button" class="ibn-feature-tile" data-open-services>
+    const services = `<article class="ibn-feature-tile ibn-wifi-zone-entry">
+      <button type="button" class="ibn-wifi-zone-offers" data-open-services>
       <span class="ibn-feature-image"><img src="/icons/logo-display-v2.webp" alt="" loading="lazy" decoding="async"></span>
       <span class="ibn-feature-copy"><span class="ibn-feature-kicker">INSTALLATION & ASSISTANCE</span><strong>Installations Wi-Fi Zone et prestations techniques</strong><small>Solutions et services déjà présentés par la boutique</small></span>
-    </button>`;
+      </button>
+      <a class="ibn-wifi-admin-link" href="/admin/login?section=wifi-zones">Gérer mes Wi-Fi Zones · accès Admin</a>
+    </article>`;
     const phone = `<button type="button" class="ibn-feature-tile" data-open-phone>
       <span class="ibn-feature-image"><img src="/icons/logo-display-v2.webp" alt="Logo officiel Ibn_Djibril Niger Tech" loading="lazy" decoding="async"></span>
       <span class="ibn-feature-copy"><span class="ibn-feature-kicker">EN DERNIER</span><strong>Téléphones &amp; Accessoires</strong><small>Tecno, Samsung, Itel, Oraimo et plus</small></span>
@@ -457,6 +470,11 @@
     return `<div class="category">INSTALLATION & PRESTATIONS</div>
       <h2 id="ibn-detail-heading">Wi-Fi Zone et prestations techniques</h2>
       <p class="sub">Les services ci-dessous reprennent les informations déjà publiées par Ibn_Djibril Niger Tech. Contactez l’équipe pour préciser votre besoin et confirmer la disponibilité.</p>
+      <aside class="ibn-wifi-private-access">
+        <h3>Gestion privée des Wi-Fi Zones</h3>
+        <p>Accès Admin pour saisir les recettes de vos rapports MikroTik Ticket, consulter les périodes et les statistiques. Aucune synchronisation automatique avec le routeur n’est active.</p>
+        <a class="ibn-wifi-admin-link" href="/admin/login?section=wifi-zones">Accéder à mes recettes · connexion Admin</a>
+      </aside>
       <div class="ibn-supplementary-grid">${services.map(item => `<article class="ibn-supplement-card">
         <h3>${esc(item.originalLabel || item.title)}</h3>
         <p>${esc(item.description)}</p>

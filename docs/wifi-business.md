@@ -50,6 +50,18 @@ les graphiques ne comptent que les ventes réellement enregistrées à leur date
 
 ### Calendrier historique et recettes de toutes les zones
 
+Depuis la carte publique **Installations Wi-Fi Zone et prestations techniques**,
+**Gérer mes Wi-Fi Zones · accès Admin** ouvre la connexion privée puis directement
+les déclarations globales, sous le titre **Gestion des Wi-Fi Zones**. Si la
+session Admin est déjà active, la connexion n’est pas redemandée. Le bouton
+des offres commerciales et leurs détails restent disponibles ; aucun chiffre
+privé n’est chargé dans le catalogue. Le retour après connexion est une
+destination fixe autorisée, pas une URL fournie par le visiteur.
+
+Les recettes réellement encaissées peuvent être recopiées d’un rapport
+MikroTik Ticket avec leurs dates et leur source ; aucune modification du réseau
+ni synchronisation automatique avec le routeur n’est nécessaire.
+
 Le bouton **Mois / année** ouvre les 12 mois et les années depuis 1999 jusqu’à
 l’année courante, calculée à l’ouverture (pas de limite figée à 2026).
 Les mois respectent les années bissextiles ; les dates futures sont interdites.

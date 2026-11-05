@@ -102,12 +102,13 @@ declarations separate from detailed ticket-sale totals, since both may describe
 the same receipts. Do not invent a daily/per-zone breakdown or prorate a monthly
 amount to satisfy a narrower date filter without actual supporting data.
 
-The owner calls the intended Wi-Fi sales-management area “Wi-Fi Zones”, not
-“Wi-Fi Business et Linkzone”.
+The owner wants access to sales management from the public Wi-Fi Zone catalogue
+card, not only the Admin's “Wi-Fi Business — Link Zones” shortcut.
 
-**Why:** The owner corrected the scope explicitly: “Moi, je parlais pour les
-Wifi Zone.”
+**Why:** The owner said “Moi, je parlais pour les Wifi Zone”, then explicitly
+identified “La carte publique Wi-Fi Zone” as the intended screen.
 
-**How to apply:** Use their terminology and identify the actual screen before
-moving features or changing labels. Do not silently rename existing zones or
-confuse their operating Wi-Fi sites with public equipment offers.
+**How to apply:** Keep the public commercial offers and provide a clearly marked
+private Admin entry from that card. Financial records must remain authenticated;
+this request does not authorize exposing receipts, renaming stored zones or
+claiming an automatic MikroTik connection.

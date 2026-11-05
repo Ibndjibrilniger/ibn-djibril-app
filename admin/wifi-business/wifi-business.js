@@ -892,8 +892,14 @@
     input.min = '1999-01-01';
     input.max = dateInNiger();
   }
-  setRange('30d');
+  const wifiZoneEntry = window.location.hash === '#recettes';
+  setRange(wifiZoneEntry ? 'month' : '30d');
   bind();
   if (window.location.hash === '#tarifs') activateTab('plans');
+  if (wifiZoneEntry) {
+    document.querySelector('.brand h1').textContent = 'Gestion des Wi-Fi Zones';
+    document.title = 'Wi-Fi Zones — Administration privée';
+    activateTab('reports');
+  }
   loadDashboard();
 })();
