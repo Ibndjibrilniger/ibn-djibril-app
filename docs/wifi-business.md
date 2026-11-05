@@ -55,6 +55,8 @@ ouvre les déclarations globales, sous le titre **Gestion des Wi-Fi Zones**.
 La carte publique **Installations Wi-Fi Zone et prestations techniques** et
 ses détails présentent uniquement les offres commerciales, sans bouton de
 gestion, mention de recettes privées ni chargement des chiffres Admin.
+Le petit bouton général **Gestion** reste visible sur l’accueil : il ouvre
+la connexion Admin existante, sans donner d’accès public aux données privées.
 
 Les recettes réellement encaissées peuvent être recopiées d’un rapport
 MikroTik Ticket avec leurs dates et leur source ; aucune modification du réseau

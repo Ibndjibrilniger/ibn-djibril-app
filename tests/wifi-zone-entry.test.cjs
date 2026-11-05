@@ -56,7 +56,13 @@ test('public Wi-Fi Zone card is commercial only; receipts are accessible inside 
       assert.equal((await page.locator('body').textContent()).includes('61937'), false);
       assert.deepEqual(privateReads, []);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
-      assert.equal(await page.locator('a[href*="/admin"], .ibn-wifi-admin-link').count(), 0);
+      const adminEntry = page.locator('#ibn-private-admin');
+      await adminEntry.waitFor({ state: 'visible' });
+      assert.equal(await page.locator('a[href*="/admin"]').count(), 1);
+      assert.equal(await adminEntry.getAttribute('href'), '/admin/entry');
+      assert.match(await adminEntry.textContent(), /Gestion/);
+      assert.equal(await page.locator('.ibn-wifi-admin-link, [data-open-services] a').count(), 0);
+      assert.equal(await page.locator('script[src^="/admin-access.js"]').count(), 1);
       await page.locator('[data-open-services]').scrollIntoViewIfNeeded();
       await page.screenshot({ path: `/tmp/wifi-zone-entry-${viewport.width}.jpg`, type: 'jpeg', quality: 80 });
       // The existing commercial opening still works, with all original offers.
@@ -66,7 +72,7 @@ test('public Wi-Fi Zone card is commercial only; receipts are accessible inside 
       assert.equal(await page.locator('.ibn-sheet a[href*="/admin"], .ibn-wifi-private-access').count(), 0);
       assert.doesNotMatch(await page.locator('.ibn-sheet').textContent(), /Gestion privée|mes recettes|connexion Admin/);
       await page.keyboard.press('Escape');
-      await page.goto(f.base + '/admin');
+      await adminEntry.click();
       await page.waitForURL('**/admin/login');
       assert.equal(await page.locator('form').getAttribute('action'), null);
       assert.deepEqual(privateReads, []);

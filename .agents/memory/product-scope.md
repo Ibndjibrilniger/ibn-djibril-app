@@ -109,6 +109,9 @@ not on the public catalogue card or its commercial details.
 choses qui concernent l'admin doivent être en privé” and wants to see management
 after accessing their Admin account.
 
-**How to apply:** Keep public commercial offers without management links.
-Provide the Wi-Fi Zones receipts shortcut inside authenticated Admin only.
-Do not expose receipts, rename stored zones or claim automatic MikroTik integration.
+**How to apply:** Keep the general floating “Gestion” button on the public
+homepage, leading to the existing Admin login. The owner explicitly clarified
+that only the Wi-Fi-specific management button should be removed, not this
+general entry point. Keep the Wi-Fi Zones receipts shortcut inside authenticated
+Admin only. Do not expose receipts, rename stored zones or claim automatic
+MikroTik integration.
