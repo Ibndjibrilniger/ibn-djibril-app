@@ -101,3 +101,13 @@ what their historical global amounts represent.
 declarations separate from detailed ticket-sale totals, since both may describe
 the same receipts. Do not invent a daily/per-zone breakdown or prorate a monthly
 amount to satisfy a narrower date filter without actual supporting data.
+
+The owner calls the intended Wi-Fi sales-management area “Wi-Fi Zones”, not
+“Wi-Fi Business et Linkzone”.
+
+**Why:** The owner corrected the scope explicitly: “Moi, je parlais pour les
+Wifi Zone.”
+
+**How to apply:** Use their terminology and identify the actual screen before
+moving features or changing labels. Do not silently rename existing zones or
+confuse their operating Wi-Fi sites with public equipment offers.
