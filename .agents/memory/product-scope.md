@@ -102,13 +102,13 @@ declarations separate from detailed ticket-sale totals, since both may describe
 the same receipts. Do not invent a daily/per-zone breakdown or prorate a monthly
 amount to satisfy a narrower date filter without actual supporting data.
 
-The owner wants access to sales management from the public Wi-Fi Zone catalogue
-card, not only the Admin's “Wi-Fi Business — Link Zones” shortcut.
+All Wi-Fi Zone administration must stay inside the private Admin account,
+not on the public catalogue card or its commercial details.
 
-**Why:** The owner said “Moi, je parlais pour les Wifi Zone”, then explicitly
-identified “La carte publique Wi-Fi Zone” as the intended screen.
+**Why:** The owner explicitly corrected the public access button: “Toutes les
+choses qui concernent l'admin doivent être en privé” and wants to see management
+after accessing their Admin account.
 
-**How to apply:** Keep the public commercial offers and provide a clearly marked
-private Admin entry from that card. Financial records must remain authenticated;
-this request does not authorize exposing receipts, renaming stored zones or
-claiming an automatic MikroTik connection.
+**How to apply:** Keep public commercial offers without management links.
+Provide the Wi-Fi Zones receipts shortcut inside authenticated Admin only.
+Do not expose receipts, rename stored zones or claim automatic MikroTik integration.

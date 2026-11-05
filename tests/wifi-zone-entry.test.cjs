@@ -5,7 +5,7 @@ const { chromium } = require('playwright');
 const { fixture } = require('./support/admin-fixture.cjs');
 const { localDateKey } = require('../wifi-business-periods');
 
-test('public Wi-Fi Zone card preserves offers and opens private receipts after genuine Admin login', { timeout: 90000 }, async () => {
+test('public Wi-Fi Zone card is commercial only; receipts are accessible inside authenticated Admin', { timeout: 90000 }, async () => {
   const f = await fixture();
   let browser;
   try {
@@ -49,31 +49,32 @@ test('public Wi-Fi Zone card preserves offers and opens private receipts after g
       page.on('pageerror', error => errors.push(error.message));
       page.on('request', request => { if (request.url().includes('/api/admin/wifi-business/')) privateReads.push(request.url()); });
       await page.goto(f.base, { waitUntil: 'domcontentloaded' });
-      await page.waitForSelector('.ibn-wifi-admin-link');
+      await page.waitForSelector('[data-open-services]');
       const refuse = page.getByRole('button', { name: 'Refuser les statistiques', exact: true });
       if (await refuse.isVisible()) await refuse.click();
       assert.equal(await page.locator('.ibn-featured-categories > *').count(), 6);
       assert.equal((await page.locator('body').textContent()).includes('61937'), false);
       assert.deepEqual(privateReads, []);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
-      const entry = page.locator('.ibn-wifi-zone-entry > a');
-      if (viewport.width === 390) assert.ok((await page.locator('.ibn-wifi-zone-offers .ibn-feature-copy').boundingBox()).width >= 90);
-      assert.equal(await entry.getAttribute('href'), '/admin/login?section=wifi-zones');
-      await entry.scrollIntoViewIfNeeded();
+      assert.equal(await page.locator('a[href*="/admin"], .ibn-wifi-admin-link').count(), 0);
+      await page.locator('[data-open-services]').scrollIntoViewIfNeeded();
       await page.screenshot({ path: `/tmp/wifi-zone-entry-${viewport.width}.jpg`, type: 'jpeg', quality: 80 });
       // The existing commercial opening still works, with all original offers.
       await page.locator('[data-open-services]').click();
       await page.waitForSelector('#ibn-detail-heading');
       assert.match(await page.locator('.ibn-sheet').textContent(), /Wi-Fi Business Pro/);
-      assert.equal(await page.locator('.ibn-wifi-private-access a').getAttribute('href'), '/admin/login?section=wifi-zones');
+      assert.equal(await page.locator('.ibn-sheet a[href*="/admin"], .ibn-wifi-private-access').count(), 0);
+      assert.doesNotMatch(await page.locator('.ibn-sheet').textContent(), /Gestion privée|mes recettes|connexion Admin/);
       await page.keyboard.press('Escape');
-      await entry.click();
-      await page.waitForURL('**/admin/login?section=wifi-zones');
+      await page.goto(f.base + '/admin');
+      await page.waitForURL('**/admin/login');
       assert.equal(await page.locator('form').getAttribute('action'), null);
       assert.deepEqual(privateReads, []);
       await page.fill('input[name="username"]', f.username);
       await page.fill('input[name="password"]', f.password);
       await page.locator('form button[type="submit"]').click();
+      await page.waitForURL('**/admin');
+      await page.getByRole('link', { name: 'Gérer mes Wi-Fi Zones — Recettes', exact: true }).click();
       await page.waitForURL('**/admin/wifi-business#recettes');
       await page.waitForFunction(() => document.querySelector('#metric-global-revenue').textContent.replace(/\s/g, '') === '61937FCFA');
       assert.equal(await page.locator('.brand h1').textContent(), 'Gestion des Wi-Fi Zones');

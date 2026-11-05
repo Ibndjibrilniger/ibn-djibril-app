@@ -50,13 +50,11 @@ les graphiques ne comptent que les ventes réellement enregistrées à leur date
 
 ### Calendrier historique et recettes de toutes les zones
 
-Depuis la carte publique **Installations Wi-Fi Zone et prestations techniques**,
-**Gérer mes Wi-Fi Zones · accès Admin** ouvre la connexion privée puis directement
-les déclarations globales, sous le titre **Gestion des Wi-Fi Zones**. Si la
-session Admin est déjà active, la connexion n’est pas redemandée. Le bouton
-des offres commerciales et leurs détails restent disponibles ; aucun chiffre
-privé n’est chargé dans le catalogue. Le retour après connexion est une
-destination fixe autorisée, pas une URL fournie par le visiteur.
+Après connexion à **/admin**, le raccourci privé **Gérer mes Wi-Fi Zones — Recettes**
+ouvre les déclarations globales, sous le titre **Gestion des Wi-Fi Zones**.
+La carte publique **Installations Wi-Fi Zone et prestations techniques** et
+ses détails présentent uniquement les offres commerciales, sans bouton de
+gestion, mention de recettes privées ni chargement des chiffres Admin.
 
 Les recettes réellement encaissées peuvent être recopiées d’un rapport
 MikroTik Ticket avec leurs dates et leur source ; aucune modification du réseau
