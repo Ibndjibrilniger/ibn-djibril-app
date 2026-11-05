@@ -132,6 +132,9 @@ module.exports = function registerWifiBusinessRoutes(app, requireAdmin, pool) {
   app.get('/admin/wifi-business/wifi-business.js', privateHeaders, requireAdmin, (req, res) => {
     res.type('application/javascript').sendFile(path.join(adminDir, 'wifi-business.js'));
   });
+  app.get('/admin/wifi-business/wifi-business-history.js', privateHeaders, requireAdmin, (req, res) => {
+    res.type('application/javascript').sendFile(path.join(adminDir, 'wifi-business-history.js'));
+  });
 
   app.use(api, privateHeaders);
   app.use(api, requireAdmin);
@@ -166,6 +169,42 @@ module.exports = function registerWifiBusinessRoutes(app, requireAdmin, pool) {
       to: period.to
     });
     res.json(result);
+  }));
+
+  app.get(`${api}/reports`, asyncRoute(async (req, res) => {
+    res.json(await store.reports.list({ period: requestedPeriod(req.query), page: pageNumber(req.query.page) }));
+  }));
+  app.post(`${api}/reports`, asyncRoute(async (req, res) => {
+    const body = req.body;
+    if (!isRecord(body) || !isDateKey(body.from) || !isDateKey(body.to) ||
+      typeof body.note !== 'string' || body.note.trim().length < 5 || body.note.trim().length > 500 ||
+      !Number.isSafeInteger(body.amountFcfa) || body.amountFcfa < 0 || body.amountFcfa > MAX_AMOUNT_FCFA) {
+      throw Object.assign(new Error('Indiquez des dates valides, un montant entier de 0 à 1 000 000 000 FCFA et une source de 5 à 500 caractères.'), { status: 400 });
+    }
+    const period = periodRange({ range: 'custom', from: body.from, to: body.to });
+    const report = await store.reports.create({ from: period.from, to: period.to, amountFcfa: body.amountFcfa, note: body.note.trim() });
+    if (!report) return res.status(409).json({ ok: false, error: 'Cette période recoupe déjà un relevé actif. Annulez le relevé erroné avec un motif avant de le remplacer ; aucun montant supplémentaire n’a été enregistré.' });
+    res.status(201).json({ ok: true, report });
+  }));
+  app.post(`${api}/reports/:id/void`, asyncRoute(async (req, res) => {
+    const id = routeId(req.params.id, 'Relevé');
+    if (!isRecord(req.body) || typeof req.body.reason !== 'string' ||
+      req.body.reason.trim().length < 5 || req.body.reason.trim().length > 500) {
+      throw Object.assign(new Error('Un motif d’annulation de 5 à 500 caractères est requis.'), { status: 400 });
+    }
+    const report = await store.reports.voidReport(id, req.body.reason.trim());
+    if (!report) return res.status(409).json({ ok: false, error: 'Ce relevé est absent ou déjà annulé.' });
+    res.json({ ok: true, report });
+  }));
+  app.get(`${api}/reports/export.csv`, asyncRoute(async (req, res) => {
+    const period = requestedPeriod(req.query);
+    const result = await store.reports.list({ period, exportAll: true });
+    const rows = [['Début', 'Fin', 'Recettes globales FCFA', 'Source', 'Statut dans la sélection', 'Créé le', 'Annulé le', 'Motif']];
+    for (const row of result.rows) rows.push([row.from, row.to, row.amountFcfa, row.note,
+      row.voidedAt ? 'Annulé — exclu' : row.included ? 'Inclus' : 'Période partielle — exclu',
+      new Date(row.createdAt).toISOString(), row.voidedAt ? new Date(row.voidedAt).toISOString() : '', row.voidReason]);
+    res.set('Content-Disposition', `attachment; filename="recettes-globales-${period.from}-${period.to}.csv"`);
+    res.type('text/csv; charset=utf-8').send('\uFEFF' + rows.map(row => row.map(csvCell).join(';')).join('\r\n'));
   }));
 
   app.get(`${api}/zones`, asyncRoute(async (req, res) => {

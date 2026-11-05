@@ -69,6 +69,25 @@ test('goal percentage remains uncapped while a gauge can clamp at 100', () => {
   assert.equal(performance(2500, null), null);
 });
 
+test('historical periods span 1999 to today and calendar months respect leap years', () => {
+  const now = new Date('2026-11-05T12:00:00Z');
+  const all = periodRange({ range: 'custom', from: '1999-01-01', to: '2026-11-05', now });
+  assert.ok(all.days > 10000);
+  for (const [year, end] of [['1999', '28'], ['2000', '29'], ['2024', '29'], ['2026', '28']]) {
+    const period = periodRange({ range: 'calendar-month', from: `${year}-02-01`, to: `${year}-02-${end}`, now });
+    assert.equal(period.days, Number(end));
+    assert.equal(targetForPeriod({ monthlyTargetFcfa: 500, dailyTargetFcfa: 1 }, period), 500);
+    assert.equal(period.previousTo, `${year}-01-31`);
+  }
+  const futureYear = periodRange({ range: 'custom', from: '1999-01-01', to: '2027-01-02', now: new Date('2027-01-02T12:00:00Z') });
+  assert.equal(futureYear.to, '2027-01-02');
+  for (const [from, to] of [['1998-12-31', '1999-01-01'], ['2026-02-01', '2026-02-29'],
+    ['2026-11-05', '2026-11-06'], ['2026-11-05', '2026-11-01']]) {
+    assert.throws(() => periodRange({ range: 'custom', from, to, now }), { status: 400 });
+  }
+  assert.throws(() => periodRange({ range: 'calendar-month', from: '2024-02-01', to: '2024-02-28', now }), { status: 400 });
+});
+
 test('CSV values are quoted and spreadsheet formulas are neutralized', () => {
   assert.equal(routeHelpers.csvCell('=1+2'), '"\'=1+2"');
   assert.equal(routeHelpers.csvCell('une "zone"'), '"une ""zone"""');

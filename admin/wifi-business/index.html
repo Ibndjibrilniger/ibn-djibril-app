@@ -7,6 +7,7 @@
   <meta name="theme-color" content="#008751">
   <title>Wi-Fi Business — Administration privée</title>
   <link rel="stylesheet" href="/admin/wifi-business/wifi-business.css">
+  <script src="/admin/wifi-business/wifi-business-history.js" defer></script>
   <script src="/admin/wifi-business/wifi-business.js" defer></script>
 </head>
 <body>
@@ -17,6 +18,7 @@
         <div><h1>Wi-Fi Business</h1><p>Ibn_Djibril Niger Tech · Administration privée</p></div>
       </div>
       <div class="top-actions">
+        <button class="top-link" id="open-global-reports" type="button">Déclarations globales</button>
         <button class="top-link" id="open-plan-prices" type="button">Tarifs des tickets</button>
         <a class="top-link" href="/admin">← Administration</a>
         <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Changer de thème">Thème sombre</button>
@@ -39,7 +41,7 @@
         <button class="period-btn" data-range="today" aria-pressed="false" type="button">Aujourd’hui</button>
         <button class="period-btn" data-range="7d" aria-pressed="false" type="button">7 jours</button>
         <button class="period-btn" data-range="30d" aria-pressed="true" type="button">30 jours</button>
-        <button class="period-btn" data-range="month" aria-pressed="false" type="button">Ce mois</button>
+        <button class="period-btn" data-range="month" aria-pressed="false" type="button">Mois / année</button>
         <button class="period-btn" data-range="previous-month" aria-pressed="false" type="button">Mois précédent</button>
         <button class="period-btn" data-range="custom" aria-pressed="false" type="button">Personnalisée</button>
         <div class="date-range" id="date-range" hidden>
@@ -51,15 +53,16 @@
     </section>
 
     <section class="summary-grid" aria-label="Indicateurs commerciaux">
-      <article class="metric"><span class="metric-label">Chiffre d’affaires · période</span><strong class="metric-value" id="metric-revenue">—</strong><span class="metric-detail" id="metric-period">En attente des données</span></article>
+      <article class="metric"><span class="metric-label">Ventes détaillées · période</span><strong class="metric-value" id="metric-revenue">—</strong><span class="metric-detail" id="metric-period">En attente des données</span></article>
       <article class="metric"><span class="metric-label">Tickets vendus · période</span><strong class="metric-value" id="metric-tickets">—</strong><span class="metric-detail" id="metric-zones">— zones déclarées</span></article>
       <article class="metric"><span class="metric-label">Recette du jour</span><strong class="metric-value" id="metric-today">—</strong><span class="metric-detail">Ventes réelles enregistrées</span></article>
       <article class="metric" title="Recettes des zones avec objectif, divisées par leurs objectifs. Les démonstrations sont exclues."><span class="metric-label">Performance globale</span><strong class="metric-value" id="metric-performance">—</strong><span class="metric-detail" id="metric-watch">— zones à surveiller</span></article>
+      <article class="metric"><span class="metric-label">Recettes globales déclarées</span><strong class="metric-value" id="metric-global-revenue">—</strong><span class="metric-detail" id="metric-global-coverage">Couverture non chargée</span></article>
     </section>
 
     <section class="main-grid" aria-label="Analyse des ventes">
       <article class="panel chart-panel">
-        <div class="section-head"><div><h3 class="panel-title">Recettes au fil des jours</h3><p class="panel-subtitle">Valeurs issues des ventes enregistrées sur la période sélectionnée.</p></div><span class="source-pill">FCFA</span></div>
+        <div class="section-head"><div><h3 class="panel-title" id="detailed-revenue-heading">Ventes détaillées · recettes par jour</h3><p class="panel-subtitle">Valeurs issues des ventes détaillées enregistrées ; les déclarations globales ont leur propre graphique, sans double comptage.</p></div><span class="source-pill">FCFA</span></div>
         <div class="chart-wrap" id="sales-chart" aria-live="polite"><div class="chart-empty">Chargement des ventes…</div></div>
       </article>
       <article class="panel rank-panel">
@@ -73,6 +76,7 @@
       <button class="tab" id="tab-overview" role="tab" aria-selected="true" aria-controls="panel-overview" type="button">Vue d’ensemble</button>
       <button class="tab" id="tab-zones" role="tab" aria-selected="false" aria-controls="panel-zones" type="button">Zones</button>
       <button class="tab" id="tab-sales" role="tab" aria-selected="false" aria-controls="panel-sales" type="button">Ventes</button>
+      <button class="tab" id="tab-reports" role="tab" aria-selected="false" aria-controls="panel-reports" type="button">Déclarations globales</button>
       <button class="tab" id="tab-plans" role="tab" aria-selected="false" aria-controls="panel-plans" type="button">Offres &amp; prix</button>
       <button class="tab" id="tab-audit" role="tab" aria-selected="false" aria-controls="panel-audit" type="button">Journal des actions</button>
     </nav>
@@ -114,6 +118,80 @@
         <table><thead><tr><th scope="col">Date · Niger</th><th scope="col">Zone</th><th scope="col">Offre</th><th scope="col">Montant</th><th scope="col">Tickets</th><th scope="col">Historique</th><th scope="col">Action</th></tr></thead><tbody id="sales-body"></tbody></table>
       </div>
       <div class="pagination" id="sales-pagination" hidden><span id="sales-page-label"></span><div class="pagination-actions"><button class="btn btn-secondary" id="sales-prev" type="button">Précédent</button><button class="btn btn-secondary" id="sales-next" type="button">Suivant</button></div></div>
+    </section>
+
+    <section class="tab-panel" id="panel-reports" role="tabpanel" aria-labelledby="tab-reports" hidden>
+      <div class="reports-intro">
+        <div>
+          <p class="eyebrow">Déclarations · toutes zones</p>
+          <h3>Recettes globales déclarées</h3>
+          <p class="panel-subtitle">Ces déclarations couvrent toutes les zones. Elles sont distinctes des ventes détaillées de tickets et ne doivent jamais être additionnées à celles-ci.</p>
+        </div>
+        <a class="btn btn-secondary" id="reports-export" href="/api/admin/wifi-business/reports/export.csv">Exporter toutes les déclarations en CSV</a>
+      </div>
+
+      <div class="panel reports-calendar">
+        <div class="section-head"><div><h4>Choisir une période</h4><p class="panel-subtitle">Sélectionnez un mois ou une année complète, puis appliquez votre choix.</p></div></div>
+        <div class="reports-calendar-controls">
+          <div class="field"><label for="reports-year">Année</label><select id="reports-year"></select></div>
+          <div class="field"><label for="reports-month">Mois</label><select id="reports-month"></select></div>
+          <div class="reports-calendar-actions">
+            <button class="btn btn-primary" id="reports-apply-month" type="button">Appliquer le mois</button>
+            <button class="btn btn-secondary" id="reports-apply-year" type="button">Appliquer l’année complète</button>
+          </div>
+        </div>
+        <p class="reports-range-preview" id="reports-range-preview" aria-live="polite"></p>
+      </div>
+
+      <div class="summary-grid reports-summary" aria-label="Synthèse des déclarations globales">
+        <article class="metric"><span class="metric-label">Total inclus · toutes zones</span><strong class="metric-value" id="reports-total">—</strong><span class="metric-detail">Déclarations actives entièrement dans la période</span></article>
+        <article class="metric"><span class="metric-label">Jours couverts</span><strong class="metric-value" id="reports-coverage">—</strong><span class="metric-detail" id="reports-selected-days">sur — jours sélectionnés</span></article>
+        <article class="metric"><span class="metric-label">Moyenne par jour couvert</span><strong class="metric-value" id="reports-average">—</strong><span class="metric-detail">Jours sans déclaration exclus de la moyenne</span></article>
+        <article class="metric"><span class="metric-label">Déclarations partielles</span><strong class="metric-value" id="reports-partial-count">—</strong><span class="metric-detail">Exclues du total, sans prorata</span></article>
+      </div>
+
+      <p class="notice reports-warning">Les périodes qui ne sont pas entièrement comprises dans la sélection apparaissent comme partielles et sont exclues du total. Choisissez la période complète d’une déclaration pour l’inclure ; aucun montant n’est réparti ni proratisé. Les annulations restent visibles pour audit et leur montant est exclu.</p>
+      <p class="form-message reports-feedback" id="reports-feedback" role="status" aria-live="polite"></p>
+      <div class="reports-receipt" id="reports-receipt" role="status" aria-live="polite" hidden></div>
+
+      <div class="panel reports-chart-panel">
+        <div class="section-head"><div><h4>Montants par période déclarée</h4><p class="panel-subtitle">Une barre par déclaration incluse sur la page affichée ; aucune répartition journalière n’est estimée.</p></div><span class="source-pill">FCFA</span></div>
+        <p class="reports-chart-cap" id="reports-chart-cap"></p>
+        <div class="chart-wrap reports-chart-wrap" id="reports-chart" aria-live="polite"><div class="chart-empty">Chargez une période pour afficher les déclarations enregistrées.</div></div>
+        <div class="table-wrap reports-chart-table-wrap" id="reports-chart-table-wrap" hidden>
+          <table class="reports-chart-table"><caption class="sr-only">Valeurs exactes par période déclarée, correspondant au graphique</caption><thead><tr><th scope="col">Période déclarée</th><th scope="col">Montant inclus</th></tr></thead><tbody id="reports-chart-table-body"></tbody></table>
+        </div>
+      </div>
+
+      <div class="toolbar reports-list-toolbar">
+        <div class="toolbar-left"><h4>Registre des déclarations</h4><span id="reports-total-count" class="cell-sub">Chargement…</span></div>
+        <button class="btn btn-primary" id="reports-add-button" type="button">Ajouter une déclaration</button>
+      </div>
+      <div class="panel reports-form-panel" id="reports-form-panel" hidden>
+        <div class="section-head"><div><h4>Nouvelle déclaration globale</h4><p class="panel-subtitle">Indiquez la période réellement couverte et la source de la déclaration.</p></div></div>
+        <form id="reports-create-form">
+          <div class="form-grid">
+            <div class="field"><label for="reports-form-from">Du</label><input id="reports-form-from" name="from" type="date" min="1999-01-01" required></div>
+            <div class="field"><label for="reports-form-to">Au</label><input id="reports-form-to" name="to" type="date" min="1999-01-01" required></div>
+            <div class="field"><label for="reports-form-amount">Montant déclaré · FCFA</label><input id="reports-form-amount" name="amountFcfa" type="number" min="0" max="1000000000" step="1" inputmode="numeric" required></div>
+            <div class="field reports-form-source"><label for="reports-form-note">Source / note (5 à 500 caractères)</label><textarea id="reports-form-note" name="note" minlength="5" maxlength="500" required></textarea></div>
+          </div>
+          <p class="reports-form-hint">Une déclaration active ne peut pas chevaucher une autre déclaration active. Une période déjà déclarée sera refusée par le service.</p>
+          <div class="form-actions"><button class="btn btn-secondary" id="reports-cancel-create" type="button">Fermer</button><button class="btn btn-primary" id="reports-submit" type="submit">Enregistrer la déclaration</button></div>
+        </form>
+      </div>
+      <div class="panel reports-form-panel reports-void-panel" id="reports-void-panel" hidden>
+        <div class="section-head"><div><h4>Annuler une déclaration</h4><p class="panel-subtitle" id="reports-void-description"></p></div></div>
+        <form id="reports-void-form">
+          <div class="field"><label for="reports-void-reason">Motif d’annulation (5 à 500 caractères)</label><textarea id="reports-void-reason" name="reason" minlength="5" maxlength="500" required></textarea></div>
+          <div class="form-actions"><button class="btn btn-secondary" id="reports-cancel-void" type="button">Fermer</button><button class="btn btn-danger" id="reports-void-submit" type="submit">Confirmer l’annulation</button></div>
+        </form>
+      </div>
+      <div id="reports-state" class="state"><p>Chargement des déclarations…</p></div>
+      <div class="table-wrap reports-list-wrap" id="reports-list-wrap" hidden>
+        <table><thead><tr><th scope="col">Période déclarée</th><th scope="col">Montant global</th><th scope="col">Source / note</th><th scope="col">Statut dans la sélection</th><th scope="col">Créée le</th><th scope="col">Action</th></tr></thead><tbody id="reports-body"></tbody></table>
+      </div>
+      <div class="pagination" id="reports-pagination" hidden><span id="reports-page-label"></span><div class="pagination-actions"><button class="btn btn-secondary" id="reports-prev" type="button">Précédent</button><button class="btn btn-secondary" id="reports-next" type="button">Suivant</button></div></div>
     </section>
 
     <section class="tab-panel" id="panel-plans" role="tabpanel" aria-labelledby="tab-plans" hidden>

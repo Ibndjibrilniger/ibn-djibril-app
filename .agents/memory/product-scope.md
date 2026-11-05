@@ -90,3 +90,14 @@ dashboard from a future MikroTik connection.
 availability, label demonstrations explicitly, and exclude demonstrations from
 real performance summaries and sales rankings. Use owner-supplied prices and
 objectives when they become available.
+
+In Wi-Fi Business, the owner's “montant global” means actual receipts from all
+zones combined, not expenses or ticket prices.
+
+**Why:** The owner explicitly chose “Recettes de toutes les zones” when asked
+what their historical global amounts represent.
+
+**How to apply:** Preserve that meaning in future reports/imports. Keep global
+declarations separate from detailed ticket-sale totals, since both may describe
+the same receipts. Do not invent a daily/per-zone breakdown or prorate a monthly
+amount to satisfy a narrower date filter without actual supporting data.

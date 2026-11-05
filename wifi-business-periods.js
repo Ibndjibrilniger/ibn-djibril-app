@@ -75,17 +75,26 @@ function periodRange({ range = 'today', from, to, now = new Date() } = {}) {
     end = shiftDate(firstThisMonth, -1);
     previousStart = shiftMonth(start, -1);
     previousEnd = shiftDate(start, -1);
-  } else if (range === 'custom') {
-    normalizedRange = 'custom';
-    if (!isDateKey(from) || !isDateKey(to) || from > to || to > today) {
+  } else if (range === 'custom' || range === 'calendar-month') {
+    normalizedRange = range;
+    if (!isDateKey(from) || !isDateKey(to) || from < '1999-01-01' || from > to || to > today) {
       throw Object.assign(new Error('Période personnalisée invalide.'), { status: 400 });
     }
     start = from;
     end = to;
+    if (range === 'calendar-month') {
+      const last = shiftDate(shiftMonth(`${from.slice(0, 7)}-01`, 1), -1);
+      if (!from.endsWith('-01') || to !== (last > today ? today : last)) {
+        throw Object.assign(new Error('Choisissez un mois civil valide.'), { status: 400 });
+      }
+    }
     const length = dayCount(start, end);
-    if (length > 366) throw Object.assign(new Error('La période ne peut pas dépasser 366 jours.'), { status: 400 });
     previousEnd = shiftDate(start, -1);
     previousStart = shiftDate(previousEnd, -(length - 1));
+    if (range === 'calendar-month') {
+      previousStart = shiftMonth(start, -1);
+      previousEnd = end === today ? shiftMonth(today, -1) : shiftDate(start, -1);
+    }
   } else {
     throw Object.assign(new Error('Période invalide.'), { status: 400 });
   }
@@ -109,7 +118,7 @@ function periodRange({ range = 'today', from, to, now = new Date() } = {}) {
 function targetForPeriod(zone, period) {
   if (period.range === 'today') return zone.dailyTargetFcfa;
   if (period.range === '7d') return zone.weeklyTargetFcfa;
-  if (['30d', 'month', 'previous-month'].includes(period.range)) return zone.monthlyTargetFcfa;
+  if (['30d', 'month', 'previous-month', 'calendar-month'].includes(period.range)) return zone.monthlyTargetFcfa;
   return zone.dailyTargetFcfa === null ? null : zone.dailyTargetFcfa * period.days;
 }
 

@@ -113,6 +113,9 @@
     return result;
   }
   function showLogin() {
+    state.sessionExpired = true;
+    state.dashboard = null; state.zones = []; state.plans = [];
+    history.lock();
     closeDialog();
     document.querySelectorAll('.tab-panel').forEach(panel => {
       panel.hidden = panel.id !== `panel-${state.activeTab}`;
@@ -262,7 +265,8 @@
       const labelStep = values.length > 18 ? Math.ceil(values.length / 8) : values.length > 10 ? 2 : 1;
       if (index % labelStep === 0 || index === values.length - 1) {
         const tick = makeSvg('text', { x: cx, y: height - 12, 'text-anchor': 'middle', class: 'chart-label' });
-        tick.textContent = String(item.date || '').slice(5);
+        tick.textContent = state.dashboard?.seriesGranularity === 'month'
+          ? String(item.date || '').slice(0, 7) : String(item.date || '').slice(5);
         svg.append(tick);
       }
     });
@@ -316,9 +320,16 @@
     list.hidden = false; status.hidden = true;
   }
   function renderDashboard(result) {
+    if (state.sessionExpired) return;
     state.dashboard = result;
     const summary = result.summary || {};
     setText('#metric-revenue', money(summary.revenueFcfa));
+    const global = result.globalReports;
+    setText('#metric-global-revenue', global?.coveredDays ? money(global.totalFcfa) : 'Non renseigné');
+    setText('#metric-global-coverage', global
+      ? `${global.coveredDays} / ${global.selectedDays} jours couverts · ${global.partialCount} relevé(s) partiel(s) exclu(s) · non additionné aux tickets`
+      : 'Aucun relevé chargé');
+    setText('#detailed-revenue-heading', result.seriesGranularity === 'month' ? 'Ventes détaillées · recettes par mois' : 'Ventes détaillées · recettes par jour');
     setText('#metric-tickets', number(summary.ticketsSold));
     setText('#metric-zones', `${number(summary.zoneCount)} zone(s) non archivée(s)`);
     setText('#metric-today', money(summary.todayRevenueFcfa));
@@ -329,6 +340,7 @@
     ui.periodStatus.textContent = `Période ${safe(period.from)} → ${safe(period.to)} · les chiffres reflètent les ventes enregistrées.`;
     setText('#comparison-period-label', `${safe(period.from)} → ${safe(period.to)} comparé à ${safe(period.previousFrom)} → ${safe(period.previousTo)}.`);
     state.from = period.from || state.from; state.to = period.to || state.to;
+    history.onPeriodChange({ range: state.range, from: state.from, to: state.to });
     if (period.from) ui.from.value = period.from;
     if (period.to) ui.to.value = period.to;
     renderSeries(result.series);
@@ -781,9 +793,10 @@
       else loadPlans();
     }
     if (name === 'audit') loadAudit();
+    if (name === 'reports') history.load();
   }
   function updateCustomDate() {
-    if (!ui.from.value || !ui.to.value || ui.from.value > ui.to.value) {
+    if (!ui.from.value || !ui.to.value || !ui.from.checkValidity() || !ui.to.checkValidity() || ui.from.value > ui.to.value) {
       ui.periodStatus.textContent = 'Choisissez une plage de dates valide : la date de début ne peut pas dépasser la date de fin.';
       return;
     }
@@ -797,10 +810,12 @@
     else if (state.activeTab === 'sales') loadSales();
     else if (state.activeTab === 'plans') loadPlans();
     else if (state.activeTab === 'audit') loadAudit();
+    else if (state.activeTab === 'reports') history.load();
     loadDashboard();
   }
   function bind() {
     document.querySelectorAll('[data-range]').forEach(button => button.addEventListener('click', () => {
+      if (button.dataset.range === 'month') { history.openCalendar(); return; }
       setRange(button.dataset.range); loadDashboard();
       if (state.activeTab === 'sales') loadSales();
       if (state.activeTab === 'audit') { state.auditPage = 1; loadAudit(); }
@@ -862,6 +877,21 @@
     $('#theme-toggle').textContent = document.documentElement.dataset.theme === 'dark' ? 'Thème clair' : 'Thème sombre';
   }
 
+  const history = window.WifiBusinessHistory.init({
+    request, activateTab, today: dateInNiger, refreshDashboard: loadDashboard,
+    selectPeriod({ range, from, to }) {
+      state.range = range; state.from = from; state.to = to; state.salesPage = 1;
+      ui.from.value = from; ui.to.value = to; ui.dateRange.hidden = false;
+      document.querySelectorAll('[data-range]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.range === (range === 'calendar-month' ? 'month' : 'custom'))));
+      loadDashboard();
+      if (state.activeTab === 'sales') loadSales();
+      if (state.activeTab === 'audit') { state.auditPage = 1; loadAudit(); }
+    }
+  });
+  for (const input of [ui.from, ui.to]) {
+    input.min = '1999-01-01';
+    input.max = dateInNiger();
+  }
   setRange('30d');
   bind();
   if (window.location.hash === '#tarifs') activateTab('plans');

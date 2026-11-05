@@ -48,6 +48,35 @@ Cette période s’applique aussi au registre et à son export CSV.
 Saisir un ancien tarif de référence ne crée pas de recettes historiques :
 les graphiques ne comptent que les ventes réellement enregistrées à leur date.
 
+### Calendrier historique et recettes de toutes les zones
+
+Le bouton **Mois / année** ouvre les 12 mois et les années depuis 1999 jusqu’à
+l’année courante, calculée à l’ouverture (pas de limite figée à 2026).
+Les mois respectent les années bissextiles ; les dates futures sont interdites.
+**Personnalisée** permet une plage du/au traversant plusieurs années.
+Au-delà de 366 jours, le graphique des ventes détaillées regroupe les valeurs
+par mois pour rester lisible, sans changer le total des ventes.
+
+**Déclarations globales** conserve les recettes encaissées de toutes les zones
+sur une période, avec une source obligatoire. Ce ne sont ni des tarifs, ni des
+dépenses, ni des ventes de tickets supplémentaires. Le total déclaré, les jours
+couverts et la moyenne par jour couvert ont leurs propres indicateurs et graphique.
+Ils ne sont **jamais additionnés aux ventes détaillées** : ces deux sources
+peuvent décrire les mêmes encaissements. Aucune répartition quotidienne ou par
+zone n’est inventée. Les jours sans déclaration ne sont pas des zéros mesurés.
+
+Deux déclarations actives ne peuvent pas couvrir une même journée (contrainte
+PostgreSQL d’exclusion native sur les intervalles). Une déclaration partiellement
+comprise dans la sélection reste visible mais son montant est exclu : il faut
+sélectionner toute sa période, sans prorata automatique. Un vrai relevé à zéro
+est autorisé et compte comme une période renseignée.
+
+En cas d’erreur, annuler le relevé avec un motif, puis saisir son remplacement.
+L’original reste dans le registre et dans le journal d’audit ; rien n’est supprimé.
+L’export CSV distingue les relevés inclus, partiels et annulés.
+Le stockage est une table additive du PostgreSQL existant, avec les mêmes
+contrôles de session privée, de provenance de requête et de non-mise-en-cache.
+
 La performance réelle est `recettes / objectif × 100` :
 rouge sous 40 %, jaune de 40 % à moins de 70 %, vert à partir de 70 %.
 Le cercle est limité à 100 %, mais le pourcentage réel et le dépassement

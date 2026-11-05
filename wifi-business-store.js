@@ -1,6 +1,7 @@
 'use strict';
 
 const { periodRange, targetForPeriod, performance } = require('./wifi-business-periods');
+const { createReports, SCHEMA_SQL: REPORTS_SCHEMA_SQL } = require('./wifi-business-reports');
 
 const INITIAL_ZONES = [
   'LINK ZONE 2.1',
@@ -104,6 +105,8 @@ CREATE TABLE IF NOT EXISTS wifi_business_audit (
 CREATE INDEX IF NOT EXISTS wifi_business_audit_created_idx
   ON wifi_business_audit (created_at DESC, id DESC);
 
+${REPORTS_SCHEMA_SQL}
+
 INSERT INTO wifi_business_zones (name, seed_key, seed_order, commercial_status)
 VALUES ${INITIAL_ZONES.map((name, index) => `('${name.replaceAll("'", "''")}', '${name.replaceAll("'", "''")}', ${index + 1}, 'unconfirmed')`).join(',\n')}
 ON CONFLICT DO NOTHING;
@@ -181,6 +184,7 @@ function mapZone(row, period) {
 
 function createStore(pool) {
   let initialized = null;
+  const reports = createReports(pool, ensure);
 
   async function ensure() {
     if (!process.env.DATABASE_URL) {
@@ -375,6 +379,7 @@ function createStore(pool) {
     await ensure();
     const period = periodRange({ range, from, to, now });
     const month = periodRange({ range: 'month', now });
+    const granularity = period.days > 366 ? 'month' : 'day';
     const [zoneResult, seriesResult, planRows, monthResult] = await Promise.all([
       pool.query(`
         WITH effective_sales AS (
@@ -411,7 +416,8 @@ function createStore(pool) {
       `, [period.startAt, period.endAt, period.previousStartAt, period.previousEndAt]),
       pool.query(`
         WITH dates AS (
-          SELECT generate_series($1::date, $2::date, interval '1 day')::date AS day
+          SELECT generate_series(date_trunc($5::text, $1::date::timestamp),
+            date_trunc($5::text, $2::date::timestamp), $6::interval)::date AS day
         ), effective_sales AS (
           SELECT sale.* FROM wifi_business_sales AS sale
           WHERE sale.sold_at >= $3 AND sale.sold_at < $4
@@ -420,7 +426,7 @@ function createStore(pool) {
               WHERE replacement.replaces_sale_id = sale.id
             )
         ), daily AS (
-          SELECT (sold_at AT TIME ZONE 'Africa/Porto-Novo')::date AS day,
+          SELECT date_trunc($5::text, sold_at AT TIME ZONE 'Africa/Porto-Novo')::date AS day,
             SUM(amount_fcfa)::bigint AS revenue_fcfa, SUM(ticket_count)::bigint AS tickets_sold
           FROM effective_sales GROUP BY 1
         )
@@ -428,7 +434,7 @@ function createStore(pool) {
           COALESCE(daily.revenue_fcfa, 0)::bigint AS revenue_fcfa,
           COALESCE(daily.tickets_sold, 0)::bigint AS tickets_sold
         FROM dates LEFT JOIN daily USING(day) ORDER BY dates.day
-      `, [period.from, period.to, period.startAt, period.endAt]),
+      `, [period.from, period.to, period.startAt, period.endAt, granularity, `1 ${granularity}`]),
       listPlans(),
       pool.query(`
         SELECT zone.id, zone.name, SUM(sale.amount_fcfa)::bigint AS revenue_fcfa
@@ -468,6 +474,8 @@ function createStore(pool) {
 
     return {
       ok: true,
+      globalReports: await reports.summary(period),
+      seriesGranularity: granularity,
       period: {
         from: period.from,
         to: period.to,
@@ -690,7 +698,8 @@ function createStore(pool) {
     listAudit,
     createSale,
     correctSale,
-    exportSales
+    exportSales,
+    reports
   };
 }
 
